@@ -17,7 +17,7 @@ export default function SearchBar({ onSearch }) {
     <div style={styles.container}>
       {/* Campo de búsqueda */}
 
-        <img src="/public/images/logo.png"alt="imagen"lassName="logo" style={{ width: "50px", height: "50px" }} ></img>
+        <img src="/public/images/logo.png"alt="imagen"className="logo" style={{ width: "50px", height: "50px" }} ></img>
 
       <input
         type="text"

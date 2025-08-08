@@ -98,7 +98,7 @@ return (
             ))}
         </div>
 
-        <Footer />
+    
     </div>
 
 

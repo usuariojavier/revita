@@ -13,6 +13,7 @@ import "./index.css"; // Ensure styles are imported
 import "./pages/Home.css"; // Import Home specific styles
 import BackToTopButton from "./components/BackToTopButton";
 import Banner from "./components/Banner";
+import Footer from "./components/Footer"; // Import Footer component
 
 
 
@@ -22,25 +23,25 @@ import Banner from "./components/Banner";
 
 export default function App() {
   return (
-     <CartProvider>
+    <CartProvider>
       <Router>
-                                  { /*  <SearchBar />   */}
-        <Header />
-       
-        
+        {/*  <SearchBar />   */}
+                <Header />
+
         <BackToTopButton />
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/:category" element={<Category />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
-   
         </Routes>
-      </Router>  
+      </Router>
+
+                <Footer />
+
     </CartProvider>
-    
-  
   );
 }
 

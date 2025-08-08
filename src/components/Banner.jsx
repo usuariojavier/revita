@@ -3,7 +3,7 @@ import "./Banner.css"; // Asegúrate de crear este archivo para los estilos
 
 const images = [
   "/public/images/descuento.jpeg",
-  "/public/images/oferta2.jpeg",
+  "/public/images/oferta2.jpg",
   "/public/images/oferta.jpeg",
 ];
 
