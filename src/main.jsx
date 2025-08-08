@@ -3,9 +3,15 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import i18n from './i18n/i18n';
+import { CartProvider } from "./context/CartContext.jsx";
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <CartProvider>
+      <i18n />
     <App />
+    </CartProvider>
   </React.StrictMode>
 );

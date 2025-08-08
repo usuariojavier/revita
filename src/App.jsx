@@ -14,6 +14,7 @@ import "./pages/Home.css"; // Import Home specific styles
 import BackToTopButton from "./components/BackToTopButton";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer"; // Import Footer component
+import ProductDetail from "./pages/ProductDetail";
 
 
 
@@ -35,7 +36,10 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/:category" element={<Category />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/producto/:id" element={<ProductDetail />} />
           <Route path="*" element={<NotFound />} />
+          
+
         </Routes>
       </Router>
 

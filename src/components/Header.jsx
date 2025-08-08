@@ -4,6 +4,14 @@ import { useTranslation } from "react-i18next";
 import SearchBar from "./SearchBar";
 import i18n from "../i18n/i18n";
 import { AlignLeft } from "lucide-react";
+import { useCart } from "../context/CartContext";
+
+
+
+
+
+
+
 
 export default function Header() {
   const { t } = useTranslation();
@@ -42,8 +50,7 @@ const [showMenAccessoriesMenu, setShowMenAccessoriesMenu] = useState(false);
 
 
 
-
-
+const { cart } = useCart();
 
 
 ////////    ESTILOS DE DROPDOWN Y SUBMENU   PRIMER SUBMENU  //////////
@@ -69,7 +76,8 @@ const [showMenAccessoriesMenu, setShowMenAccessoriesMenu] = useState(false);
 
     color: "white",
     fontSize: "20px",
-    textAlign: "left",
+    textAlign: "right",
+    
 
   },
 
@@ -82,8 +90,8 @@ const [showMenAccessoriesMenu, setShowMenAccessoriesMenu] = useState(false);
     cursor: "pointer",
     backgroundColor: "#000000ff",
     borderRadius: "6px",
-    transition: "background 0.2s",
-        backgroundColor: "black",
+    transition: "background 0.5s",
+    backgroundColor: "black",
     color: "white",
     fontSize: "16px",
 
@@ -106,6 +114,7 @@ const [showMenAccessoriesMenu, setShowMenAccessoriesMenu] = useState(false);
     flexDirection: "column",
     gap: "8px",
     borderRadius: "6px",
+    textAlign: "left",
   },
 };
 
@@ -132,6 +141,10 @@ const [showMenAccessoriesMenu, setShowMenAccessoriesMenu] = useState(false);
             }}
             style={{ position: "relative" }}
           >
+            
+            
+              {/*---------MUJER*/}
+
             <Link to="/mujer">{t("women")}</Link>
             {showWomenMenu && (
               <div style={styles.dropdown}>
@@ -485,7 +498,8 @@ const [showMenAccessoriesMenu, setShowMenAccessoriesMenu] = useState(false);
           <Link to="/marcas">{t("brands")}</Link>
 
 
-          <Link to="/cart"> 🛒{t("cart")} </Link>
+          <Link to="/cart">🛒 Carrito ({cart.length})</Link>
+
 
           
           {/*<img
