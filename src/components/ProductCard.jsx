@@ -1,7 +1,14 @@
+import { t } from "i18next";
 import { useCart } from "../context/CartContext";
+
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
+
+
+
+
+
 
   return (
     <div style={styles.card}>
@@ -21,13 +28,20 @@ const styles = {
     border: "1px solid #ddd",
     borderRadius: "8px",
     padding: "10px",
-    textAlign: "center"
+    textAlign: "center",
+   
+
+
+
+
   },
   img: {
     width: "100%",
     height: "150px",
     objectFit: "cover",
     marginBottom: "10px"
+    
+
   },
   button: {
     backgroundColor: "#28a745",
@@ -36,6 +50,11 @@ const styles = {
     padding: "8px",
     borderRadius: "4px",
     cursor: "pointer"
-  }
+  },
+
+
+
+
+
 };
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import i18n from "../i18n/i18n";
 
 export default function SearchBar({ onSearch }) {
   const [query, setQuery] = useState("");
@@ -15,6 +16,9 @@ export default function SearchBar({ onSearch }) {
   return (
     <div style={styles.container}>
       {/* Campo de búsqueda */}
+
+        <img src="/public/images/logo.png"alt="imagen"lassName="logo" style={{ width: "50px", height: "50px" }} ></img>
+
       <input
         type="text"
         placeholder="Buscar productos..."
@@ -76,12 +80,17 @@ export default function SearchBar({ onSearch }) {
   );
 }
 
+
+
+/*ESTILOS BARRA*/
+
+
 const styles = {
   container: {
     display: "flex",
     gap: "10px",
     alignItems: "center",
-    marginBottom: "20px",
+    marginBottom: "2px",
     flexWrap: "wrap"
   },
   input: {

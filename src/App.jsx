@@ -8,6 +8,14 @@ import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 import { CartProvider } from "./context/CartContext";
 import "./i18n/i18n";
+import SearchBar from "./components/SearchBar";
+import "./index.css"; // Ensure styles are imported
+import "./pages/Home.css"; // Import Home specific styles
+import BackToTopButton from "./components/BackToTopButton";
+import Banner from "./components/Banner";
+
+
+
 
 
 
@@ -16,13 +24,18 @@ export default function App() {
   return (
     <CartProvider>
       <Router>
+                                  { /*  <SearchBar />   */}
         <Header />
+        <Banner />
+        
+        <BackToTopButton />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/:category" element={<Category />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
+   
         </Routes>
       </Router>
     </CartProvider>
