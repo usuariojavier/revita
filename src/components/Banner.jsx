@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import './Banner.css'; // Asegúrate de crear este archivo para los estilos
+import React, { useState, useEffect } from "react";
+import "./Banner.css"; // Asegúrate de crear este archivo para los estilos
 
 const images = [
-  '/public/images/descuento.jpeg',
-  '/public/images/oferta.jpeg',
-  '/public/images/oferta2.jpeg'
+  "/public/images/descuento.jpeg",
+  "/public/images/oferta2.jpeg",
+  "/public/images/oferta.jpeg",
 ];
 
 const Banner = () => {
@@ -12,7 +12,7 @@ const Banner = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex(prevIndex =>
+      setCurrentIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000); // cambia cada 3 segundos

@@ -22,11 +22,11 @@ import Banner from "./components/Banner";
 
 export default function App() {
   return (
-    <CartProvider>
+     <CartProvider>
       <Router>
                                   { /*  <SearchBar />   */}
         <Header />
-        <Banner />
+       
         
         <BackToTopButton />
         <Routes>
@@ -37,8 +37,10 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
    
         </Routes>
-      </Router>
+      </Router>  
     </CartProvider>
+    
+  
   );
 }
 

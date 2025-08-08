@@ -75,6 +75,8 @@ return (
 
 
     <div>
+
+      <Banner />
     
         <h1>REVITA</h1>
                             {/*<SearchBar onSearch={handleSearch} /> */}{ /* Componente de búsqueda repetido */}
