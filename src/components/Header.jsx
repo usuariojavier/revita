@@ -13,6 +13,7 @@ import { useCart } from "../context/CartContext";
 
 
 
+
 export default function Header() {
   const { t } = useTranslation();
 
@@ -57,6 +58,15 @@ const { cart } = useCart();
 
 
   const styles = {
+
+
+
+    
+
+
+
+
+
   dropdown: {
     position: "absolute",
     top: "16px",
@@ -128,9 +138,12 @@ const { cart } = useCart();
   return (
     <div>
       <header>
-        <SearchBar />
+        
         <nav style={{ display: "flex", gap: "30px" }}>
           <Link to="/"> {t("home")}</Link>
+
+          {/*----------------------    MUJER -----------------------------*/}
+
           <div
             onMouseEnter={() => setShowWomenMenu(true)}
             onMouseLeave={() => {
@@ -141,10 +154,6 @@ const { cart } = useCart();
             }}
             style={{ position: "relative" }}
           >
-            
-            
-              {/*---------MUJER*/}
-
             <Link to="/mujer">{t("women")}</Link>
             {showWomenMenu && (
               <div style={styles.dropdown}>
@@ -155,7 +164,7 @@ const { cart } = useCart();
                   onMouseLeave={() => setShowClothingMenu(false)}
                   style={styles.submenuTrigger}
                 >
-                  <span>Ropa ▸</span>
+                  <Link to="/mujer/ropa">Ropa ▸</Link>
                   {showClothingMenu && (
                     <div style={styles.submenu}>
                       <Link to="/mujer/ropa/pantalones">Pantalones</Link>
@@ -177,7 +186,7 @@ const { cart } = useCart();
                   onMouseLeave={() => setShowShoesMenu(false)}
                   style={styles.submenuTrigger}
                 >
-                  <span>Calzado ▸</span>
+                  <Link to="/mujer/calzado">Calzado ▸</Link>
                   {showShoesMenu && (
                     <div style={styles.submenu}>
                       <Link to="/mujer/calzado/zapatillas">Zapatillas</Link>
@@ -185,9 +194,7 @@ const { cart } = useCart();
                       <Link to="/mujer/calzado/botas">Botas</Link>
                       <Link to="/mujer/calzado/botines">Botines</Link>
                       <Link to="/mujer/calzado/chanclas">Chanclas</Link>
-                      <Link to="/mujer/calzado/casa">
-                        Zapatillas de casa
-                      </Link>
+                      <Link to="/mujer/calzado/casa">Zapatillas de casa</Link>
                     </div>
                   )}
                 </div>
@@ -197,7 +204,7 @@ const { cart } = useCart();
                   onMouseLeave={() => setShowAccessoriesMenu(false)}
                   style={styles.submenuTrigger}
                 >
-                  <span>Complementos ▸</span>
+                  <Link to="/Mujer/complementos">Complementos ▸</Link>
                   {showAccessoriesMenu && (
                     <div style={styles.submenu}>
                       <Link to="/mujer/complementos/bolsos">Bolsos</Link>
@@ -226,282 +233,269 @@ const { cart } = useCart();
             )}
           </div>
 
-        
-        
-                {/*HOMBRE*/}
-        <div
-  onMouseEnter={() => setShowMenMenu(true)}
-  onMouseLeave={() => {
-    setShowMenMenu(false);
-    setShowMenClothingMenu(false);
-    setShowMenShoesMenu(false);
-    setShowMenAccessoriesMenu(false);
-  }}
-  style={{ position: "relative" }}
->
-  <Link to="/hombre">{t("men")}</Link>
-  {showMenMenu && (
-    <div style={styles.dropdown}>
-      <Link to="/hombre/todo">Todo</Link>
+          {/*    -------------------------------HOMBRE    --------------------------------------*/}
 
-      {/* Ropa */}
-      <div
-        onMouseEnter={() => setShowMenClothingMenu(true)}
-        onMouseLeave={() => setShowMenClothingMenu(false)}
-        style={styles.submenuTrigger}
-      >
-        <span>Ropa ▸</span>
-        {showMenClothingMenu && (
-          <div style={styles.submenu}>
-            <Link to="/hombre/ropa/pantalones">Pantalones</Link>
-            <Link to="/hombre/ropa/bermudas">Bermudas</Link>
-            <Link to="/hombre/ropa/camisetas">Camisetas</Link>
-            <Link to="/hombre/ropa/camisas">Camisas</Link>
-            <Link to="/hombre/ropa/sudaderas">Sudaderas</Link>
-            <Link to="/hombre/ropa/chaquetas">Chaquetas</Link>
-            <Link to="/hombre/ropa/abrigos">Abrigos</Link>
-            <Link to="/hombre/ropa/pijamas">Pijamas</Link>
-            <Link to="/hombre/ropa/ropa-interior">Ropa interior</Link>
+          <div
+            onMouseEnter={() => setShowMenMenu(true)}
+            onMouseLeave={() => {
+              setShowMenMenu(false);
+              setShowMenClothingMenu(false);
+              setShowMenShoesMenu(false);
+              setShowMenAccessoriesMenu(false);
+            }}
+            style={{ position: "relative" }}
+          >
+            <Link to="/hombre">{t("men")}</Link>
+            {showMenMenu && (
+              <div style={styles.dropdown}>
+                <Link to="/hombre">Todo</Link>
+
+                {/* Ropa */}
+                <div
+                  onMouseEnter={() => setShowMenClothingMenu(true)}
+                  onMouseLeave={() => setShowMenClothingMenu(false)}
+                  style={styles.submenuTrigger}
+                >
+                  <Link to="/hombre/ropa">Ropa ▸</Link>
+                  {showMenClothingMenu && (
+                    <div style={styles.submenu}>
+                      <Link to="/hombre/ropa/pantalones">Pantalones</Link>
+                      <Link to="/hombre/ropa/bermudas">Bermudas</Link>
+                      <Link to="/hombre/ropa/camisetas">Camisetas</Link>
+                      <Link to="/hombre/ropa/camisas">Camisas</Link>
+                      <Link to="/hombre/ropa/sudaderas">Sudaderas</Link>
+                      <Link to="/hombre/ropa/chaquetas">Chaquetas</Link>
+                      <Link to="/hombre/ropa/abrigos">Abrigos</Link>
+                      <Link to="/hombre/ropa/pijamas">Pijamas</Link>
+                      <Link to="/hombre/ropa/ropa-interior">Ropa interior</Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Calzado */}
+                <div
+                  onMouseEnter={() => setShowMenShoesMenu(true)}
+                  onMouseLeave={() => setShowMenShoesMenu(false)}
+                  style={styles.submenuTrigger}
+                >
+                  <Link to="/hombre/calzado">Calzado ▸</Link>
+                  {showMenShoesMenu && (
+                    <div style={styles.submenu}>
+                      <Link to="/hombre/calzado/zapatillas">Zapatillas</Link>
+                      <Link to="/hombre/calzado/zapatos">Zapatos</Link>
+                      <Link to="/hombre/calzado/botas">Botas</Link>
+                      <Link to="/hombre/calzado/chanclas">Chanclas</Link>
+                      <Link to="/hombre/calzado/casa">Zapatillas de casa</Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Complementos */}
+                <div
+                  onMouseEnter={() => setShowMenAccessoriesMenu(true)}
+                  onMouseLeave={() => setShowMenAccessoriesMenu(false)}
+                  style={styles.submenuTrigger}
+                >
+                  <Link to="/hombre/complementos">Complementos ▸</Link>
+                  {showMenAccessoriesMenu && (
+                    <div style={styles.submenu}>
+                      <Link to="/hombre/complementos/bolsos">Bolsos</Link>
+                      <Link to="/hombre/complementos/mochilas">Mochilas</Link>
+                      <Link to="/hombre/complementos/carteras">Carteras</Link>
+                      <Link to="/hombre/complementos/gafas-sol">
+                        Gafas de sol
+                      </Link>
+                      <Link to="/hombre/complementos/gafas">Gafas</Link>
+                      <Link to="/hombre/complementos/cinturones">
+                        Cinturones
+                      </Link>
+                      <Link to="/hombre/complementos/gorras">Gorras</Link>
+                      <Link to="/hombre/complementos/calcetines">
+                        Calcetines
+                      </Link>
+                      <Link to="/hombre/complementos/bufandas">Bufandas</Link>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      {/* Calzado */}
-      <div
-        onMouseEnter={() => setShowMenShoesMenu(true)}
-        onMouseLeave={() => setShowMenShoesMenu(false)}
-        style={styles.submenuTrigger}
-      >
-        <span>Calzado ▸</span>
-        {showMenShoesMenu && (
-          <div style={styles.submenu}>
-            <Link to="/hombre/calzado/zapatillas">Zapatillas</Link>
-            <Link to="/hombre/calzado/zapatos">Zapatos</Link>
-            <Link to="/hombre/calzado/botas">Botas</Link>
-            <Link to="/hombre/calzado/chanclas">Chanclas</Link>
-            <Link to="/hombre/calzado/casa">Zapatillas de casa</Link>
+          {/*------------------------NIÑO--------------------*/}
+
+          <div
+            onMouseEnter={() => setShowBoyMenu(true)}
+            onMouseLeave={() => {
+              setShowBoyMenu(false);
+              setShowBoyClothingMenu(false);
+              setShowBoyShoesMenu(false);
+              setShowBoyAccessoriesMenu(false);
+            }}
+            style={{ position: "relative" }}
+          >
+            <Link to="/nino">{t("boy")}</Link>
+            {showBoyMenu && (
+              <div style={styles.dropdown}>
+                <Link to="/nino">Todo</Link>
+
+                {/* Ropa */}
+                <div
+                  onMouseEnter={() => setShowBoyClothingMenu(true)}
+                  onMouseLeave={() => setShowBoyClothingMenu(false)}
+                  style={styles.submenuTrigger}
+                >
+                  <Link to="/nino/ropa">Ropa ▸</Link>
+                  {showBoyClothingMenu && (
+                    <div style={styles.submenu}>
+                      <Link to="/nino/ropa/pantalones">Pantalones</Link>
+                      <Link to="/nino/ropa/bermudas">Bermudas</Link>
+                      <Link to="/nino/ropa/camisetas">Camisetas</Link>
+                      <Link to="/nino/ropa/sudaderas">Sudaderas</Link>
+                      <Link to="/nino/ropa/chaquetas">Chaquetas</Link>
+                      <Link to="/nino/ropa/abrigos">Abrigos</Link>
+                      <Link to="/nino/ropa/pijamas">Pijamas</Link>
+                      <Link to="/nino/ropa/ropa-interior">Ropa interior</Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Calzado */}
+                <div
+                  onMouseEnter={() => setShowBoyShoesMenu(true)}
+                  onMouseLeave={() => setShowBoyShoesMenu(false)}
+                  style={styles.submenuTrigger}
+                >
+                  <Link to="/nino/calzado">Calzado ▸</Link>
+                  {showBoyShoesMenu && (
+                    <div style={styles.submenu}>
+                      <Link to="/nino/calzado/zapatillas">Zapatillas</Link>
+                      <Link to="/nino/calzado/zapatos">Zapatos</Link>
+                      <Link to="/nino/calzado/botas">Botas</Link>
+                      <Link to="/nino/calzado/chanclas">Chanclas</Link>
+                      <Link to="/nino/calzado/casa">Zapatillas de casa</Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Complementos */}
+                <div
+                  onMouseEnter={() => setShowBoyAccessoriesMenu(true)}
+                  onMouseLeave={() => setShowBoyAccessoriesMenu(false)}
+                  style={styles.submenuTrigger}
+                >
+                  <Link to="/nino/complementos">Complementos ▸</Link>
+                  {showBoyAccessoriesMenu && (
+                    <div style={styles.submenu}>
+                      <Link to="/nino/complementos/mochilas">Mochilas</Link>
+                      <Link to="/nino/complementos/carteras">Carteras</Link>
+                      <Link to="/nino/complementos/gafas-sol">
+                        Gafas de sol
+                      </Link>
+                      <Link to="/nino/complementos/gafas">Gafas</Link>
+                      <Link to="/nino/complementos/cinturones">Cinturones</Link>
+                      <Link to="/nino/complementos/gorras">Gorras</Link>
+                      <Link to="/nino/complementos/calcetines">Calcetines</Link>
+                      <Link to="/nino/complementos/bufandas">Bufandas</Link>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      {/* Complementos */}
-      <div
-        onMouseEnter={() => setShowMenAccessoriesMenu(true)}
-        onMouseLeave={() => setShowMenAccessoriesMenu(false)}
-        style={styles.submenuTrigger}
-      >
-        <span>Complementos ▸</span>
-        {showMenAccessoriesMenu && (
-          <div style={styles.submenu}>
-            <Link to="/hombre/complementos/bolsos">Bolsos</Link>
-            <Link to="/hombre/complementos/mochilas">Mochilas</Link>
-            <Link to="/hombre/complementos/carteras">Carteras</Link>
-            <Link to="/hombre/complementos/gafas-sol">Gafas de sol</Link>
-            <Link to="/hombre/complementos/gafas">Gafas</Link>
-            <Link to="/hombre/complementos/cinturones">Cinturones</Link>
-            <Link to="/hombre/complementos/gorras">Gorras</Link>
-            <Link to="/hombre/complementos/calcetines">Calcetines</Link>
-            <Link to="/hombre/complementos/bufandas">Bufandas</Link>
+          {/*  ------------------   NIÑA  ----------------------------*/}
+          <div
+            onMouseEnter={() => setShowGirlMenu(true)}
+            onMouseLeave={() => {
+              setShowGirlMenu(false);
+              setShowGirlClothingMenu(false);
+              setShowGirlShoesMenu(false);
+              setShowGirlAccessoriesMenu(false);
+            }}
+            style={{ position: "relative" }}
+          >
+            <Link to="/nina">{t("girl")}</Link>
+            {showGirlMenu && (
+              <div style={styles.dropdown}>
+                <Link to="/nina">Todo</Link>
+
+                {/* Ropa */}
+                <div
+                  onMouseEnter={() => setShowGirlClothingMenu(true)}
+                  onMouseLeave={() => setShowGirlClothingMenu(false)}
+                  style={styles.submenuTrigger}
+                >
+                  <Link to="/nina/ropa">Ropa ▸</Link>
+                  {showGirlClothingMenu && (
+                    <div style={styles.submenu}>
+                      <Link to="/nina/ropa/pantalones">Pantalones</Link>
+                      <Link to="/nina/ropa/shorts">Shorts</Link>
+                      <Link to="/nina/ropa/top">Tops</Link>
+                      <Link to="/nina/ropa/camisetas">Camisetas</Link>
+                      <Link to="/nina/ropa/vestidos">Vestidos</Link>
+                      <Link to="/nina/ropa/faldas">Faldas</Link>
+                      <Link to="/nina/ropa/mallas">Mallas</Link>
+                      <Link to="/nina/ropa/abrigos">Abrigos</Link>
+                      <Link to="/nina/ropa/sudaderas">Sudaderas</Link>
+                      <Link to="/nina/ropa/pijamas">Pijamas</Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Calzado */}
+                <div
+                  onMouseEnter={() => setShowGirlShoesMenu(true)}
+                  onMouseLeave={() => setShowGirlShoesMenu(false)}
+                  style={styles.submenuTrigger}
+                >
+                  <Link to="/nina/calzado">Calzado ▸</Link>
+                  {showGirlShoesMenu && (
+                    <div style={styles.submenu}>
+                      <Link to="/nina/calzado/zapatillas">Zapatillas</Link>
+                      <Link to="/nina/calzado/zapatos">Zapatos</Link>
+                      <Link to="/nina/calzado/botas">Botas</Link>
+                      <Link to="/nina/calzado/botines">Botines</Link>
+                      <Link to="/nina/calzado/chanclas">Chanclas</Link>
+                      <Link to="/nina/calzado/casa">Zapatillas de casa</Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Complementos */}
+                <div
+                  onMouseEnter={() => setShowGirlAccessoriesMenu(true)}
+                  onMouseLeave={() => setShowGirlAccessoriesMenu(false)}
+                  style={styles.submenuTrigger}
+                >
+                  <Link to="/nina/complementos">Complementos ▸</Link>
+                  {showGirlAccessoriesMenu && (
+                    <div style={styles.submenu}>
+                      <Link to="/nina/complementos/bolsos">Bolsos</Link>
+                      <Link to="/nina/complementos/mochilas">Mochilas</Link>
+                      <Link to="/nina/complementos/carteras">Carteras</Link>
+                      <Link to="/nina/complementos/monederos">Monederos</Link>
+                      <Link to="/nina/complementos/bufandas">
+                        Bufandas y pañuelos
+                      </Link>
+                      <Link to="/nina/complementos/calcetines">Calcetines</Link>
+                      <Link to="/nina/complementos/gorros">Gorros</Link>
+                      <Link to="/nina/complementos/gafas-sol">
+                        Gafas de sol
+                      </Link>
+                      <Link to="/nina/complementos/gafas">Gafas</Link>
+                      <Link to="/nina/complementos/cinturones">Cinturones</Link>
+                      <Link to="/nina/complementos/gorras">Gorras</Link>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    </div>
-  )}
-</div>
-
-
-
-
-
-
-
-{/*NIÑO*/}
-                 <div
-  onMouseEnter={() => setShowBoyMenu(true)}
-  onMouseLeave={() => {
-    setShowBoyMenu(false);
-    setShowBoyClothingMenu(false);
-    setShowBoyShoesMenu(false);
-    setShowBoyAccessoriesMenu(false);
-  }}
-  style={{ position: "relative" }}
->
-  <Link to="/nino">{t("boy")}</Link>
-  {showBoyMenu && (
-    <div style={styles.dropdown}>
-      <Link to="/nino/todo">Todo</Link>
-
-      {/* Ropa */}
-      <div
-        onMouseEnter={() => setShowBoyClothingMenu(true)}
-        onMouseLeave={() => setShowBoyClothingMenu(false)}
-        style={styles.submenuTrigger}
-      >
-        <span>Ropa ▸</span>
-        {showBoyClothingMenu && (
-          <div style={styles.submenu}>
-            <Link to="/nino/ropa/pantalones">Pantalones</Link>
-            <Link to="/nino/ropa/bermudas">Bermudas</Link>
-            <Link to="/nino/ropa/camisetas">Camisetas</Link>
-            <Link to="/nino/ropa/sudaderas">Sudaderas</Link>
-            <Link to="/nino/ropa/chaquetas">Chaquetas</Link>
-            <Link to="/nino/ropa/abrigos">Abrigos</Link>
-            <Link to="/nino/ropa/pijamas">Pijamas</Link>
-            <Link to="/nino/ropa/ropa-interior">Ropa interior</Link>
-          </div>
-        )}
-      </div>
-
-      {/* Calzado */}
-      <div
-        onMouseEnter={() => setShowBoyShoesMenu(true)}
-        onMouseLeave={() => setShowBoyShoesMenu(false)}
-        style={styles.submenuTrigger}
-      >
-        <span>Calzado ▸</span>
-        {showBoyShoesMenu && (
-          <div style={styles.submenu}>
-            <Link to="/nino/calzado/zapatillas">Zapatillas</Link>
-            <Link to="/nino/calzado/zapatos">Zapatos</Link>
-            <Link to="/nino/calzado/botas">Botas</Link>
-            <Link to="/nino/calzado/chanclas">Chanclas</Link>
-            <Link to="/nino/calzado/casa">Zapatillas de casa</Link>
-          </div>
-        )}
-      </div>
-
-      {/* Complementos */}
-      <div
-        onMouseEnter={() => setShowBoyAccessoriesMenu(true)}
-        onMouseLeave={() => setShowBoyAccessoriesMenu(false)}
-        style={styles.submenuTrigger}
-      >
-        <span>Complementos ▸</span>
-        {showBoyAccessoriesMenu && (
-          <div style={styles.submenu}>
-            <Link to="/nino/complementos/mochilas">Mochilas</Link>
-            <Link to="/nino/complementos/carteras">Carteras</Link>
-            <Link to="/nino/complementos/gafas-sol">Gafas de sol</Link>
-            <Link to="/nino/complementos/gafas">Gafas</Link>
-            <Link to="/nino/complementos/cinturones">Cinturones</Link>
-            <Link to="/nino/complementos/gorras">Gorras</Link>
-            <Link to="/nino/complementos/calcetines">Calcetines</Link>
-            <Link to="/nino/complementos/bufandas">Bufandas</Link>
-          </div>
-        )}
-      </div>
-    </div>
-  )}
-</div>
-
-
-
-
-
-          
-{/*NIÑA*/}
-              <div
-  onMouseEnter={() => setShowGirlMenu(true)}
-  onMouseLeave={() => {
-    setShowGirlMenu(false);
-    setShowGirlClothingMenu(false);
-    setShowGirlShoesMenu(false);
-    setShowGirlAccessoriesMenu(false);
-  }}
-  style={{ position: "relative" }}
->
-  <Link to="/nina">{t("girl")}</Link>
-  {showGirlMenu && (
-    <div style={styles.dropdown}>
-      <Link to="/nina/todo">Todo</Link>
-
-      {/* Ropa */}
-      <div
-        onMouseEnter={() => setShowGirlClothingMenu(true)}
-        onMouseLeave={() => setShowGirlClothingMenu(false)}
-        style={styles.submenuTrigger}
-      >
-        <span>Ropa ▸</span>
-        {showGirlClothingMenu && (
-          <div style={styles.submenu}>
-            <Link to="/nina/ropa/pantalones">Pantalones</Link>
-            <Link to="/nina/ropa/shorts">Shorts</Link>
-            <Link to="/nina/ropa/top">Tops</Link>
-            <Link to="/nina/ropa/camisetas">Camisetas</Link>
-            <Link to="/nina/ropa/vestidos">Vestidos</Link>
-            <Link to="/nina/ropa/faldas">Faldas</Link>
-            <Link to="/nina/ropa/mallas">Mallas</Link>
-            <Link to="/nina/ropa/abrigos">Abrigos</Link>
-            <Link to="/nina/ropa/sudaderas">Sudaderas</Link>
-            <Link to="/nina/ropa/pijamas">Pijamas</Link>
-          </div>
-        )}
-      </div>
-
-      {/* Calzado */}
-      <div
-        onMouseEnter={() => setShowGirlShoesMenu(true)}
-        onMouseLeave={() => setShowGirlShoesMenu(false)}
-        style={styles.submenuTrigger}
-      >
-        <span>Calzado ▸</span>
-        {showGirlShoesMenu && (
-          <div style={styles.submenu}>
-            <Link to="/nina/calzado/zapatillas">Zapatillas</Link>
-            <Link to="/nina/calzado/zapatos">Zapatos</Link>
-            <Link to="/nina/calzado/botas">Botas</Link>
-            <Link to="/nina/calzado/botines">Botines</Link>
-            <Link to="/nina/calzado/chanclas">Chanclas</Link>
-            <Link to="/nina/calzado/casa">Zapatillas de casa</Link>
-          </div>
-        )}
-      </div>
-
-      {/* Complementos */}
-      <div
-        onMouseEnter={() => setShowGirlAccessoriesMenu(true)}
-        onMouseLeave={() => setShowGirlAccessoriesMenu(false)}
-        style={styles.submenuTrigger}
-      >
-        <span>Complementos ▸</span>
-        {showGirlAccessoriesMenu && (
-          <div style={styles.submenu}>
-            <Link to="/nina/complementos/bolsos">Bolsos</Link>
-            <Link to="/nina/complementos/mochilas">Mochilas</Link>
-            <Link to="/nina/complementos/carteras">Carteras</Link>
-            <Link to="/nina/complementos/monederos">Monederos</Link>
-            <Link to="/nina/complementos/bufandas">Bufandas y pañuelos</Link>
-            <Link to="/nina/complementos/calcetines">Calcetines</Link>
-            <Link to="/nina/complementos/gorros">Gorros</Link>
-            <Link to="/nina/complementos/gafas-sol">Gafas de sol</Link>
-            <Link to="/nina/complementos/gafas">Gafas</Link>
-            <Link to="/nina/complementos/cinturones">Cinturones</Link>
-            <Link to="/nina/complementos/gorras">Gorras</Link>
-          </div>
-        )}
-      </div>
-    </div>
-  )}
-</div>
-
-
-
-
-
-
-
-
-
-
-
 
           <Link to="/marcas">{t("brands")}</Link>
 
-
           <Link to="/cart">🛒 Carrito ({cart.length})</Link>
 
-
-          
           {/*<img
             src="/public/images/logo.png"
             alt="imagen"
@@ -543,9 +537,6 @@ const { cart } = useCart();
           </div>
         </nav>
       </header>
-
-                 
-
     </div>
   );
 }

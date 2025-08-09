@@ -17,7 +17,7 @@ export default function SearchBar({ onSearch }) {
     <div style={styles.container}>
       {/* Campo de búsqueda */}
 
-        <img src="/public/images/logo.png"alt="imagen"className="logo" style={{ width: "50px", height: "50px" }} ></img>
+        
 
       <input
         type="text"
@@ -90,9 +90,14 @@ const styles = {
     display: "flex",
     gap: "10px",
     alignItems: "center",
-    marginBottom: "2px",
-    flexWrap: "wrap"
+    marginBottom: "1px",
+    flexWrap: "wrap",
+    
+
+
+    
   },
+
   input: {
     padding: "8px",
     border: "1px solid #ccc",
@@ -111,6 +116,43 @@ const styles = {
     border: "none",
     borderRadius: "4px",
     cursor: "pointer"
-  }
+  },
+
+
+    container: {
+    position: "absolute",
+    top: "0px",
+    left: "0",
+    alignItems: "center",
+    
+    width: "99%",
+    backgroundColor: "black",
+    border: "1px solid #ddd",
+    boxShadow: "0 4px 8px rgba(0,0,0,5)",
+    padding: "5px",
+    zIndex: 1000,
+    
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  
+    
+    gap: "15px",
+    borderRadius: "6px",
+
+    color: "white",
+    fontSize: "10px",
+    position: "fixed",
+    
+  
+}
+
+
+
+
+
+
 };
 

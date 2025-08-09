@@ -1,12 +1,5 @@
-import { useParams } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
-import productos from "../data/productos";
+const productos = [ 
 
-
-export default function Category() {
-  const { genero, category, subcategoria } = useParams();
-
-  const productos = [
     { id: 1, name: "Camiseta Mujer", category: "mujer", genero: "mujer", categoria: "ropa", subcategoria: "camisetas", price: 19.99, image:"Camiseta-mujer.jpg" ,  size: "M" },
     { id: 2, name: "Zapatillas Hombre", genero: "hombre", categoria: "calzado", subcategoria: "zapatillas", price: 49.99, image:"Zapatillas-hombre.jpeg" , category: "hombre", size: "L" },
     { id: 3, name: "Chaqueta Niño",  genero: "nino", categoria: "ropa", subcategoria: "chaquetas", price: 39.00,  image:"Chaqueta-nen.webp"  ,category: "nino", size: "S" },
@@ -22,29 +15,14 @@ export default function Category() {
     { id: 13, name: "Camiseta Hombre", genero: "hombre", categoria: "ropa", subcategoria: "camisetas", price: 19.99, image:"Camiseta-hombre.jpeg" , category: "hombre", size: "M" },
     { id: 14, name: "Pantalones Niño", genero: "nino", categoria: "ropa", subcategoria: "pantalones", price: 29.99, image:"Pantalones-nen.jpeg" , category: "nino", size: "S" },
     { id: 15, name: "Botas Mujer", genero: "mujer", categoria: "calzado", subcategoria: "botas", price: 59.99, image:"Botas-mujer.jpeg" , category: "mujer", size: "L" },
+    
 
 
-  ];
 
-  let filtrados = productos;
 
-  if (genero) filtrados = filtrados.filter(p => p.genero === genero);
-  if (category) filtrados = filtrados.filter(p => p.categoria === category);
-  if (subcategoria) filtrados = filtrados.filter(p => p.subcategoria === subcategoria);
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>
-        {genero ? genero.toUpperCase() : ""}{" "}
-        {category ? `/ ${category.toUpperCase()}` : ""}{" "}
-        {subcategoria ? `/ ${subcategoria.toUpperCase()}` : ""}
-      </h1>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "20px" }}>
-        {filtrados.map(p => (
-          <ProductCard key={p.id} product={p} />
-        ))}
-      </div>
-    </div>
-  );
-}
 
+
+
+ ];
+export default productos;

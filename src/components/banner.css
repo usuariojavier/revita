@@ -3,6 +3,7 @@
   height: 600px;
   overflow: hidden;
   position: relative;
+  margin-top: 150px;
 }
 
 .banner-image {

@@ -13,7 +13,8 @@ export default function Cart() {
 
     <>
 
-    <div>
+    <div> 
+
          
    <h1>Mi carrito 🛒</h1>
 {!cart.length ? <p>Carrito vacío   😔  </p> : (
