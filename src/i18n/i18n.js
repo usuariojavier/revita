@@ -1,4 +1,5 @@
 import i18n from 'i18next';
+import { t } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 const resources = {
@@ -13,7 +14,7 @@ const resources = {
       cart: "Carrito",
       search: "Buscar",
       shirt: "Camisa",
-      pants: "Pantalons",
+      pants: "Pantalones",
       shoes: "Zapatos",
       socks: "Calcetines",
       accessories: "Accesorios",
@@ -31,6 +32,36 @@ const resources = {
       dress: "Vestido",
       back: "volver",
       top: "arriba",
+      tshirt: "Camiseta",
+      tshirtWoman: "Camiseta Mujer",
+      sneakersMan: "Zapatillas Hombre",
+      Jacketboy: "Chaqueta Niño",
+      sneakersboy: "Zapatillas Niño",
+      sneakersWoman: "Zapatillas Mujer",
+      shirtMan: "Camisa Hombre",
+      dressGirl: "Vestido Niña",
+      pantsWoman: "Pantalones Mujer",
+      pantsBoy: "Pantalones Niño",
+      pantsMan: "Pantalones Hombre",
+      shirtGirl: "Camisa Niña",
+      socksGirl: "Calcetines",
+      socksBoy: "Calcetinse Niño",
+      socksMan: "Calcetines Hombre",
+      sweatshirtMan: "Sudadera Hombre",
+      bootsBoy: "Botas Niño",
+      bootsGirl: "Botas Niña",
+      bootsWoman: "Botas Mujer",
+      jacketGirl: "Chaqueta Niña",
+      jacketWoman: "Chaqueta Mujer",
+      jacketMan: "Chaqueta Hombre",
+      sneakersMariquita: "Zapatillas Mariquita",
+      tshirtMan: "Camiseta Hombre",
+      tshirtBoy: "Camiseta Niño",
+      tshirtGirl: "Camiseta Niña",
+      tshirtWoman: "Camiseta Mujer",
+      tshirtGirl: "Camiseta Niña",
+
+
     },
   },
   ca: {
@@ -61,6 +92,40 @@ const resources = {
       socks: "Mitjons",
       back: "tornar",
       top: "Arriba",
+      tshirt: "samarreta",
+      tshirtWoman: "samarreta Dona",
+      sneakersMan: "Sabates Home",
+      Jacketboy: "Jaqueta Nen",
+      sneakersboy: "Sabates Nen",
+      sneakersWoman: "Sabates Dona",
+      shirtMan: "Camisa Home",
+      dressGirl: "Vestit Nena",
+      pantsWoman: "Pantalons Dona",
+      pantsBoy: "Pantalons Nen",
+      pantsMan: "Pantalons Home",
+      pantsWoman: "Pantalons Dona",
+      shirtGirl: "Camisa Nena",
+      socksWoman: "Mitjons Dona",
+      socksBoy: "Mitjons Nen",
+      socksMan: "Mitjons Home",
+      sweatshirtMan: "Sudadera Dona",
+      bootsGirl: "Botes Nena",
+      bootsBoy: "Botes Nen",
+      bootsWoman: "Botes Dona",
+      jacketGirl: "Jaqueta Nena",
+      jacketWoman: "Jaqueta Dona",
+      jacketBoy: "Jaqueta Nen",
+      sneakersMariquita: "Sabates Mariquita",
+      tshirtMan: "Samarreta Home",
+      tshirtBoy: "Samarreta Nen",
+      tshirtWoman: "Samarreta Dona",
+      tshirtGirl: "Samarreta Nena",
+      tshirtBoy: "Samarreta Nen",
+
+
+
+
+
     },
   },
 };
@@ -69,7 +134,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'ca', // idioma por defecto
+    lng: 'es', // idioma por defecto
     interpolation: { escapeValue: false }
   });
 

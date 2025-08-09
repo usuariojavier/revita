@@ -2,6 +2,7 @@ import { useCart } from "../context/CartContext";
 import i18n from "../i18n/i18n";
 import Footer from "../components/Footer"; 
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 
 

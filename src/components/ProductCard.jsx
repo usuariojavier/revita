@@ -1,10 +1,12 @@
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
   const [hovered, setHovered] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div
@@ -15,6 +17,10 @@ export default function ProductCard({ product }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
+
+
+
+      
       <Link
         to={`/producto/${product.id}`}
         style={{ textDecoration: "none", color: "inherit" }}
@@ -24,7 +30,8 @@ export default function ProductCard({ product }) {
           alt={product.name}
           style={styles.img}
         />
-        <h3>{product.name}</h3>
+        <h3>{t(product.name)}</h3>
+
         <p>{product.price} €</p>
       </Link>
 
