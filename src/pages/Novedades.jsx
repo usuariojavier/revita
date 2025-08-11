@@ -1,7 +1,7 @@
 export default function Novedades() {
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Novedades</h1>
+      <h1 style={styles.title}>Novedadesssss</h1>
       <p style={styles.text}>
         Descubre las últimas colecciones, tendencias y productos recién llegados. ¡Mantente al día con lo más nuevo!
       </p>

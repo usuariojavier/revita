@@ -22,6 +22,8 @@ export default function Category() {
     { id: 13, name: "Camiseta Hombre", genero: "hombre", categoria: "ropa", subcategoria: "camisetas", price: 19.99, image:"Camiseta-hombre.jpeg" , category: "hombre", size: "M" },
     { id: 14, name: "Pantalones Niño", genero: "nino", categoria: "ropa", subcategoria: "pantalones", price: 29.99, image:"Pantalones-nen.jpeg" , category: "nino", size: "S" },
     { id: 15, name: "Botas Mujer", genero: "mujer", categoria: "calzado", subcategoria: "botas", price: 59.99, image:"Botas-mujer.jpeg" , category: "mujer", size: "L" },
+    { id: 16, name: "Gafas de Sol mujer ", genero: "mujer", categoria: "complementos", subcategoria: "gafas-sol", price: 39.0, image: "gafasSolMujer.jpeg", category: "mujer", size: "M", },
+    { id: 17, name: "Gafas de Sol Hombre", genero: "hombre", categoria: "complementos", subcategoria: "gafas-sol", price: 39.0, image: "gafasSolHombre.jpg", category: "hombre", size: "M" },
 
 
   ];

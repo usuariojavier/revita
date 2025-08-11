@@ -6,7 +6,7 @@ export default function SearchBar({ onSearch }) {
   const [filter, setFilter] = useState({
     category: "",
     price: "",
-    size: ""
+    size: "",
   });
 
   const handleSearch = () => {

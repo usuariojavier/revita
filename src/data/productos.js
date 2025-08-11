@@ -164,5 +164,36 @@ const productos = [
     category: "mujer",
     size: "L",
   },
+
+    {
+      id: 16,
+      name: "sunglases",
+      genero: "mujer",
+      categoria: "complementos",
+      subcategoria: "gafas-sol",
+      price: 39.0,
+      image: "gafasSolMujer.jpeg",
+      category: "mujer",
+      size: "M",
+    },
+    {
+      id: 17,
+      name: "sunglases",
+      genero: "hombre",
+      categoria: "complementos",
+      subcategoria: "gafas-sol",
+      price: 39.0,
+      image: "gafasSolHombre.jpe",
+      category: "hombre",
+      size: "M",
+    },  
+
+
+
+
+
+
+
+
 ];
 export default productos;

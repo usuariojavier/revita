@@ -16,7 +16,7 @@ export default function Cart() {
 
     <div> 
 
-         
+        <img src="/images/carrito-compra.gif" alt="Carrito" style={{ width: "600px", margin: "200px auto", display: "block" }} />
    <h1>Mi carrito 🛒</h1>
 {!cart.length ? <p>Carrito vacío   😔  </p> : (
   <>

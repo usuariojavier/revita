@@ -1,9 +1,9 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
-// ✅ Exportación nombrada
+// Exportación nombrada
 export const CartContext = createContext();
 
-// ✅ Custom hook opcional
+//  Custom hook opcional
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {

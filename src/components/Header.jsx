@@ -14,6 +14,7 @@ import { useCart } from "../context/CartContext";
 
 
 
+
 export default function Header() {
   const { t } = useTranslation();
 
@@ -58,11 +59,6 @@ const { cart } = useCart();
 
 
   const styles = {
-
-
-
-    
-
 
 
 
@@ -142,6 +138,8 @@ const { cart } = useCart();
         <nav style={{ display: "flex", gap: "30px" }}>
           <Link to="/"> {t("home")}</Link>
 
+
+
           {/*----------------------    MUJER -----------------------------*/}
 
           <div
@@ -177,6 +175,7 @@ const { cart } = useCart();
                       <Link to="/mujer/ropa/abrigos">Abrigos</Link>
                       <Link to="/mujer/ropa/sudaderas">Sudaderas</Link>
                       <Link to="/mujer/ropa/pijamas">Pijamas</Link>
+                    
                     </div>
                   )}
                 </div>
@@ -211,20 +210,12 @@ const { cart } = useCart();
                       <Link to="/mujer/complementos/mochilas">Mochilas</Link>
                       <Link to="/mujer/complementos/carteras">Carteras</Link>
                       <Link to="/mujer/complementos/monederos">Monederos</Link>
-                      <Link to="/mujer/complementos/bufandas">
-                        Bufandas y pañuelos
-                      </Link>
-                      <Link to="/mujer/complementos/calcetines">
-                        Calcetines
-                      </Link>
+                      <Link to="/mujer/complementos/bufandas">Bufandas y pañuelos</Link>
+                      <Link to="/mujer/complementos/calcetines">Calcetines</Link>
                       <Link to="/mujer/complementos/gorros">Gorros</Link>
-                      <Link to="/mujer/complementos/gafas-sol">
-                        Gafas de sol
-                      </Link>
+                      <Link to="/mujer/complementos/gafas-sol">Gafas de sol</Link>
                       <Link to="/mujer/complementos/gafas">Gafas</Link>
-                      <Link to="/mujer/complementos/cinturones">
-                        Cinturones
-                      </Link>
+                      <Link to="/mujer/complementos/cinturones">Cinturones</Link>
                       <Link to="/mujer/complementos/gorras">Gorras</Link>
                     </div>
                   )}

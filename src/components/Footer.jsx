@@ -44,31 +44,48 @@ export default function Footer() {
 
 const styles = {
   footer: {
-    
+    width: "100%", //  Esto asegura que el footer ocupe todo el ancho
     background: "#333",
     color: "#fff",
-    paddingTop: "5px",
-    paddingBottom: "20px",
+    paddingTop: "1px",
+    paddingBottom: "1px",
     fontFamily: "sans-serif",
     fontSize: "14px",
+    position: "absolute",
+    zindex: "800",
+    
+    
+
+
+
   },
+
+
   container: {
     display: "flex",
-    
     justifyContent: "space-around",
     flexWrap: "wrap",
     padding: "0 20px",
     marginBottom: "5px",
+  
+    maxWidth: "100%", // ✅ Igual que el resto del sitio
+    margin: "0 auto", // ✅ Centra el contenido
   },
+
+
   column: {
     minWidth: "150px",
     marginBottom: "20px",
   },
+
+
   heading: {
     fontSize: "16px",
     marginBottom: "10px",
     fontWeight: "bold",
   },
+
+
   link: {
     display: "block",
     color: "#ccc",
@@ -76,14 +93,22 @@ const styles = {
     marginBottom: "6px",
     fontSize: "14px",
   },
+
+
   bottom: {
     borderTop: "1px solid #555",
     textAlign: "center",
     paddingTop: "15px",
   },
+
+  
   bottomText: {
     fontSize: "13px",
     color: "#aaa",
   },
 };
+
+
+
+
 

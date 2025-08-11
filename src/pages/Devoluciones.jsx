@@ -1,6 +1,9 @@
 export default function Devoluciones() {
   return (
     <div style={styles.container}>
+
+
+        <img src="/images/devolucion.gif" alt="Devoluciones" style={{ width: "60%", marginBottom: "20px" }} />
       <h1 style={styles.title}>Política de Devoluciones</h1>
       <p style={styles.text}>
         Puedes devolver cualquier producto dentro de los 30 días posteriores a la compra. Asegúrate de que el artículo esté sin usar y en su embalaje original.

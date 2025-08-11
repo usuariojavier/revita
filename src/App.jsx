@@ -25,12 +25,19 @@ import "./i18n/i18n";
 import "./index.css";
 import "./pages/Home.css";
 
+import { useTranslation } from "react-i18next";
+
+
+
 export default function App() {
   const [filtered, setFiltered] = useState(productos);
 
+  const { t } = useTranslation();
+
+
   const handleSearch = ({ query, filter }) => {
     let results = productos.filter(p =>
-      p.name.toLowerCase().includes(query.toLowerCase())
+      t(p.name).toLowerCase().includes(query.toLowerCase())
     );
 
     if (filter.category) {
@@ -54,6 +61,7 @@ export default function App() {
         <SearchBar onSearch={handleSearch} />
         <BackToTopButton />
           <Header />
+          <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Routes>
           <Route path="/" element={<Home productos={filtered} />} />
           <Route path="/cart" element={<Cart />} />
@@ -74,6 +82,7 @@ export default function App() {
 
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </div>
 
         <Footer />
       </Router>

@@ -52,13 +52,14 @@ const styles = {
     width: "fit-content",
   },
   cardHover: {
-    transform: "scale(1.05)",
+    transform: "scale(1.1)",
   },
   img: {
     width: "100%",
     height: "150px",
     objectFit: "cover",
     marginBottom: "10px",
+   
   },
   button: {
     backgroundColor: "#28a745",

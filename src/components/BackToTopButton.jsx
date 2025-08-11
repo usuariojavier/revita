@@ -1,12 +1,29 @@
-
-import React from "react";
-
-window.scrollTo({ top: 0, behavior: "smooth" });
+import React, { useState, useEffect } from "react";
 
 export default function BackToTopButton() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.scrollY > 100) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  if (!visible) return null;
 
   return (
     <button
@@ -20,10 +37,12 @@ export default function BackToTopButton() {
         color: "#fff",
         border: "none",
         borderRadius: "5px",
-        cursor: "pointer"
+        cursor: "pointer",
+        zIndex: 1000,
+        transition: "opacity 0.3s ease"
       }}
     >
-      Volver arriba
+      <img src="/images/up.webp" alt="Ir hacia arriba" style={{ width: "50px", height: "60px" }} />
     </button>
   );
 }

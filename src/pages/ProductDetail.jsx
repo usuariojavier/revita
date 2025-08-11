@@ -18,19 +18,10 @@ export default function ProductDetail() {
 
 
 
-
-
-  
-
-
-
-
-
-
   useEffect(() => {
     const allProducts = [
-      { id: 1, name: "Camiseta Mujer", price: 19.99, image: "Camiseta-mujer.jpg", category: "mujer", size: "M", description: "Camiseta cómoda y ligera." },
-      { id: 2, name: "Zapatillas Hombre", price: 49.99, image: "Zapatillas-hombre.jpeg", category: "hombre", size: "L", description: "Zapatillas deportivas para hombre." },
+    { id: 1, name: "Camiseta Mujer", price: 19.99, image: "Camiseta-mujer.jpg", category: "mujer", size: "M", description: "Camiseta cómoda y ligera." },
+    { id: 2, name: "Zapatillas Hombre", price: 49.99, image: "Zapatillas-hombre.jpeg", category: "hombre", size: "L", description: "Zapatillas deportivas para hombre." },
     { id: 3, name: "Chaqueta Niño", price: 39.00,  image:"Chaqueta-nen.webp"  ,category: "nino", size: "S" },
     { id: 4, name: "Zapatillas niño", price: 29.99, image:"zapatillas-nen.jpg" , category: "nino", size: "s" },
     { id: 5, name: "Zapatillas Mujer", price: 59.99, image:"zapatillas-mujer.jpeg" , category: "mujer", size: "M" },
@@ -65,33 +56,35 @@ export default function ProductDetail() {
   if (!product) return <p>Producto no encontrado</p>;
 
   return (
-
     <div style={{ padding: "20px" }}>
       <h2>{product.name}</h2>
       <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-
-
         <img
-  src={`/images/${product.image}`}
-  alt={product.name}
-  style={{
-    width: "400px",
-    borderRadius: "8px",
-    transition: "transform 0.3s ease",
-    transform: hovered ? "scale(1.6)" : "scale(1)",
-  }}
-  onMouseEnter={() => setHovered(true)}
-  onMouseLeave={() => setHovered(false)}
-/>
+          src={`/images/${product.image}`}
+          alt={product.name}
+          style={{
+            width: "400px",
+            borderRadius: "8px",
+            transition: "transform 0.3s ease",
+            transform: hovered ? "scale(1.6)" : "scale(1)",
+          }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        />
 
-
-
-
-        <div>
-          <p><strong>Precio:</strong> {product.price} €</p>
-          <p><strong>Categoría:</strong> {product.category}</p>
-          <p><strong>Talla:</strong> {product.size}</p>
-          <p><strong>Descripción:</strong> {product.description}</p>
+        <div className="product-details">
+          <p>
+            <strong>Precio:</strong> {product.price} €
+          </p>
+          <p>
+            <strong>Categoría:</strong> {product.category}
+          </p>
+          <p>
+            <strong>Talla:</strong> {product.size}
+          </p>
+          <p>
+            <strong>Descripción:</strong> {product.description}
+          </p>
           <button
             onClick={handleAddToCart}
             disabled={isInCart}

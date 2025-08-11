@@ -60,6 +60,10 @@ const resources = {
       tshirtGirl: "Camiseta Niña",
       tshirtWoman: "Camiseta Mujer",
       tshirtGirl: "Camiseta Niña",
+      sunglasess: "Gafas de Sol",
+      sunglassesWoman: "Gafas de Sol Mujer",
+      sunglassesMan: "Gafas de Sol Hombre",
+      accessories: "complementos",
 
 
     },
@@ -121,6 +125,10 @@ const resources = {
       tshirtWoman: "Samarreta Dona",
       tshirtGirl: "Samarreta Nena",
       tshirtBoy: "Samarreta Nen",
+      sunglasess: "Gafes de Sol",
+      sunglassesWoman: "Gafes de Sol Dona",
+      sunglassesMan: "Gafes de Sol Home",
+      accessories: "complementos",
 
 
 

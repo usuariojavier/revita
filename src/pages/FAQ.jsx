@@ -1,6 +1,8 @@
 export default function FAQ() {
   return (
     <div style={styles.container}>
+
+        <img src="/images/preguntas.gif" alt="FAQ" style={{ width: "200px", margin: "20px auto", display: "block" }} />
       <h1 style={styles.title}>Preguntas Frecuentes</h1>
       <ul style={styles.list}>
         <li><strong>¿Cuánto tarda el envío?</strong> — Entre 2 y 5 días hábiles.</li>
