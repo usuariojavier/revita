@@ -1,7 +1,7 @@
 const productos = [
   {
     id: 1,
-    nombre: "Camiseta mujer",
+    nombre: "Camiseta Mujer",
     name: "tshirtWoman",
     category: "mujer",
     genero: "mujer",

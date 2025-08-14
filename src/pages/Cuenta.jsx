@@ -52,7 +52,7 @@ const styles = {
     textAlign: "center",
     border: "1px solid #ddd",
     borderRadius: "8px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    boxShadow: "0 2px 8px #12e2ef(0,0,0,0.1)",
     backgroundColor: "#fff",
   },
   title: {
@@ -71,7 +71,7 @@ const styles = {
   },
   button: {
     padding: "10px",
-    backgroundColor: "#007bff",
+    backgroundColor: "#12e2ef",
     color: "white",
     border: "none",
     borderRadius: "4px",
@@ -84,7 +84,7 @@ const styles = {
   toggleButton: {
     background: "none",
     border: "none",
-    color: "#007bff",
+    color: "#12e2ef",
     cursor: "pointer",
     textDecoration: "underline",
     fontSize: "14px",

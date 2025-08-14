@@ -116,7 +116,7 @@ useEffect(() => {
     position: "relative",
     padding: "6px 10px",
     cursor: "pointer",
-    backgroundColor: "#ffffff",
+    backgroundColor: "#12e2ef",
     borderRadius: "6px",
     transition: "background 0.5s",
     backgroundColor: "#ffffff",
@@ -133,7 +133,7 @@ submenu: {
   maxWidth: "180px",
   backgroundColor: "#ffffff",
   border: "1px solid #ddd",
-  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+  boxShadow: "0 4px 8px #12e2ef(0,0,0,0.9)",
   padding: "10px",
   zIndex: 1000,
   display: "flex",
@@ -538,7 +538,7 @@ submenu: {
 
           <Link to="/marcas">{t("brands")}</Link>
 
-          <Link to="/cart">🛒 {cart.length}</Link>
+          <Link to="/cart"><img src="/images/carrito.png" alt="Carrito" style={{ width: "25px" }} /> {cart.length}</Link>
 
             
 

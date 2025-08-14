@@ -29,7 +29,7 @@ const handleAddToCart = (producto) => {
 
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "5px" }}>
       <Banner />
       <img src ="/images/larepercha.jpg" alt="Menu" style={{ width: "50em", height: "30em" }} />
       
@@ -37,16 +37,16 @@ const handleAddToCart = (producto) => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-          gap: "14px",
-          padding: "15px",
+          gridTemplateColumns: "repeat(auto-fit, minmax(12em, 1fr))",
+          gap: "16px",
+          padding: "1px",
         }}
       >
-        {productosConStock.map(p => (
+        {productosConStock.map(p => (          //FUNCION AGREGAR AL CARRITO
           <ProductCard
             key={p.id}
             product={p}
-            onAddToCart={() => handleAddToCart(p)}
+            onAddToCart={() => handleAddToCart(p)}  
           />
         ))}
       </div>

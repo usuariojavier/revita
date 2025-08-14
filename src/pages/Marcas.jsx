@@ -3,7 +3,7 @@
 
 
 
-// ✅ Esto es lo correcto
+
 export default function Marcas() {
   return (
     <div style={{ padding: "40px" }}>

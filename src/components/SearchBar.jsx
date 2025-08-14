@@ -25,7 +25,11 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
+
+
+    
     <div style={styles.container}>
+      <img src="/images/larepercha.jpg" alt="Buscar" style={{ width: "10em", height: "4em" }} />
       <input
         type="text"
         placeholder="Buscar productos..."
@@ -93,7 +97,7 @@ const styles = {
     width: "99%",
     backgroundColor: "none",
     border: "1px solid #ddd",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.05)",
+    boxShadow: "0 4px 8px #12e2ef(0,0,0,1)",
     padding: "5px",
     borderRadius: "6px",
     display: "flex",

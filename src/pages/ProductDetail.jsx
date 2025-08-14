@@ -87,9 +87,9 @@ const handleAddToCart = () => {
             <p>
                 <strong>Marca:</strong> {product.brand}
             </p>
-          <p>
+         {/* <p>
              <strong>Stock disponible:</strong> {visibleStock}
-          </p>
+          </p>*/}
           
 
 

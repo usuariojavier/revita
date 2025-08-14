@@ -17,7 +17,7 @@ export default function Cart() {
     <div> 
 
         <img src="/images/carrito-compra.gif" alt="Carrito" style={{ width: "500px", margin: "100px auto", display: "block" }} />
-   <h1>Mi carrito 🛒</h1>
+   <h1>Mi carrito <img src="/images/carrito.png" alt="Carrito" style={{ width: "50px" }} /></h1>
 {!cart.length ? <p>Carrito vacío   😔  </p> : (
   <>
 
@@ -27,10 +27,10 @@ export default function Cart() {
       <img src={`/images/${item.image}`} alt={item.name} style={{ width: "80px" }} />
       <div>
         <p>{item.name}</p>
-        <p>{item.price}€</p>
+        <p style={{ fontWeight: "bold" }}  >{item.price}€</p>
       </div>
     </Link>
-    <button onClick={() => removeFromCart(item.cartItemId)}>Eliminar</button>
+    <button onClick={() => removeFromCart(item.cartItemId)}  style={{ padding: "10px", backgroundColor: "#12e2ef", color: "white" }}  >Eliminar</button>
 
   </div>
 ))}
@@ -38,7 +38,7 @@ export default function Cart() {
 
 
     <h2>Total: {cart.reduce((sum, i) => sum + i.price, 0).toFixed(2)} €</h2>
-    <button onClick={() => navigate('/checkout')} style={{ padding: "10px", backgroundColor: "#007bff", color: "white" }}>Proceder a compra</button>
+    <button onClick={() => navigate('/checkout')} style={{ padding: "10px", backgroundColor: "#12e2ef", color: "white" }}>Proceder a compra</button>
         </>
 )}
  

@@ -30,8 +30,9 @@ export default function ProductCard({ product, onAddToCart }) {
           style={styles.img}
         />
         <h3>{t(product.name)}</h3>
-        <p>{product.price} €</p>
-        <p>Stock: {product.stock}</p>
+        <p style={{ fontWeight: "bold" }}  >{product.price} €</p>
+        <p>{t(product.description)}</p>
+        {/*<p>Stock: {product.stock}</p>*/}
       </Link>
 
       <button
@@ -56,7 +57,7 @@ export default function ProductCard({ product, onAddToCart }) {
 
 const styles = {
   card: {
-    /*border: "1px solid #ccc",*/ //  borde productos
+   border: "1px solid #ccc",//  borde productos
     borderRadius: "6px",
     padding: "8px",
     textAlign: "center",
@@ -69,13 +70,14 @@ const styles = {
   },
   img: {
     width: "100%",
-    height: "150px",
+    height: "120px",
+    maxWidth: "100%",
     objectFit: "cover",
     marginBottom: "10px",
    
   },
   button: {
-    backgroundColor: "#28a745",
+    backgroundColor: "#12e2ef",
     color: "white",
     border: "none",
     padding: "8px",

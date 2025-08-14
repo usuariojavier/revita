@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color-scheme: #ffffff;
-  color: rgba(242, 232, 232, 0.87);
+  color: #12e2ef(242, 232, 232, 0.87);
   background-color: #ffffff;
 
   font-synthesis: none;
@@ -15,11 +15,11 @@
 
 a {
   font-weight: 500;
-  color: #c4d80b;
+  color: #12e2ef;
   text-decoration: inherit;
 }
 a:hover {
-  color: #53f253;
+  color: #12e2ef;
 }
 
 body {
@@ -55,12 +55,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #e0d7d7;
+  background-color: #12e2ef;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #9ea2e8;
+  border-color: #12e2ef;
 }
 button:focus,
 button:focus-visible {
@@ -69,14 +69,14 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #ccdae7;
-    background-color: #ffffff;
+    color: #12e2ef;
+    background-color: #12e2ef;
   }
   a:hover {
-    color: #74ff76;
+    color: #12e2ef;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #12e2ef;
   }
 }
 
@@ -88,10 +88,12 @@ button:focus-visible {
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #12e2ef);
+  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #12e2ef);
+  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
 }
 
 
@@ -119,7 +121,7 @@ header {
   right: 0;
   z-index: 1000;
   background-color: none; 
-  color: #c6b5b5;
+  color: #12e2ef;
     text-align: center;
   font-size: 1.1em;
   font-family: "Open Sans", sans-serif;
@@ -128,7 +130,7 @@ header {
   border-radius: 8px;
   margin-top: 1px;
   margin-bottom: 2px;
-    box-shadow: 0 2px 4px rgba(210, 201, 201, 0.1);
+    box-shadow: 0 2px 4px #12e2ef(210, 201, 201, 0.1);
   font-family: 'Inter', sans-serif;
 
 }
@@ -182,12 +184,12 @@ nav a {
   -o-border-radius: 5px;
 }
 nav a:hover {
-  background-color: #eae9e9;
-  color: #5a5959;
+  /*background-color: #eae9e9;*/
+  color: #12e2ef;
   
 }
 nav a.active {
-  background-color: #fb5400;
+  background-color: #12e2ef;
 } 
 
 

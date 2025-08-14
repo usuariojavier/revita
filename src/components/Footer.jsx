@@ -53,17 +53,18 @@ const styles = {
     fontSize: "14px",
     position: "absolute",
     zindex: "800",
+    mrginTop: "30px",
   },
 
   container: {
     display: "flex",
     justifyContent: "space-around",
     flexWrap: "wrap",
-    padding: "0 20px",
+    padding: " 0 20px",
     marginBottom: "5px",
 
     maxWidth: "100%", // ✅ Igual que el resto del sitio
-    margin: "0 auto", // ✅ Centra el contenido
+    margin: "20 auto", // ✅ Centra el contenido
   },
 
   column: {

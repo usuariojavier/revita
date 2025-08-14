@@ -20,5 +20,5 @@ const styles = {
   form: { display: "flex", flexDirection: "column", gap: "15px" },
   input: { padding: "10px", fontSize: "16px", borderRadius: "4px", border: "1px solid #ccc" },
   textarea: { padding: "10px", fontSize: "16px", borderRadius: "4px", border: "1px solid #ccc" },
-  button: { padding: "12px", fontSize: "16px", backgroundColor: "#333", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer" },
+  button: { padding: "12px", fontSize: "16px", backgroundColor: "#12e2ef", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer" },
 };
