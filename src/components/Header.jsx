@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SearchBar from "./SearchBar";
 import i18n from "../i18n/i18n";
-import { AlignLeft } from "lucide-react";
+import { AlignLeft, Space } from "lucide-react";
 import { useCart } from "../context/CartContext";
+
+
 
 
 
@@ -54,6 +56,25 @@ const [showMenAccessoriesMenu, setShowMenAccessoriesMenu] = useState(false);
 
 const { cart } = useCart();
 
+// constantes ara saber si esta en movil o no 
+
+
+
+const [isMobile, setIsMobile] = useState(false);
+const [menuOpen, setMenuOpen] = useState(false);
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 768);
+  };
+  handleResize(); // inicial
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
+
+
+
 
 ////////    ESTILOS DE DROPDOWN Y SUBMENU   PRIMER SUBMENU  //////////
 
@@ -68,13 +89,14 @@ const { cart } = useCart();
     top: "16px",
     left: "0",
     width: "180px",
-    backgroundColor: "black",
+    backgroundColor: "#ffffff",
     border: "1px solid #ddd",
     boxShadow: "0 4px 8px rgba(0,0,0,5)",
     padding: "10px",
     zIndex: 1000,
     minWidth: "180px",
     display: "flex",
+   
   
     flexDirection: "column",
     gap: "15px",
@@ -94,39 +116,38 @@ const { cart } = useCart();
     position: "relative",
     padding: "6px 10px",
     cursor: "pointer",
-    backgroundColor: "#000000ff",
+    backgroundColor: "#ffffff",
     borderRadius: "6px",
     transition: "background 0.5s",
-    backgroundColor: "black",
+    backgroundColor: "#ffffff",
     color: "white",
     fontSize: "16px",
 
   },
 
+submenu: {
+  position: isMobile ? "static" : "absolute",
+  top: isMobile ? "auto" : 0,
+  left: isMobile ? "auto" : "100%",
+  width: "100%",
+  maxWidth: "180px",
+  backgroundColor: "#ffffff",
+  border: "1px solid #ddd",
+  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+  padding: "10px",
+  zIndex: 1000,
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
+  borderRadius: "6px",
+  textAlign: "left",
+  fontSize: "1rem",
+  color: "#333",
+}
 
-  submenu: {
-    position: "absolute",
-    top: 0,
-    left: "100%",
-    color : "white",
-    fontSize: "16px",
-    backgroundColor: "black" ,
-    border: "1px solid #ddd",
-    boxShadow: "0 4px 8px rgba(0,0,0,5)",
-    padding: "10px",
-    zIndex: 1000,
-    minWidth: "180px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "8px",
-    borderRadius: "6px",
-    textAlign: "left",
-  },
+
+
 };
-
-
-
-
 
 
 
@@ -134,11 +155,36 @@ const { cart } = useCart();
   return (
     <div>
       <header>
-        
-        <nav style={{ display: "flex", gap: "30px" }}>
-          <Link to="/"> {t("home")}</Link>
+        {isMobile && (
+          <button
+            onClick={() => setMenuOpen((prev) => !prev)}
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: "24px",
+              cursor: "pointer",
+              marginBottom: "10px",
+              alignItems: "left",
+              textAlign: "left",
+              display: "flex",
+            }}
+          >
+            ☰
+          </button>
+        )}
 
+        <nav
+          style={{
+            display: isMobile ? (menuOpen ? "flex" : "none") : "flex",
+            flexDirection: isMobile ? "column" : "row",
 
+            alignItems: "center",
+
+            gap: "30px",
+          }}
+        >
+          <Link to="/"> {<img src="/images/home.png" alt="user"       width={"25px"} />
+}</Link>
 
           {/*----------------------    MUJER -----------------------------*/}
 
@@ -175,7 +221,6 @@ const { cart } = useCart();
                       <Link to="/mujer/ropa/abrigos">Abrigos</Link>
                       <Link to="/mujer/ropa/sudaderas">Sudaderas</Link>
                       <Link to="/mujer/ropa/pijamas">Pijamas</Link>
-                    
                     </div>
                   )}
                 </div>
@@ -210,12 +255,20 @@ const { cart } = useCart();
                       <Link to="/mujer/complementos/mochilas">Mochilas</Link>
                       <Link to="/mujer/complementos/carteras">Carteras</Link>
                       <Link to="/mujer/complementos/monederos">Monederos</Link>
-                      <Link to="/mujer/complementos/bufandas">Bufandas y pañuelos</Link>
-                      <Link to="/mujer/complementos/calcetines">Calcetines</Link>
+                      <Link to="/mujer/complementos/bufandas">
+                        Bufandas y pañuelos
+                      </Link>
+                      <Link to="/mujer/complementos/calcetines">
+                        Calcetines
+                      </Link>
                       <Link to="/mujer/complementos/gorros">Gorros</Link>
-                      <Link to="/mujer/complementos/gafas-sol">Gafas de sol</Link>
+                      <Link to="/mujer/complementos/gafas-sol">
+                        Gafas de sol
+                      </Link>
                       <Link to="/mujer/complementos/gafas">Gafas</Link>
-                      <Link to="/mujer/complementos/cinturones">Cinturones</Link>
+                      <Link to="/mujer/complementos/cinturones">
+                        Cinturones
+                      </Link>
                       <Link to="/mujer/complementos/gorras">Gorras</Link>
                     </div>
                   )}
@@ -485,14 +538,17 @@ const { cart } = useCart();
 
           <Link to="/marcas">{t("brands")}</Link>
 
-          <Link to="/cart">🛒 Carrito ({cart.length})</Link>
+          <Link to="/cart">🛒 {cart.length}</Link>
 
-          {/*<img
-            src="/public/images/logo.png"
-            alt="imagen"
-            className="logo"
-            style={{ width: "50px", height: "50px" }}
-          ></img>   */}
+            
+
+          <Link to="/cuenta" className="header-action">
+            <span className="action-icon">
+              <img src="/images/logoUser.jpg" alt="user"       width={"25px"} />
+
+            </span>
+            <span className="action-text"></span>
+          </Link>
 
           <div>
             <button

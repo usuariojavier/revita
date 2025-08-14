@@ -1,23 +1,56 @@
+import { useState } from "react";
 import ProductCard from "../components/ProductCard";
 import Banner from "../components/Banner";
+import { useCart } from "../context/CartContext";
+
+
+
 
 export default function Home({ productos }) {
+  const [productosConStock, setProductosConStock] = useState(productos);
+
+  const { addToCart } = useCart();
+
+
+const handleAddToCart = (producto) => {
+  if (producto.stock > 0) {
+    addToCart(producto); // ✅ Añade al carrito
+
+    const nuevosProductos = productosConStock.map(p =>
+      p.id === producto.id ? { ...p, stock: p.stock - 1 } : p
+    );
+    setProductosConStock(nuevosProductos); // ✅ Actualiza stock
+  }
+};
+
+
+
+
+
+
   return (
     <div style={{ padding: "20px" }}>
       <Banner />
-      <h1 style={{ marginBottom: "20px" }}>REVITA</h1>
+      <img src ="/images/larepercha.jpg" alt="Menu" style={{ width: "50em", height: "30em" }} />
+      
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "20px"
+          gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+          gap: "14px",
+          padding: "15px",
         }}
       >
-        {productos.map(p => (
-          <ProductCard key={p.id} product={p} />
+        {productosConStock.map(p => (
+          <ProductCard
+            key={p.id}
+            product={p}
+            onAddToCart={() => handleAddToCart(p)}
+          />
         ))}
       </div>
     </div>
   );
 }
+

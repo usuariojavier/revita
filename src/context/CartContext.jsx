@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid"; // Instala con: npm install uuid
 
 // Exportación nombrada
 export const CartContext = createContext();
@@ -16,8 +17,14 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product) => setCart(prev => [...prev, product]);
-  const removeFromCart = (id) => setCart(prev => prev.filter(item => item.id !== id));
+  const addToCart = (product) => {
+  const itemWithUniqueId = { ...product, cartItemId: uuidv4() };
+  setCart(prev => [...prev, itemWithUniqueId]);
+};
+
+const removeFromCart = (cartItemId) => {
+  setCart(prev => prev.filter(item => item.cartItemId !== cartItemId));
+};
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>

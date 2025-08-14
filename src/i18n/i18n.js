@@ -64,8 +64,7 @@ const resources = {
       sunglassesWoman: "Gafas de Sol Mujer",
       sunglassesMan: "Gafas de Sol Hombre",
       accessories: "complementos",
-
-
+      description: "Descripción",
     },
   },
   ca: {
@@ -115,7 +114,7 @@ const resources = {
       sweatshirtMan: "Sudadera Dona",
       bootsGirl: "Botes Nena",
       bootsBoy: "Botes Nen",
-      bootsWoman: "Botes Dona",
+      bootsWoman: "Botes Dona", 
       jacketGirl: "Jaqueta Nena",
       jacketWoman: "Jaqueta Dona",
       jacketBoy: "Jaqueta Nen",
@@ -129,11 +128,7 @@ const resources = {
       sunglassesWoman: "Gafes de Sol Dona",
       sunglassesMan: "Gafes de Sol Home",
       accessories: "complementos",
-
-
-
-
-
+      description: "Descripció",
     },
   },
 };

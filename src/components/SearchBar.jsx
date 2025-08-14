@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import i18n from "../i18n/i18n";
 
 export default function SearchBar({ onSearch }) {
@@ -9,16 +9,23 @@ export default function SearchBar({ onSearch }) {
     size: "",
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  if (isMobile) return null; // 👈 Oculta el componente en móvil
+
   const handleSearch = () => {
     onSearch({ query, filter });
   };
 
   return (
     <div style={styles.container}>
-      {/* Campo de búsqueda */}
-
-        
-
       <input
         type="text"
         placeholder="Buscar productos..."
@@ -27,7 +34,6 @@ export default function SearchBar({ onSearch }) {
         style={styles.input}
       />
 
-      {/* Filtro por categoría */}
       <select
         value={filter.category}
         onChange={(e) =>
@@ -42,7 +48,6 @@ export default function SearchBar({ onSearch }) {
         <option value="nina">Niña</option>
       </select>
 
-      {/* Filtro por precio */}
       <select
         value={filter.price}
         onChange={(e) =>
@@ -57,7 +62,6 @@ export default function SearchBar({ onSearch }) {
         <option value="100+">Más de 100€</option>
       </select>
 
-      {/* Filtro por talla */}
       <select
         value={filter.size}
         onChange={(e) =>
@@ -72,7 +76,6 @@ export default function SearchBar({ onSearch }) {
         <option value="XL">XL</option>
       </select>
 
-      {/* Botón de búsqueda */}
       <button onClick={handleSearch} style={styles.button}>
         🔍 Buscar
       </button>
@@ -80,79 +83,45 @@ export default function SearchBar({ onSearch }) {
   );
 }
 
-
-
-/*ESTILOS BARRA*/
-
-
 const styles = {
   container: {
-    display: "flex",
-    gap: "10px",
-    alignItems: "center",
-    marginBottom: "1px",
-    flexWrap: "wrap",
-    
-
-
-    
-  },
-
-  input: {
-    padding: "8px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    flex: "1 1 200px"
-  },
-  select: {
-    padding: "8px",
-    border: "1px solid #ccc",
-    borderRadius: "4px"
-  },
-  button: {
-    padding: "8px 12px",
-    backgroundColor: "#007bff",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer"
-  },
-
-
-    container: {
-    position: "absolute",
+    textAlingn: "left",
+    zIndex: 1000,
+    position: "fixed",
     top: "0px",
     left: "0",
-    alignItems: "center",
-    
     width: "99%",
-    backgroundColor: "black",
+    backgroundColor: "none",
     border: "1px solid #ddd",
-    boxShadow: "0 4px 8px rgba(0,0,0,5)",
+    boxShadow: "0 4px 8px rgba(0,0,0,0.05)",
     padding: "5px",
-    zIndex: 1000,
-    
+    borderRadius: "6px",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    flexWrap: "wrap",
     justifyContent: "space-between",
-  
-    
+    flexWrap: "wrap",
     gap: "15px",
-    borderRadius: "6px",
-
-    color: "white",
     fontSize: "10px",
-    position: "fixed",
-    
-  
-}
-
-
-
-
-
-
+    color: "white",
+  },
+  input: {
+    padding: "0.5em",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    flex: "1 1 50%",
+  },
+  select: {
+    padding: "0.6em",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+  },
+  button: {
+    padding: "8px 12px",
+    backgroundColor: "#12e2ef",
+    color: "white",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+  },
 };
-

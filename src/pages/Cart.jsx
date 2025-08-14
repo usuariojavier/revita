@@ -16,7 +16,7 @@ export default function Cart() {
 
     <div> 
 
-        <img src="/images/carrito-compra.gif" alt="Carrito" style={{ width: "600px", margin: "200px auto", display: "block" }} />
+        <img src="/images/carrito-compra.gif" alt="Carrito" style={{ width: "500px", margin: "100px auto", display: "block" }} />
    <h1>Mi carrito 🛒</h1>
 {!cart.length ? <p>Carrito vacío   😔  </p> : (
   <>
@@ -30,7 +30,8 @@ export default function Cart() {
         <p>{item.price}€</p>
       </div>
     </Link>
-    <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
+    <button onClick={() => removeFromCart(item.cartItemId)}>Eliminar</button>
+
   </div>
 ))}
 

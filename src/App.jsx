@@ -20,6 +20,8 @@ import Contacto from "./pages/Contacto";
 
 import { CartProvider } from "./context/CartContext";
 import productos from "./data/productos";
+import Marcas from "./pages/Marcas";
+import Cuenta from "./pages/cuenta";
 
 import "./i18n/i18n";
 import "./index.css";
@@ -67,8 +69,11 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/producto/:id" element={<ProductDetail />} />
+          <Route path="/marcas" element={<Marcas />} />
+          <Route path="/cuenta" element={<Cuenta />} />
 
           {/* Rutas dinámicas para categorías */}
+          
           <Route path="/:genero" element={<Category />} />
           <Route path="/:genero/:category" element={<Category />} />
           <Route path="/:genero/:category/:subcategoria" element={<Category />} />

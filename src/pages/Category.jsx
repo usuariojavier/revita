@@ -7,7 +7,7 @@ export default function Category() {
   const { genero, category, subcategoria } = useParams();
 
   const productos = [
-    { id: 1, name: "Camiseta Mujer", category: "mujer", genero: "mujer", categoria: "ropa", subcategoria: "camisetas", price: 19.99, image:"Camiseta-mujer.jpg" ,  size: "M" },
+    { id: 1, name: "Camiseta Mujer",  genero: "mujer", categoria: "ropa", subcategoria: "camisetas", price: 19.99, image:"Camiseta-mujer.jpg" ,  size: "M" },
     { id: 2, name: "Zapatillas Hombre", genero: "hombre", categoria: "calzado", subcategoria: "zapatillas", price: 49.99, image:"Zapatillas-hombre.jpeg" , category: "hombre", size: "L" },
     { id: 3, name: "Chaqueta Niño",  genero: "nino", categoria: "ropa", subcategoria: "chaquetas", price: 39.00,  image:"Chaqueta-nen.webp"  ,category: "nino", size: "S" },
     { id: 4, name: "Zapatillas niño",  genero: "nino", categoria: "calzado", subcategoria: "zapatillas", price: 29.99, image:"zapatillas-nen.jpg" , category: "nino", size: "s" },

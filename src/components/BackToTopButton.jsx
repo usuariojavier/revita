@@ -29,20 +29,26 @@ export default function BackToTopButton() {
     <button
       onClick={scrollToTop}
       style={{
+        
         position: "fixed",
-        bottom: "20px",
-        right: "20px",
-        padding: "10px 15px",
-        backgroundColor: "#333",
-        color: "#fff",
+        bottom: "1em",
+        right: "1em",
+        padding: "0.1em  0.1em",
+        backgroundColor: 'transparent',
+        
+        color: "#12e2ef",
         border: "none",
         borderRadius: "5px",
         cursor: "pointer",
         zIndex: 1000,
-        transition: "opacity 0.3s ease"
+        transition: "opacity 0.3s ease",
       }}
     >
-      <img src="/images/up.webp" alt="Ir hacia arriba" style={{ width: "50px", height: "60px" }} />
+      <img
+        src="/images/up.png"
+        alt="Ir hacia arriba"
+        style={{ width: "3em", height: "3em" }}
+      />
     </button>
   );
 }

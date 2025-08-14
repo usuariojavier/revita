@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function ProductCard({ product }) {
-  const { addToCart } = useCart();
+export default function ProductCard({ product, onAddToCart }) {
   const [hovered, setHovered] = useState(false);
   const { t } = useTranslation();
+
+
+
+
 
   return (
     <div
@@ -17,10 +20,6 @@ export default function ProductCard({ product }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-
-
-
-      
       <Link
         to={`/producto/${product.id}`}
         style={{ textDecoration: "none", color: "inherit" }}
@@ -31,25 +30,39 @@ export default function ProductCard({ product }) {
           style={styles.img}
         />
         <h3>{t(product.name)}</h3>
-
         <p>{product.price} €</p>
+        <p>Stock: {product.stock}</p>
       </Link>
 
-      <button onClick={() => addToCart(product)} style={styles.button}>
-        Añadir al carrito
+      <button
+        onClick={onAddToCart}
+        disabled={product.stock <= 0}
+        style={{
+          ...styles.button,
+          backgroundColor: product.stock <= 0 ? "#ccc" : "#12e2ef",
+          cursor: product.stock <= 0 ? "not-allowed" : "pointer",
+        }}
+      >
+        {product.stock <= 0 ? "Sin stock" : "Añadir al carrito"}
       </button>
     </div>
   );
 }
 
+  
+
+
+
+
 const styles = {
   card: {
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    padding: "10px",
+    /*border: "1px solid #ccc",*/ //  borde productos
+    borderRadius: "6px",
+    padding: "8px",
     textAlign: "center",
     transition: "transform 0.3s",
-    width: "fit-content",
+    width: "100%",
+
   },
   cardHover: {
     transform: "scale(1.1)",
