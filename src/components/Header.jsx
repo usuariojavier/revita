@@ -8,6 +8,8 @@ import i18n from "../i18n/i18n";
 import { AlignLeft, Space } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
+import HamburgerMenu from "./HamburgerMenu";
+
 
 
 
@@ -139,8 +141,6 @@ submenu: {
   color: "#333",
 }
 
-
-
 };
 
 
@@ -148,24 +148,21 @@ submenu: {
 
   return (
     <div>
+
       <header>
+
+
+        {/*  -----------------------MENU HAMBURGUESA  -----------------------------     */}
+
         {isMobile && (
-          <button
-            onClick={() => setMenuOpen((prev) => !prev)}
-            style={{
-              background: "none",
-              border: "none",
-              fontSize: "24px",
-              cursor: "pointer",
-              marginBottom: "10px",
-              alignItems: "left",
-              textAlign: "left",
-              display: "flex",
-            }}
-          >
-            ☰
-          </button>
-        )}
+    <HamburgerMenu
+      onToggle={() => setMenuOpen((prev) => !prev)}
+      isOpen={menuOpen}
+    />
+  )}
+
+
+
 
         <nav
           style={{
@@ -177,7 +174,7 @@ submenu: {
             gap: "30px",
           }}
         >
-          <Link to="/"> {<img src="/images/home.png" alt="user"       width={"25px"} />
+          <Link to="/"> {<img src="/images/home.png" alt="user"    width={"25px"} />
 }</Link>
 
           {/*----------------------    MUJER -----------------------------*/}
