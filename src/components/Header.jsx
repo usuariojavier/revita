@@ -9,6 +9,9 @@ import { AlignLeft, Space } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 import HamburgerMenu from "./HamburgerMenu";
+import { Menu, X} from "lucide-react"; 
+
+
 
 
 
@@ -148,21 +151,22 @@ submenu: {
 
   return (
     <div>
-
       <header>
-
-
         {/*  -----------------------MENU HAMBURGUESA  -----------------------------     */}
 
         {isMobile && (
-    <HamburgerMenu
-      onToggle={() => setMenuOpen((prev) => !prev)}
-      isOpen={menuOpen}
-    />
-  )}
-
-
-
+          <HamburgerMenu
+            onToggle={() => setMenuOpen((prev) => !prev)}
+            isOpen={menuOpen}
+            icon={
+              menuOpen ? (
+                <X size={28} color="#12e2ef" />
+              ) : (
+                <Menu size={28} color="#12e2ef" />
+              )
+            }
+          />
+        )}
 
         <nav
           style={{
@@ -174,8 +178,10 @@ submenu: {
             gap: "30px",
           }}
         >
-          <Link to="/"> {<img src="/images/home.png" alt="user"    width={"25px"} />
-}</Link>
+          <Link to="/">
+            {" "}
+            {<img src="/images/home.png" alt="user" width={"25px"} />}
+          </Link>
 
           {/*----------------------    MUJER -----------------------------*/}
 
@@ -192,25 +198,25 @@ submenu: {
             <Link to="/mujer">{t("women")}</Link>
             {showWomenMenu && (
               <div style={styles.dropdown}>
-                <Link to="/mujer">Todo</Link>
+                <Link to="/mujer">{t("all")}</Link>
 
                 <div
                   onMouseEnter={() => setShowClothingMenu(true)}
                   onMouseLeave={() => setShowClothingMenu(false)}
                   style={styles.submenuTrigger}
                 >
-                  <Link to="/mujer/ropa">Ropa ▸</Link>
+                  <Link to="/mujer/ropa">{t("clothing")} ▸</Link>
                   {showClothingMenu && (
                     <div style={styles.submenu}>
-                      <Link to="/mujer/ropa/pantalones">Pantalones</Link>
+                      <Link to="/mujer/ropa/pantalones"> {t("pants")}</Link>
                       <Link to="/mujer/ropa/shorts">Shorts</Link>
-                      <Link to="/mujer/ropa/top">Top</Link>
-                      <Link to="/mujer/ropa/camisetas">Camisetas</Link>
-                      <Link to="/mujer/ropa/vestidos">Vestidos</Link>
-                      <Link to="/mujer/ropa/faldas">Faldas</Link>
-                      <Link to="/mujer/ropa/mallas">Mallas</Link>
-                      <Link to="/mujer/ropa/abrigos">Abrigos</Link>
-                      <Link to="/mujer/ropa/sudaderas">Sudaderas</Link>
+                      <Link to="/mujer/ropa/top">Top</Link>*
+                      <Link to="/mujer/ropa/camisetas">{t("tshirt")}</Link>
+                      <Link to="/mujer/ropa/vestidos">{t("dress")}</Link>
+                      <Link to="/mujer/ropa/faldas">{t("skirt")}</Link>
+                      <Link to="/mujer/ropa/mallas">{t("leggings")}</Link>
+                      <Link to="/mujer/ropa/abrigos">{t("jackets")}</Link>
+                      <Link to="/mujer/ropa/sudaderas">{t("sweatshirts")}</Link>
                       <Link to="/mujer/ropa/pijamas">Pijamas</Link>
                     </div>
                   )}
@@ -224,12 +230,16 @@ submenu: {
                   <Link to="/mujer/calzado">Calzado ▸</Link>
                   {showShoesMenu && (
                     <div style={styles.submenu}>
-                      <Link to="/mujer/calzado/zapatillas">Zapatillas</Link>
-                      <Link to="/mujer/calzado/zapatos">Zapatos</Link>
-                      <Link to="/mujer/calzado/botas">Botas</Link>
+                      <Link to="/mujer/calzado/zapatillas">
+                        {t("sneakers")}
+                      </Link>
+                      <Link to="/mujer/calzado/zapatos">{t("shoes")}</Link>
+                      <Link to="/mujer/calzado/botas">{t("boots")}</Link>
                       <Link to="/mujer/calzado/botines">Botines</Link>
                       <Link to="/mujer/calzado/chanclas">Chanclas</Link>
-                      <Link to="/mujer/calzado/casa">Zapatillas de casa</Link>
+                      <Link to="/mujer/calzado/casa">
+                        {t("house_sleepers")}
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -239,28 +249,30 @@ submenu: {
                   onMouseLeave={() => setShowAccessoriesMenu(false)}
                   style={styles.submenuTrigger}
                 >
-                  <Link to="/Mujer/complementos">Complementos ▸</Link>
+                  <Link to="/Mujer/complementos"> {t("accessories")}▸ </Link>
                   {showAccessoriesMenu && (
                     <div style={styles.submenu}>
-                      <Link to="/mujer/complementos/bolsos">Bolsos</Link>
-                      <Link to="/mujer/complementos/mochilas">Mochilas</Link>
+                      <Link to="/mujer/complementos/bolsos">
+                        {t("pockets")}
+                      </Link>
+                      <Link to="/mujer/complementos/mochilas">
+                        {t("backpack")}
+                      </Link>
                       <Link to="/mujer/complementos/carteras">Carteras</Link>
                       <Link to="/mujer/complementos/monederos">Monederos</Link>
-                      <Link to="/mujer/complementos/bufandas">
-                        Bufandas y pañuelos
-                      </Link>
+                      <Link to="/mujer/complementos/bufandas">{t("handkerchiefs")}</Link>
                       <Link to="/mujer/complementos/calcetines">
-                        Calcetines
+                        {t("socks")}
                       </Link>
-                      <Link to="/mujer/complementos/gorros">Gorros</Link>
+
                       <Link to="/mujer/complementos/gafas-sol">
-                        Gafas de sol
+                        {t("sunglasess")}
                       </Link>
-                      <Link to="/mujer/complementos/gafas">Gafas</Link>
+                      <Link to="/mujer/complementos/gafas">{t("glasses")}</Link>
                       <Link to="/mujer/complementos/cinturones">
-                        Cinturones
+                        {t("belts")}
                       </Link>
-                      <Link to="/mujer/complementos/gorras">Gorras</Link>
+                      <Link to="/mujer/complementos/gorras">{t("cups")}</Link>
                     </div>
                   )}
                 </div>
@@ -529,14 +541,18 @@ submenu: {
 
           <Link to="/marcas">{t("brands")}</Link>
 
-          <Link to="/cart"><img src="/images/carrito.png" alt="Carrito" style={{ width: "25px" }} /> {cart.length}</Link>
-
-            
+          <Link to="/cart">
+            <img
+              src="/images/carrito.png"
+              alt="Carrito"
+              style={{ width: "25px" }}
+            />{" "}
+            {cart.length}
+          </Link>
 
           <Link to="/cuenta" className="header-action">
             <span className="action-icon">
-              <img src="/images/logoUser.jpg" alt="user"       width={"25px"} />
-
+              <img src="/images/logoUser.jpg" alt="user" width={"25px"} />
             </span>
             <span className="action-text"></span>
           </Link>

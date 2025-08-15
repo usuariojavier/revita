@@ -44,7 +44,7 @@ export default function ProductCard({ product, onAddToCart }) {
           cursor: product.stock <= 0 ? "not-allowed" : "pointer",
         }}
       >
-        {product.stock <= 0 ? "Sin stock" : "Añadir al carrito"}
+        {product.stock <= 0 ? t("Sin stock") : ("Añadir al carrito")}
       </button>
     </div>
   );
@@ -65,9 +65,12 @@ const styles = {
     width: "100%",
 
   },
+
   cardHover: {
-    transform: "scale(1.1)",
-  },
+  boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+  transform: "translateY(-4px)",
+},
+
   img: {
     width: "100%",
     height: "120px",

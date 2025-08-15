@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import productos from "../data/productos";
+import i18n from "../i18n/i18n";
 
 
 export default function ProductDetail() {
@@ -75,9 +76,9 @@ const handleAddToCart = () => {
           <p>
             <strong>Precio:</strong> {product.price} €
           </p>
-          <p>
+          {/*<p>
             <strong>Categoría:</strong> {product.category}
-          </p>
+          </p>*/}
           <p>
             <strong>Talla:</strong> {product.size}
           </p>
