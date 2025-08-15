@@ -15,7 +15,7 @@ const Banner = () => {
       setCurrentIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); // cambia cada 3 segundos
+    }, 1500); // cambia cada 1.5 segundos
 
     return () => clearInterval(interval); // limpia el intervalo al desmontar
   }, []);

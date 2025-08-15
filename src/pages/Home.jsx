@@ -1,3 +1,6 @@
+
+
+
 import { useState } from "react";
 import ProductCard from "../components/ProductCard";
 import Banner from "../components/Banner";
@@ -11,6 +14,7 @@ export default function Home({ productos }) {
 
   const { addToCart } = useCart();
 
+ //FUNCION AGREGAR AL CARRITO
 
 const handleAddToCart = (producto) => {
   if (producto.stock > 0) {
@@ -31,7 +35,11 @@ const handleAddToCart = (producto) => {
   return (
     <div style={{ padding: "5px" }}>
       <Banner />
-      <img src ="/images/larepercha.jpg" alt="Menu" style={{ width: "50em", height: "30em" }} />
+      <img src ="/images/larepercha.jpg" 
+      alt="imagen la repercha" 
+      className="responsive-image"
+      style={{ width: "50em", height: "30em" }} />
+      
       
 
       <div
@@ -42,7 +50,7 @@ const handleAddToCart = (producto) => {
           padding: "1px",
         }}
       >
-        {productosConStock.map(p => (          //FUNCION AGREGAR AL CARRITO
+        {productosConStock.map(p => (         
           <ProductCard
             key={p.id}
             product={p}

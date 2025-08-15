@@ -34,13 +34,13 @@ const handleAddToCart = () => {
   if (visibleStock > 0) {
     addToCart(product);
     setVisibleStock(prev => prev - 1); // ← reduce el stock local
-    toast.success("✅ Producto añadido al carrito", {
-      position: "bottom-right",
+    toast.success(" Producto añadido al carrito", {
+      position: "top-right",
       autoClose: 3000,
     });
   } else {
     toast.error("❌ No hay más stock disponible", {
-      position: "bottom-right",
+      position: "top-right",
       autoClose: 3000,
     });
   }
@@ -64,7 +64,7 @@ const handleAddToCart = () => {
             width: "300px",
             borderRadius: "8px",
             transition: "transform 0.3s ease",
-            transform: hovered ? "scale(2)" : "scale(1)",
+            transform: hovered ? "scale(1.4)" : "scale(1)",
             zIndex: 1000,
           }}
           onMouseEnter={() => setHovered(true)}

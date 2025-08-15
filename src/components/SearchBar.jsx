@@ -11,7 +11,11 @@ export default function SearchBar({ onSearch }) {
 
   const [isMobile, setIsMobile] = useState(false);
 
+
   useEffect(() => {
+
+
+    
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -45,7 +49,7 @@ export default function SearchBar({ onSearch }) {
         }
         style={styles.select}
       >
-        <option value="">Todas las categorías</option>
+        <option value=""> Todas las categorías </option>
         <option value="mujer">Mujer</option>
         <option value="hombre">Hombre</option>
         <option value="nino">Niño</option>
@@ -99,7 +103,7 @@ const styles = {
     border: "1px solid #ddd",
     boxShadow: "0 4px 8px #12e2ef(0,0,0,1)",
     padding: "5px",
-    borderRadius: "6px",
+    borderRadius: "5px",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -112,13 +116,18 @@ const styles = {
   input: {
     padding: "0.5em",
     border: "1px solid #ccc",
-    borderRadius: "4px",
+    borderRadius: "10px",
     flex: "1 1 50%",
   },
   select: {
     padding: "0.6em",
     border: "1px solid #ccc",
-    borderRadius: "4px",
+    borderRadius: "10px",
+    backgroundColor: "none",
+    color: "black",
+    fontSize: "14px",
+
+    /*------------------------------------------------------..----------------------------------------------------------*/
   },
   button: {
     padding: "8px 12px",

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 
-
+///////////////////////////////////////////      CARRITO      /////////////////////////////////////////////
 
 export default function Cart() {
   const { cart, removeFromCart } = useCart();
@@ -17,7 +17,7 @@ export default function Cart() {
     <div> 
 
         <img src="/images/carrito-compra.gif" alt="Carrito" style={{ width: "500px", margin: "100px auto", display: "block" }} />
-   <h1>Mi carrito <img src="/images/carrito.png" alt="Carrito" style={{ width: "50px" }} /></h1>
+      <h1>Mi carrito <img src="/images/carrito.png" alt="Carrito" style={{ width: "50px" }} /></h1>
 {!cart.length ? <p>Carrito vacío   😔  </p> : (
   <>
 

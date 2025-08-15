@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -5,14 +7,6 @@ import SearchBar from "./SearchBar";
 import i18n from "../i18n/i18n";
 import { AlignLeft, Space } from "lucide-react";
 import { useCart } from "../context/CartContext";
-
-
-
-
-
-
-
-
 
 
 

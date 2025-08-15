@@ -3,7 +3,7 @@
   height: 100%;
   overflow: hidden;
   position: relative;
-  margin-top: 100px;
+  margin-top: 80px;
 }
 
 .banner-image {
@@ -11,4 +11,8 @@
   height: 40%;
   object-fit: cover;
   transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
 }

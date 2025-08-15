@@ -1,3 +1,7 @@
+
+
+
+
 export default function FAQ() {
   return (
     <div style={styles.container}>

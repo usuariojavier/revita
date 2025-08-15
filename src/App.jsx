@@ -25,7 +25,7 @@ import Cuenta from "./pages/cuenta";
 
 import "./i18n/i18n";
 import "./index.css";
-import "./pages/Home.css";
+
 
 import { useTranslation } from "react-i18next";
 

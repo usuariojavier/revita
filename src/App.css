@@ -48,15 +48,20 @@ logo {
   transition: filter 300ms;
 }
 logo:hover {
-  filter: drop-shadow(0 0 2em #000dffaa);
-  -webkit-filter: drop-shadow(0 0 2em #000dffaa);
+  filter: drop-shadow(0 0 2em #12e2ef);
+  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
 }
 logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #12e2ef);
+  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
 }
 logo.nextjs:hover {
-  filter: drop-shadow(0 0 2em #fe0000);
-  -webkit-filter: drop-shadow(0 0 2em #fd009d);
+  filter: drop-shadow(0 0 2em #12e2ef);
+  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
+}
+logo.nextjs {
+  filter: drop-shadow(0 0 2em #12e2ef);
+  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
 }
 
 
