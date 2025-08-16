@@ -8,6 +8,13 @@ export default function ProductCard({ product, onAddToCart }) {
   const { t } = useTranslation();
 
 
+        function capitalize(text) {
+  if (!text) return "";
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+
+
 
 
 
@@ -29,7 +36,10 @@ export default function ProductCard({ product, onAddToCart }) {
           alt={product.name}
           style={styles.img}
         />
-        <h3>{t(product.name)}</h3>
+        {/*<h3>{t(product.name)}</h3>    --------------------cambio para que no se vea el nombre completo */}
+
+        <h3>{capitalize(product.subcategoria)} - {product.brand}</h3>
+
         <p style={{ fontWeight: "bold" }}  >{product.price} €</p>
         <p>{t(product.description)}</p>
         {/*<p>Stock: {product.stock}</p>*/}

@@ -1,14 +1,21 @@
 
 
+import i18n from "../i18n/i18n";                     //  para traducir
+import { useTranslation } from "react-i18next";    // para traducir
+
 
 
 export default function Devoluciones() {
+
+const { t } = useTranslation();    // para  traducir
+
+
   return (
     <div style={styles.container}>
 
 
         <img src="/images/devolucion.gif" alt="Devoluciones" style={{ width: "60%", marginBottom: "20px" }} />
-      <h1 style={styles.title}>Política de Devoluciones</h1>
+      <h1 style={styles.title}>Política de {t("returns")}</h1>
       <p style={styles.text}>
         Puedes devolver cualquier producto dentro de los 30 días posteriores a la compra. Asegúrate de que el artículo esté sin usar y en su embalaje original.
       </p>

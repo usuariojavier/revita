@@ -135,7 +135,7 @@ header {
   top: 45px;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 950;
   background-color: none; 
   color: #12e2ef;
   text-align: center;
@@ -164,14 +164,14 @@ nav {
   justify-content: center;
   gap: 10px;
   margin-bottom: 1px;
-  margin: top 1px;
+  margin-top: 15px;
   padding: 1px;
-  background-color: white;
+  background-color: none;
   color: #fff;
   text-align: center;
   font-size: 1em;
   font-family: "Open Sans", sans-serif;
-  font-weight: 40;
+  font-weight: 50;
   line-height: 0.1;
   border-radius: 25px;
   -webkit-border-radius: 25px;
@@ -192,7 +192,7 @@ nav a {
   font-weight: 500;
   line-height: 0.1;
   border-radius: 5px;
-  padding: 10px;
+  padding: 12px;
   transition: background-color 0.3s ease;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;

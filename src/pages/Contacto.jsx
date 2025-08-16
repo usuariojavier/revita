@@ -1,16 +1,21 @@
-
+import i18n from "../i18n/i18n";                     //  para traducir
+import { useTranslation } from "react-i18next";    // para traducir
 
 
 
 export default function Contacto() {
+
+
+  const { t } = useTranslation();    // para  traducir
+
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Contacto</h1>
-      <p style={styles.text}>¿Tienes alguna duda o sugerencia? Escríbenos:</p>
+      <h1 style={styles.title}>{t("contact")}</h1>
+      <p style={styles.text}>{t("doubtsOrSuggestions")}:</p>
       <form style={styles.form}>
-        <input type="text" placeholder="Tu nombre" style={styles.input} />
-        <input type="email" placeholder="Tu correo" style={styles.input} />
-        <textarea placeholder="Tu mensaje" rows="5" style={styles.textarea}></textarea>
+        <input type="text" placeholder= {t("name")}style={styles.input} />
+        <input type="email" placeholder="email" style={styles.input} />
+        <textarea placeholder={t("message")}rows="5" style={styles.textarea}></textarea>
         <button type="submit" style={styles.button}>Enviar</button>
       </form>
     </div>

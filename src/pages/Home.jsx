@@ -35,7 +35,7 @@ const handleAddToCart = (producto) => {
   return (
     <div style={{ padding: "5px" }}>
       <Banner />
-      <img src ="/images/larepercha.jpg" 
+      <img src ="/images/larepercha.png" 
       alt="imagen la repercha" 
       className="responsive-image"
       style={{ width: "50em", height: "30em" }} />

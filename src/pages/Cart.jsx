@@ -8,7 +8,9 @@ import { useTranslation } from "react-i18next";
 ///////////////////////////////////////////      CARRITO      /////////////////////////////////////////////
 
 export default function Cart() {
+  const { t } = useTranslation();
   const { cart, removeFromCart } = useCart();
+  
 
   return (
 
@@ -17,8 +19,8 @@ export default function Cart() {
     <div> 
 
         <img src="/images/carrito-compra.gif" alt="Carrito" style={{ width: "500px", margin: "100px auto", display: "block" }} />
-      <h1>Mi carrito <img src="/images/carrito.png" alt="Carrito" style={{ width: "50px" }} /></h1>
-{!cart.length ? <p>Carrito vacío   😔  </p> : (
+      <h1>{t("cart")} <img src="/images/carrito.png" alt="Carrito" style={{ width: "50px" }} /></h1>
+{!cart.length ? <p>  {t("emptyCart")} 😔  </p> : (
   <>
 
     {cart.map(item => (
@@ -38,7 +40,7 @@ export default function Cart() {
 
 
     <h2>Total: {cart.reduce((sum, i) => sum + i.price, 0).toFixed(2)} €</h2>
-    <button onClick={() => navigate('/checkout')} style={{ padding: "10px", backgroundColor: "#12e2ef", color: "white" }}>Proceder a compra</button>
+    <button onClick={() => navigate('/checkout')} style={{ padding: "10px", backgroundColor: "#12e2ef", color: "white" }}>{t("proceedToPurchase")}</button>
         </>
 )}
  

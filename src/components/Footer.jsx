@@ -1,44 +1,86 @@
 
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+import i18n from "../i18n/i18n";
+import { useTranslation } from "react-i18next";
 
 
+export default function Footer() 
+{const { t } = useTranslation();
 
-export default function Footer() {
   return (
     <footer style={styles.footer}>
       <div style={styles.container}>
         {/* Sección de navegación */}
         <div style={styles.column}>
-          <h4 style={styles.heading}>Colecciones</h4>
-          <Link to="/mujer" style={styles.link}>Mujer</Link>
-          <Link to="/hombre" style={styles.link}>Hombre</Link>
-          <Link to="/ninos" style={styles.link}>Niños</Link>
-          <Link to="/novedades" style={styles.link}>Novedades</Link>
+          <h4 style={styles.heading}>{t("collections")}</h4>
+          <Link to="/mujer" style={styles.link}>
+            {t("women")}
+          </Link>
+          <Link to="/hombre" style={styles.link}>
+            {t("men")}
+          </Link>
+          <Link to="/ninos" style={styles.link}>
+            {t("children")}
+          </Link>
+          <Link to="/novedades" style={styles.link}>
+            {t("news")}
+          </Link>
         </div>
 
         {/* Sección de ayuda */}
         <div style={styles.column}>
-          <h4 style={styles.heading}>Ayuda</h4>
-          <Link to="/Envios" style={styles.link}>Envíos</Link>
-          <Link to="/Devoluciones" style={styles.link}>Devoluciones</Link>
-          <Link to="/FAQ" style={styles.link}>Preguntas frecuentes</Link>
-          <Link to="/Contacto" style={styles.link}>Contacto</Link>
+          <h4 style={styles.heading}>{t("help")}</h4>
+          <Link to="/Envios" style={styles.link}>
+            {t("shipments")}
+          </Link>
+          <Link to="/Devoluciones" style={styles.link}>
+            {t("returns")}
+          </Link>
+          <Link to="/FAQ" style={styles.link}>
+           FAQ
+          </Link>
+          <Link to="/Contacto" style={styles.link}>
+            {t("contact")}
+          </Link>
         </div>
 
         {/* Sección de redes */}
         <div style={styles.column}>
-          <h4 style={styles.heading}>Síguenos</h4>
-          <Link to="https://instagram.com" target="_blank" rel="noreferrer" style={styles.link}>Instagram</Link>
-          <Link to="https://facebook.com" target="_blank" rel="noreferrer" style={styles.link}>Facebook</Link>
-          <Link to="https://tiktok.com" target="_blank" rel="noreferrer" style={styles.link}>TikTok</Link>
+          <h4 style={styles.heading}>{t("followUs")}</h4>
+          <Link
+            to="https://instagram.com"
+            target="_blank"
+            rel="noreferrer"
+            style={styles.link}
+          >
+            Instagram
+          </Link>
+          <Link
+            to="https://facebook.com"
+            target="_blank"
+            rel="noreferrer"
+            style={styles.link}
+          >
+            Facebook
+          </Link>
+          <Link
+            to="https://tiktok.com"
+            target="_blank"
+            rel="noreferrer"
+            style={styles.link}
+          >
+            TikTok
+          </Link>
         </div>
       </div>
 
       {/* Línea inferior */}
       <div style={styles.bottom}>
-        <p style={styles.bottomText}>© 2025 REVITA — Todos los derechos reservados</p>
+        <p style={styles.bottomText}>
+          © 2025 REVITA — Todos los derechos reservados
+        </p>
       </div>
     </footer>
   );

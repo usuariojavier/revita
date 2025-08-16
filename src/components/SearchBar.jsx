@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
-import i18n from "../i18n/i18n";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useCart } from "../context/CartContext"; // 👈 para acceder al carrito
+import { FaSearch } from "react-icons/fa";
 
 export default function SearchBar({ onSearch }) {
+  const { t } = useTranslation();
+  const { cart } = useCart(); // 👈 accede al estado del carrito
+  
+
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState({
     category: "",
@@ -10,19 +17,29 @@ export default function SearchBar({ onSearch }) {
   });
 
   const [isMobile, setIsMobile] = useState(false);
-
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-
-
-    
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+
+
   }, []);
 
-  if (isMobile) return null; // 👈 Oculta el componente en móvil
+  if (isMobile) return null;
 
   const handleSearch = () => {
     onSearch({ query, filter });
@@ -32,109 +49,88 @@ export default function SearchBar({ onSearch }) {
 
 
     
-    <div style={styles.container}>
-      <img src="/images/larepercha.jpg" alt="Buscar" style={{ width: "10em", height: "4em" }} />
+    <div   style={{
+        ...styles.container,
+        
+          backgroundColor: scrolled ? "rgba(255, 255, 255, 0)" : "transparent", // ✅ usa scrolled
+        backdropFilter: scrolled ? "blur(10px)" : "none", // ✅ usa scrolled
+        transition: "background-color 0.3s ease, backdrop-filter 0.3s ease",
+      }}                  >
+      
+
+      {/* Logo y barra de búsqueda */}
+
+      <Link to="/">
+                  <img src="/images/larepercha.png" alt="Buscar" style={{ width: "10em", height: "4em" , zIndex: "1000"}} />
+                </Link>
+      
+
       <input
         type="text"
-        placeholder="Buscar productos..."
+        placeholder={t("🔍 search")}
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          const value = e.target.value;
+          setQuery(value);
+          onSearch({ query: value, filter });
+        }}
         style={styles.input}
       />
 
-      <select
-        value={filter.category}
-        onChange={(e) =>
-          setFilter({ ...filter, category: e.target.value })
-        }
-        style={styles.select}
-      >
-        <option value=""> Todas las categorías </option>
-        <option value="mujer">Mujer</option>
-        <option value="hombre">Hombre</option>
-        <option value="nino">Niño</option>
-        <option value="nina">Niña</option>
-      </select>
+      
 
-      <select
-        value={filter.price}
-        onChange={(e) =>
-          setFilter({ ...filter, price: e.target.value })
-        }
-        style={styles.select}
-      >
-        <option value="">Todos los precios</option>
-        <option value="0-20">0€ - 20€</option>
-        <option value="20-50">20€ - 50€</option>
-        <option value="50-100">50€ - 100€</option>
-        <option value="100+">Más de 100€</option>
-      </select>
+        {/* Enlaces de carrito y cuenta */}
+      <Link to="/cart">
+        <img src="/images/carrito.png" alt="Carrito" style={{ width: "25px" }} />
+        {cart.length}
+      </Link>
 
-      <select
-        value={filter.size}
-        onChange={(e) =>
-          setFilter({ ...filter, size: e.target.value })
-        }
-        style={styles.select}
-      >
-        <option value="">Todas las tallas</option>
-        <option value="S">S</option>
-        <option value="M">M</option>
-        <option value="L">L</option>
-        <option value="XL">XL</option>
-      </select>
+      <Link to="/cuenta" className="header-action">
+        <span className="action-icon">
+          <img src="/images/logoUser.jpg" alt="user" width={"25px"} />
+        </span>
+        <span className="action-text"></span>
+      </Link>
 
-      <button onClick={handleSearch} style={styles.button}>
-        🔍 Buscar
-      </button>
+
     </div>
   );
 }
 
 const styles = {
   container: {
-    textAlingn: "left",
+    textAlingn: "center",
     zIndex: 1000,
     position: "fixed",
     top: "0px",
-    left: "0",
-    width: "99%",
-    backgroundColor: "none",
-    border: "1px solid #ddd",
+    left: "4em",
+    rigth: "4em",
+    width: "88%",
+ 
+   
     boxShadow: "0 4px 8px #12e2ef(0,0,0,1)",
     padding: "5px",
     borderRadius: "5px",
     display: "flex",
+    flexWrap: "wrap",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    flexWrap: "wrap",
-    gap: "15px",
-    fontSize: "10px",
+    gap: "45px",
+    fontSize: "14px",
     color: "white",
+    
+
+
+
   },
   input: {
     padding: "0.5em",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    flex: "1 1 50%",
-  },
-  select: {
-    padding: "0.6em",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    backgroundColor: "none",
-    color: "black",
-    fontSize: "14px",
-
-    /*------------------------------------------------------..----------------------------------------------------------*/
-  },
-  button: {
-    padding: "8px 12px",
-    backgroundColor: "#12e2ef",
-    color: "white",
     border: "none",
     borderRadius: "4px",
-    cursor: "pointer",
+    flex: "1 1 10%",
+    backgroundColor: "#f3f4f6",
+    color: "black",
+    fontSize: "20px",
   },
 };

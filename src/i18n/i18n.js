@@ -81,11 +81,35 @@ const resources = {
       cups: "Gorras",
       belts: "Cinturones",
       handkerchiefs: "Pañuelos",
+      sandals: "chanclas",
+      purse: "Monedero",
+      coats: "Abrigos",
+      underwear: "Ropa interior",
+      collections: "Colecciones",
+      children: "Niños",
+      news: " Novedades",
+      help: "Ayuda",
+      shipments: "Envios",
+      returns: "Devoluciones",
+      contact: "Contacto",
+      followUs: "Siguenos",
+      proceedToPurchase: "proceder a la compra ",
+      emptyCart: "El carrito esta vacio", //cart
+      doubtsOrSuggestions: "Dudas o sugerencias",
+      allCategories: "Todas las categorias", //category
+      allPrices: "Tots els preus", //price
+      allSizes: "Tots els talls", //size
+      applyFilters: "Aplicar filtros", //apply
+      filters: "Filtres", //filters
+      search: "Buscar", //
+      name: "Nombre",
+      message: "Mensaje",
     },
   },
+
   ca: {
     translation: {
-      price : "Preu",
+      price: "Preu",
       home: "Inici",
       women: "Dona",
       men: "Home",
@@ -97,8 +121,9 @@ const resources = {
       shirt: "Camisa",
       pants: "Pantalons",
       shoes: "Sabates",
-      jackets: "Chaquetas",
+      jackets: "Jaquetes",
       sneakers: "Sabatilles",
+      coats: "Abrics",
 
       accessories: "Accesoris",
       apply: "Aplicar",
@@ -151,7 +176,7 @@ const resources = {
       description: "Descripció",
       all: "Tot",
       clothing: "Roba",
-      footwear: "CalÇat",
+      footwear: "Calçat",
       skirt: "Faldes",
       leggings: "Leggings",
       sweatshirts: "Sudaderes",
@@ -162,6 +187,30 @@ const resources = {
       cups: "Gorres",
       belts: "Cinturons",
       handkerchiefs: "Mocadors",
+      sandals: "Xancletes",
+      purse: "Moneder",
+      underwear: "Roba interior",
+      collections: "Colleccions",
+      children: " Nens",
+      news: " Novetats",
+      help: "Ajuda",
+      shipments: "Enviaments",
+      returns: "Devolucions",
+      contact: "Contacte",
+      followUs: "Segueix-nos",
+      proceedToPurchase: "procedir a la compra ",
+      emptyCart: "El carret esta buit",
+      doubtsOrSuggestions: "Dubtes o suggeriments",
+
+      allCategories: "Totes les categories", //category
+      allPrices: "Tots els preus", //price
+      allSizes: "Totes les talles", //size
+      applyFilters: "Aplicar filtros", //apply
+      brand: "Marca", //brands
+      category: "Categoria",
+      search: "Cercar",
+      name: "Nom",
+      message: "Missatge",
     },
   },
 };

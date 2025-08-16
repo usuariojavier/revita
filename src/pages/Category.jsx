@@ -35,18 +35,33 @@ export default function Category() {
   if (subcategoria) filtrados = filtrados.filter(p => p.subcategoria === subcategoria);
 
   return (
+
+
     <div style={{ padding: "20px" }}>
-      <h1>
-        {genero ? genero.toUpperCase() : ""}{" "}
-        {category ? `/ ${category.toUpperCase()}` : ""}{" "}
-        {subcategoria ? `/ ${subcategoria.toUpperCase()}` : ""}
-      </h1>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "20px" }}>
-        {filtrados.map(p => (
-          <ProductCard key={p.id} product={p} />
-        ))}
-      </div>
-    </div>
+  <h1>
+    {genero ? genero.toUpperCase() : ""}{" "}
+    {category ? `/ ${category.toUpperCase()}` : ""}{" "}
+    {subcategoria ? `/ ${subcategoria.toUpperCase()}` : ""}
+  </h1>
+
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+      gap: "20px",
+      justifyContent: "center",
+      maxWidth: "1000px",
+      margin: "0 auto",
+    }}
+  >
+    {filtrados.map(p => (
+      <ProductCard key={p.id} product={p} />
+    ))}
+  </div>
+</div>
+
+
+
   );
 }
 

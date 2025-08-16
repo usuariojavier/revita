@@ -1,4 +1,5 @@
-
+import i18n from "../i18n/i18n";                     //  para traducir
+import { useTranslation } from "react-i18next";       //  para traducir
 
 
 
@@ -6,6 +7,7 @@ import { useState } from "react";
 
 export default function Cuenta() {
   const [isLogin, setIsLogin] = useState(true);
+  const { t } = useTranslation();                    //  para traducir
 
   const toggleForm = () => setIsLogin(prev => !prev);
 
