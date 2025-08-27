@@ -54,7 +54,7 @@ const styles = {
   container: {
     padding: "40px",
     maxWidth: "400px",
-    margin: "0 auto",
+    margin: "25px auto",
     textAlign: "center",
     border: "1px solid #ddd",
     borderRadius: "8px",

@@ -37,6 +37,11 @@ export default function ProductCard({ product, onAddToCart }) {
           style={styles.img}
         />
         {/*<h3>{t(product.name)}</h3>    --------------------cambio para que no se vea el nombre completo */}
+          
+        {product.stock < 5 && (
+                      <div style={styles.stockBadge}>¡Últimas unidades!</div>
+                    )}
+                 
 
         <h3>{capitalize(product.subcategoria)} - {product.brand}</h3>
 
@@ -50,8 +55,9 @@ export default function ProductCard({ product, onAddToCart }) {
         disabled={product.stock <= 0}
         style={{
           ...styles.button,
-          backgroundColor: product.stock <= 0 ? "#ccc" : "#12e2ef",
-          cursor: product.stock <= 0 ? "not-allowed" : "pointer",
+          backgroundColor: product.stock <= 0 ? "#ccc" : "#12e2ef",    //  color del boton
+          cursor: product.stock <= 0 ? "not-allowed" : "pointer",   // desactiva el boton si no hay stock
+          visibility: hovered ? "visible" : "hidden",  // ocultar el boton si no se pasa el mouse
         }}
       >
         {product.stock <= 0 ? t("Sin stock") : ("Añadir al carrito")}
@@ -67,19 +73,22 @@ export default function ProductCard({ product, onAddToCart }) {
 
 const styles = {
   card: {
-   border: "1px solid #ccc",//  borde productos
+    border: "1px solid #ccc", //  borde productos
     borderRadius: "6px",
     padding: "8px",
     textAlign: "center",
     transition: "transform 0.3s",
     width: "100%",
-
   },
 
   cardHover: {
-  boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-  transform: "translateY(-4px)",
-},
+    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+    transform: "translateY(-6px)",
+    transition: "transform 0.3s",
+    zIndex: 1000,
+
+    //transform: "rotate (-35deg), translateY(-6px)", //  rotacion de los productos
+  },
 
   img: {
     width: "100%",
@@ -87,7 +96,7 @@ const styles = {
     maxWidth: "100%",
     objectFit: "cover",
     marginBottom: "10px",
-   
+  
   },
   button: {
     backgroundColor: "#28a745",

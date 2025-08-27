@@ -30,8 +30,6 @@ const handleAddToCart = (producto) => {
 
 
 
-
-
   return (
     <div style={{ padding: "5px" }}>
       <Banner />
@@ -44,9 +42,10 @@ const handleAddToCart = (producto) => {
 
       <div
         style={{
+          width: "100%",
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(12em, 1fr))",
-          gap: "16px",
+          gridTemplateColumns: "repeat(auto-fit, minmax(15em, 1fr))",
+          gap: "2px",
           padding: "1px",
         }}
       >

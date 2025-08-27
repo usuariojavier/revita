@@ -34,35 +34,10 @@
   height: 150px;
   object-fit: cover;
   margin-bottom: 10px;
-  z-index: 1000;
+        z-index: 100;
   
 }
 
-
-
-
-logo {
-  height: 10em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-logo:hover {
-  filter: drop-shadow(0 0 2em #12e2ef);
-  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
-}
-logo.react:hover {
-  filter: drop-shadow(0 0 2em #12e2ef);
-  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
-}
-logo.nextjs:hover {
-  filter: drop-shadow(0 0 2em #12e2ef);
-  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
-}
-logo.nextjs {
-  filter: drop-shadow(0 0 2em #12e2ef);
-  -webkit-filter: drop-shadow(0 0 2em #12e2ef);
-}
 
 
 label {
@@ -84,12 +59,11 @@ p {
   margin-bottom: 1.5em;
 }
 body {
-  background-color: #000000;
-  color: #ffffff;
-  padding: 20px;
+
+
   text-align: center;
-  margin-top: 30px;
-  font-family: "  Open Sans", sans-serif, serif, sans-serif, monospace;
+  margin-top: 3px;
+  font-family: "Avenir Next"  ,"  Open Sans", sans-serif, serif, sans-serif, monospace;
   font-weight: 400;
   line-height: 1.5;
   font-size: 16px;

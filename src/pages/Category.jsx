@@ -37,7 +37,7 @@ export default function Category() {
   return (
 
 
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "200px" }}>
   <h1>
     {genero ? genero.toUpperCase() : ""}{" "}
     {category ? `/ ${category.toUpperCase()}` : ""}{" "}
@@ -50,7 +50,7 @@ export default function Category() {
       gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
       gap: "20px",
       justifyContent: "center",
-      maxWidth: "1000px",
+     
       margin: "0 auto",
     }}
   >

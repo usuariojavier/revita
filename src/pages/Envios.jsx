@@ -11,6 +11,8 @@ export default function Envios() {
         Realizamos envíos a toda España. El tiempo estimado de entrega es de 2 a
         5 días hábiles. Los pedidos superiores a 50€ tienen envío gratuito.
       </p>
+
+      
     </div>
   );
 }

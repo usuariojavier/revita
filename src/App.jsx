@@ -1,6 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Header from "./components/Header";
+
+
+
+//import Menu2 from "./components/Menu2";
+
+
+
 import SearchBar from "./components/SearchBar";
 import BackToTopButton from "./components/BackToTopButton";
 import Footer from "./components/Footer";
@@ -26,8 +33,16 @@ import Cuenta from "./pages/cuenta";
 import "./i18n/i18n";
 import "./index.css";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import SearchResults  from "./components/SearchResults";
+
+
 
 import { useTranslation } from "react-i18next";
+
+
+
 
 
 
@@ -62,7 +77,10 @@ export default function App() {
         
         <SearchBar onSearch={handleSearch} />
         <BackToTopButton />
-          <Header />
+        <Header /> 
+         
+      
+
           <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Routes>
           <Route path="/" element={<Home productos={filtered} />} />
@@ -85,9 +103,25 @@ export default function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contacto" element={<Contacto />} />
 
+          {/*ruta de resultados de busqueda*/}
+
+          <Route path="/search" element={<SearchResults />} />
+
+          
+
           <Route path="*" element={<NotFound />} />
+
+
+
+    
         </Routes>
+
+       
+
+
         </div>
+
+        
 
         <Footer />
       </Router>

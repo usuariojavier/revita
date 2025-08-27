@@ -7,8 +7,6 @@
 
 
 
-
-
 :root {
   font-family:  "Avenir Next", system-ui,  Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -26,7 +24,7 @@
 
 a {
   font-weight: 500;
-  color: #12e2ef;
+  color: #ffffff;
   text-decoration: none ;
 }
 a:hover {
@@ -35,8 +33,29 @@ a:hover {
 
 body {
 
+  body {
+  width: 100%;
+  max-width: 1900px; 
+  margin: 0 auto; /* centra el contenido si no ocupa el 100% */
+
+ background-color: #000000;
+  color: #ffffff;
+  padding: 0px;
+  text-align: center;
+  margin-top: 0px;
+  
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+
+}
+
+
   font-family: Avenir Next , sans-serif;
-  margin: 20px;
+  margin: 0px;
   display: flex;
  flex-direction: column;
   justify-content: space-around;
@@ -48,16 +67,16 @@ body {
   color: #6b6565;
   text-align: center;
   font-size: 1.1em;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Avenir Next ","  Open Sans", sans-serif , ;
 
  display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 150vh;
 
 }
 
 h1 {
-  font-family: Avenir Next Medium, sans-serif;
+  font-family: Avenir Next medium ,sans-serif, Medium, sans-serif;
   font-size: 3.2em;
   line-height: 1.1;
 }
@@ -74,7 +93,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #12e2ef;
+  border-color: #00eeff;
 }
 button:focus,
 button:focus-visible {
@@ -112,11 +131,9 @@ button:focus-visible {
 
 
 
-
-
 div#root {
   
-  margin: 0 auto;
+  margin:  auto;
   padding: 1rem;
   text-align: center;
   margin: 0;
@@ -125,30 +142,31 @@ div#root {
   height: 100%;
 }
 
-
-
+/*
 
 header {
-
   font-family: Avenir Next Medium;
   position: fixed;
-  top: 45px;
+  top: 63px;
   left: 0;
   right: 0;
   z-index: 950;
-  background-color: none; 
-  color: #12e2ef;
+  background-color: none;
+  
   text-align: center;
   font-size: 1.1em;
-  font-family: "Open Sans", sans-serif;
+  font-family:  "Avenir Next" , "Open Sans", sans-serif;
   font-weight: 40;
   line-height: 0.1;
-  border-radius: 8px;
+  border-radius: 1px;
   margin-top: 1px;
   margin-bottom: 2px;
-    box-shadow: 0 2px 4px #12e2ef(210, 201, 201, 0.1);
-  font-family: 'Inter', sans-serif;
-
+  box-shadow: 0 2px 4px #12e2ef(210, 201, 201, 0.1);
+  font-family: "Avenir Next", 'Inter', sans-serif;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  -ms-border-radius: 1px;
+  -o-border-radius: 1px;
 }
 
 
@@ -157,20 +175,20 @@ header {
 /* ------------------------------- BARRA DE NAVEGACION   -----------------------------*/
 
 
-/*primer menu*/
+/*primer menu*/  
 nav {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+   justify-content: center;
   gap: 10px;
-  margin-bottom: 1px;
-  margin-top: 15px;
+  
+  margin-top: 1px;
   padding: 1px;
   background-color: none;
-  color: #fff;
-  text-align: center;
+ 
+  text-align: left;
   font-size: 1em;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Avenir Next" ,"Open Sans", sans-serif;
   font-weight: 50;
   line-height: 0.1;
   border-radius: 25px;
@@ -178,19 +196,18 @@ nav {
   -moz-border-radius: 25px;
   -ms-border-radius: 25px;
   -o-border-radius: 25px;
+  
 }
-nav {
-  display: flex;
-  gap: 10px;
-}
+
 nav a {
   
-  color: #565353;
+  
+  
   text-decoration: "none";
-  font-size: 1.2em;
-  font-family: "  Open Sans", sans-serif, serif, sans-serif, monospace;
+  font-size: 1.9em;
+  font-family:  "Avenir Next" , "Open Sans", sans-serif, serif, sans-serif, monospace;
   font-weight: 500;
-  line-height: 0.1;
+  line-height: 0.8;
   border-radius: 5px;
   padding: 12px;
   transition: background-color 0.3s ease;
@@ -198,49 +215,24 @@ nav a {
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
+    color : #ffffff;
+    text-align: left;
 }
-nav a:hover {
-  /*background-color: #eae9e9;*/
-  color: #12e2ef;
-  
-}
+
 nav a.active {
-  background-color: #12e2ef;
+  background-color: #ffffff;
 } 
-
-
-
-
-
 
 
 
 /*logo*/
 
-
-
-.logo {
-  height: 10em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-  -webkit-filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-  -webkit-filter: drop-shadow(0 0 2em #61dafbaa);
-}
 img.card-img {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  margin-bottom: 10px;
+  margin-bottom: 10 px;
 }
-
-
 
 
 

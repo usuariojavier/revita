@@ -21,11 +21,11 @@ export default function Footer()
           <Link to="/hombre" style={styles.link}>
             {t("men")}
           </Link>
-          <Link to="/ninos" style={styles.link}>
-            {t("children")}
+          <Link to="/nino" style={styles.link}>
+            {t("boy")}
           </Link>
-          <Link to="/novedades" style={styles.link}>
-            {t("news")}
+          <Link to="/nina" style={styles.link}>
+            {t("girl")}
           </Link>
         </div>
 
@@ -88,7 +88,7 @@ export default function Footer()
 
 const styles = {
   footer: {
-    width: "100%", //  Esto asegura que el footer ocupe todo el ancho
+    width: "100%", //   footer ocupe todo el ancho
     background: "#ecececff",
     color: "#fff",
     paddingTop: "1em",
@@ -96,7 +96,7 @@ const styles = {
     fontFamily: "sans-serif",
     fontSize: "14px",
     position: "absolute",
-    zindex: "800",
+    zindex: "900",
     mrginTop: "30px",
   },
 
@@ -106,6 +106,7 @@ const styles = {
     flexWrap: "wrap",
     padding: " 0 20px",
     marginBottom: "5px",
+   
 
     maxWidth: "100%", // ✅ Igual que el resto del sitio
     margin: "20 auto", // ✅ Centra el contenido

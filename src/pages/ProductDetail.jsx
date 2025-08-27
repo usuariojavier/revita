@@ -32,20 +32,23 @@ const quantityInCart = cart.filter(item => item.id === product?.id).length;
 
 
 const handleAddToCart = () => {
-  if (visibleStock > 0) {
-    addToCart(product);
-    setVisibleStock(prev => prev - 1); // ← reduce el stock local
-    toast.success(" Producto añadido al carrito", {
-      position: "top-right",
-      autoClose: 3000,
-    });
-  } else {
+  // Evita añadir si no hay producto, sin stock o ya alcanzaste el stock
+  if (!product || visibleStock <= 0 || quantityInCart >= product.stock) {
     toast.error("❌ No hay más stock disponible", {
       position: "top-right",
       autoClose: 3000,
     });
+    return; // 🔹 Sale sin añadir al carrito
   }
+
+  addToCart(product);
+  setVisibleStock(prev => prev - 1); // Reducir stock local
+  toast.success("✅ Producto añadido al carrito", {
+    position: "top-right",
+    autoClose: 3000,
+  });
 };
+
 
 
 
@@ -66,7 +69,7 @@ const handleAddToCart = () => {
             borderRadius: "8px",
             transition: "transform 0.3s ease",
             transform: hovered ? "scale(1.4)" : "scale(1)",
-            zIndex: 1000,
+            zIndex: 9,
           }}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
@@ -98,20 +101,26 @@ const handleAddToCart = () => {
           {/*  --------   BOTON AÑADIR     --------------   */}
          <button
   onClick={handleAddToCart}
-  disabled={visibleStock <= 0}
-
+  disabled={visibleStock <= 0 || quantityInCart >= product.stock}
   style={{
     padding: "10px 20px",
-    backgroundColor: quantityInCart >= product.stock ? "#ccc" : "#12e2ef",
+    backgroundColor:
+      quantityInCart >= product.stock || visibleStock <= 0 ? "#ccc" : "#12e2ef",
     color: "white",
     border: "none",
     borderRadius: "4px",
-    cursor: quantityInCart >= product.stock ? "not-allowed" : "pointer",
+    cursor:
+      quantityInCart >= product.stock || visibleStock <= 0
+        ? "not-allowed"
+        : "pointer",
     marginTop: "10px",
   }}
 >
-  {quantityInCart >= product.stock ? "Sin stock disponible" : "Añadir al carrito"}
+  {quantityInCart >= product.stock || visibleStock <= 0
+    ? "Sin stock disponible"
+    : "Añadir al carrito"}
 </button>
+
 
 
 
