@@ -1,9 +1,23 @@
 #root {
- /* max-width: 1280px;*/
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0.5rem; /* Mobile-first: smaller padding */
   text-align: center;
-  
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Responsive adjustments for root */
+@media (min-width: 768px) {
+  #root {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  #root {
+    padding: 2rem;
+    max-width: 1280px;
+  }
 }
 
 
