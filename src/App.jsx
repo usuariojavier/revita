@@ -28,7 +28,7 @@ import Contacto from "./pages/Contacto";
 import { CartProvider } from "./context/CartContext";
 import productos from "./data/productos";
 import Marcas from "./pages/Marcas";
-import Cuenta from "./pages/cuenta";
+import Cuenta from "./pages/Cuenta";
 
 import "./i18n/i18n";
 import "./index.css";

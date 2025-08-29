@@ -92,19 +92,29 @@ export default function SearchBar({ onSearch }) {
       backgroundColor: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
       backdropFilter: scrolled ? "blur(15px)" : "none",
       transition: "all 0.3s ease",
-      
+      padding: isMobile ? "8px 10px" : "10px 20px",
+      gap: isMobile ? "10px" : "25px",
     }}>
       <Link to="/" onClick={clearSearch}>
         <img   
           src="/images/larepercha (1).png" 
           alt="repercha" 
-          style={{ width: "10em", height: "4em", zIndex: "1000" ,
-             boxShadow: scrolled ?  "none"  : "0px 4px 8px rgba(1, 1, 1, 5)" , transition: "all 0.3s ease" ,
-            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"  ,}} 
+          style={{ 
+            width: isMobile ? "6em" : "10em", 
+            height: isMobile ? "2.5em" : "4em", 
+            zIndex: "1000",
+            boxShadow: scrolled ?  "none"  : "0px 4px 8px rgba(1, 1, 1, 5)" , 
+            transition: "all 0.3s ease",
+            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"
+          }} 
         />
       </Link>
 
-      <div style={styles.searchContainer}>
+      <div style={{
+        ...styles.searchContainer,
+        flex: isMobile ? "1 1 50%" : "1 1 40%",
+        maxWidth: isMobile ? "none" : "500px",
+      }}>
         <div style={styles.searchWrapper}>
           <input
             type="text"
@@ -113,9 +123,18 @@ export default function SearchBar({ onSearch }) {
             onChange={(e) => setQuery(e.target.value)}
             onKeyPress={handleKeyPress}
             onFocus={() => query.length > 1 && setShowSuggestions(true)}
-            style={styles.input}
+            style={{
+              ...styles.input,
+              padding: isMobile ? "10px 40px 10px 12px" : "12px 50px 12px 15px",
+              fontSize: isMobile ? "14px" : "16px",
+            }}
           />
-          <button onClick={() => handleSearch()} style={styles.searchButton}>
+          <button onClick={() => handleSearch()} style={{
+            ...styles.searchButton,
+            width: isMobile ? "30px" : "35px",
+            height: isMobile ? "30px" : "35px",
+            right: isMobile ? "3px" : "5px",
+          }}>
             <FaSearch />👽
           </button>
         </div>
@@ -151,16 +170,34 @@ export default function SearchBar({ onSearch }) {
         )}
       </div>
 
-      <div style={styles.actionsContainer}>
+      <div style={{
+        ...styles.actionsContainer,
+        gap: isMobile ? "10px" : "20px",
+      }}>
         <Link to="/cart" style={styles.actionLink} onClick={clearSearch}>
-          <img src="/images/bolsa.png" alt="Carrito" style={{ width: "25px" ,boxShadow: scrolled ?  "none"  : "0px 0px 9px 5px  white" , transition: "all 1s ease" ,
-            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"  , }} />
-
+          <img 
+            src="/images/bolsa.png" 
+            alt="Carrito" 
+            style={{ 
+              width: isMobile ? "20px" : "25px",
+              boxShadow: scrolled ?  "none"  : "0px 0px 9px 5px  white",
+              transition: "all 1s ease",
+              backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"
+            }} 
+          />
           <span style={styles.cartCount}>{cart.length},   </span>
         </Link>
         <Link to="/cuenta" style={styles.actionLink} onClick={clearSearch}>
-          <img src="/images/logoUser.jpg" alt="user" style={{ width: "25px" ,boxShadow: scrolled ?  "none"  : "0px 0px 9px 7px  white" , transition: "all 1s ease" ,
-            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"  ,}} />
+          <img 
+            src="/images/logoUser.jpg" 
+            alt="user" 
+            style={{ 
+              width: isMobile ? "20px" : "25px",
+              boxShadow: scrolled ?  "none"  : "0px 0px 9px 7px  white",
+              transition: "all 1s ease",
+              backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"
+            }} 
+          />
         </Link>
       </div>
     </div>

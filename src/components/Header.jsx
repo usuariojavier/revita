@@ -196,7 +196,8 @@ export default function Header() {
         ...styles.header,
         backgroundColor: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
         backdropFilter: scrolled ? "blur(15px)" : "none",
-        transition: "all 0.3s ease"
+        transition: "all 0.3s ease",
+        padding: isMobile ? "10px 15px" : "15px 30px",
       }}>
         
         {/* MENU HAMBURGUESA */}
@@ -204,7 +205,7 @@ export default function Header() {
           <HamburgerMenu
             onToggle={() => setMenuOpen((prev) => !prev)}
             isOpen={menuOpen}
-            icon={menuOpen ? <X size={28} color="#12e2ef" /> : <Menu size={28} color="#12e2ef" />}
+            icon={menuOpen ? <X size={24} color="#12e2ef" /> : <Menu size={24} color="#12e2ef" />}
           />
         )}
 
@@ -212,23 +213,52 @@ export default function Header() {
           display: isMobile ? (menuOpen ? "flex" : "none") : "flex",
           flexDirection: isMobile ? "column" : "row",
           alignItems: "center",
-          gap: "40px",
-          justifyContent: "space-between"
+          gap: isMobile ? "20px" : "40px",
+          justifyContent: "space-between",
+          position: isMobile ? "absolute" : "static",
+          top: isMobile ? "100%" : "auto",
+          left: isMobile ? "0" : "auto",
+          right: isMobile ? "0" : "auto",
+          backgroundColor: isMobile ? "rgba(255, 255, 255, 0.98)" : "transparent",
+          padding: isMobile ? "20px" : "0",
+          borderRadius: isMobile ? "0 0 8px 8px" : "0",
+          boxShadow: isMobile ? "0 4px 15px rgba(0,0,0,0.1)" : "none",
+          zIndex: isMobile ? 999 : "auto",
         }}>
           
-          <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
-            <Link to="/">
-              <img src="/images/home.png" alt="home" width="28px" />
-            </Link>
+          <div style={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: isMobile ? "20px" : "40px",
+            flexDirection: isMobile ? "column" : "row",
+            width: isMobile ? "100%" : "auto",
+          }}>
+            {!isMobile && (
+              <Link to="/">
+                <img src="/images/home.png" alt="home" width="28px" />
+              </Link>
+            )}
 
             {/* MUJER */}
             <div
-              onMouseEnter={() => setShowWomenMenu(true)}
-              onMouseLeave={() => setShowWomenMenu(false)}
-              style={{ position: "relative" }}
+              onMouseEnter={() => !isMobile && setShowWomenMenu(true)}
+              onMouseLeave={() => !isMobile && setShowWomenMenu(false)}
+              style={{ position: "relative", width: isMobile ? "100%" : "auto" }}
             >
-              <Link to="/mujer" style={styles.mainNavLink}>{t("women")}</Link>
-              {showWomenMenu && (
+              <Link 
+                to="/mujer" 
+                style={{
+                  ...styles.mainNavLink,
+                  textAlign: isMobile ? "center" : "left",
+                  display: isMobile ? "block" : "inline",
+                  width: isMobile ? "100%" : "auto",
+                  padding: isMobile ? "12px 20px" : "10px 15px",
+                }}
+                onClick={() => isMobile && setMenuOpen(false)}
+              >
+                {t("women")}
+              </Link>
+              {showWomenMenu && !isMobile && (
                 <div style={styles.dropdown}>
                   <CategorySection 
                     title={t("clothing")}
@@ -272,12 +302,24 @@ export default function Header() {
 
             {/* HOMBRE */}
             <div
-              onMouseEnter={() => setShowMenMenu(true)}
-              onMouseLeave={() => setShowMenMenu(false)}
-              style={{ position: "relative" }}
+              onMouseEnter={() => !isMobile && setShowMenMenu(true)}
+              onMouseLeave={() => !isMobile && setShowMenMenu(false)}
+              style={{ position: "relative", width: isMobile ? "100%" : "auto" }}
             >
-              <Link to="/hombre" style={styles.mainNavLink}>{t("men")}</Link>
-              {showMenMenu && (
+              <Link 
+                to="/hombre" 
+                style={{
+                  ...styles.mainNavLink,
+                  textAlign: isMobile ? "center" : "left",
+                  display: isMobile ? "block" : "inline",
+                  width: isMobile ? "100%" : "auto",
+                  padding: isMobile ? "12px 20px" : "10px 15px",
+                }}
+                onClick={() => isMobile && setMenuOpen(false)}
+              >
+                {t("men")}
+              </Link>
+              {showMenMenu && !isMobile && (
                 <div style={styles.dropdown}>
                   <CategorySection 
                     title={t("clothing")}
@@ -317,12 +359,24 @@ export default function Header() {
 
             {/* NIÑO */}
             <div
-              onMouseEnter={() => setShowBoyMenu(true)}
-              onMouseLeave={() => setShowBoyMenu(false)}
-              style={{ position: "relative" }}
+              onMouseEnter={() => !isMobile && setShowBoyMenu(true)}
+              onMouseLeave={() => !isMobile && setShowBoyMenu(false)}
+              style={{ position: "relative", width: isMobile ? "100%" : "auto" }}
             >
-              <Link to="/nino" style={styles.mainNavLink}>{t("boy")}</Link>
-              {showBoyMenu && (
+              <Link 
+                to="/nino" 
+                style={{
+                  ...styles.mainNavLink,
+                  textAlign: isMobile ? "center" : "left",
+                  display: isMobile ? "block" : "inline",
+                  width: isMobile ? "100%" : "auto",
+                  padding: isMobile ? "12px 20px" : "10px 15px",
+                }}
+                onClick={() => isMobile && setMenuOpen(false)}
+              >
+                {t("boy")}
+              </Link>
+              {showBoyMenu && !isMobile && (
                 <div style={styles.dropdown}>
                   <CategorySection 
                     title={t("clothing")}
@@ -355,12 +409,24 @@ export default function Header() {
 
             {/* NIÑA */}
             <div
-              onMouseEnter={() => setShowGirlMenu(true)}
-              onMouseLeave={() => setShowGirlMenu(false)}
-              style={{ position: "relative" }}
+              onMouseEnter={() => !isMobile && setShowGirlMenu(true)}
+              onMouseLeave={() => !isMobile && setShowGirlMenu(false)}
+              style={{ position: "relative", width: isMobile ? "100%" : "auto" }}
             >
-              <Link to="/nina" style={styles.mainNavLink}>{t("girl")}</Link>
-              {showGirlMenu && (
+              <Link 
+                to="/nina" 
+                style={{
+                  ...styles.mainNavLink,
+                  textAlign: isMobile ? "center" : "left",
+                  display: isMobile ? "block" : "inline",
+                  width: isMobile ? "100%" : "auto",
+                  padding: isMobile ? "12px 20px" : "10px 15px",
+                }}
+                onClick={() => isMobile && setMenuOpen(false)}
+              >
+                {t("girl")}
+              </Link>
+              {showGirlMenu && !isMobile && (
                 <div style={styles.dropdown}>
                   <CategorySection 
                     title={t("clothing")}
@@ -392,29 +458,56 @@ export default function Header() {
               )}
             </div>
 
-            <Link to="/marcas" style={styles.mainNavLink}>{t("brands")}</Link>
+            <Link 
+              to="/marcas" 
+              style={{
+                ...styles.mainNavLink,
+                textAlign: isMobile ? "center" : "left",
+                display: isMobile ? "block" : "inline",
+                width: isMobile ? "100%" : "auto",
+                padding: isMobile ? "12px 20px" : "10px 15px",
+              }}
+              onClick={() => isMobile && setMenuOpen(false)}
+            >
+              {t("brands")}
+            </Link>
           </div>
 
           {/* BOTONES DE IDIOMA */}
-          <div style={styles.languageButtons}>
+          <div style={{
+            ...styles.languageButtons,
+            flexDirection: isMobile ? "row" : "row",
+            gap: isMobile ? "10px" : "5px",
+            justifyContent: isMobile ? "center" : "flex-start",
+            width: isMobile ? "100%" : "auto",
+            marginTop: isMobile ? "10px" : "0",
+          }}>
             <button
-              onClick={() => i18n.changeLanguage("ca")}
+              onClick={() => {
+                i18n.changeLanguage("ca");
+                isMobile && setMenuOpen(false);
+              }}
               style={{
                 ...styles.langButton,
                 background: "linear-gradient(45deg, #ff0000, #fff701ff)",
                 color: "white",
-                border: "none"
+                border: "none",
+                padding: isMobile ? "8px 16px" : "6px 12px",
               }}
             >
               CAT
             </button>
             <button
-              onClick={() => i18n.changeLanguage("es")}
+              onClick={() => {
+                i18n.changeLanguage("es");
+                isMobile && setMenuOpen(false);
+              }}
               style={{
                 ...styles.langButton,
                 background: "linear-gradient(45deg, #ff0000, #fff701ff)",
                 color: "white", 
-                border: "none"
+                border: "none",
+                padding: isMobile ? "8px 16px" : "6px 12px",
               }}
             >
               ES
