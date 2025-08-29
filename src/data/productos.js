@@ -11,7 +11,7 @@ const productos = [
     image: "Camiseta-mujer.jpg",
     size: "M",
     brand: "Nike",
-    stock: 10,
+    stock: 6,
     
   },
   {
@@ -26,7 +26,7 @@ const productos = [
     category: "hombre",
     size: "L",
     brand: "Adidas",
-    stock: 5,
+    stock: 6,
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ const productos = [
     category: "nino",
     size: "S",
     brand: "Puma",
-    stock: 8,
+    stock: 6,
   },
   {
     id: 4,
@@ -54,7 +54,7 @@ const productos = [
     category: "nino",
     size: "s",
     brand: "Nike",
-    stock: 12,
+    stock: 6,
   },
   {
     id: 5,
@@ -68,7 +68,7 @@ const productos = [
     category: "mujer",
     size: "M",
     brand: "Adidas",
-    stock: 7,
+    stock: 6,
   },
   {
     id: 6,
@@ -82,7 +82,7 @@ const productos = [
     category: "hombre",
     size: "S",
     brand: "Puma",
-    stock: 15,
+    stock: 6,
   },
   {
     id: 7,
@@ -110,7 +110,7 @@ const productos = [
     category: "mujer",
     size: "L",
     brand: "Adidas",
-    stock: 10,
+    stock: 6,
   },
   {
     id: 9,
@@ -124,7 +124,7 @@ const productos = [
     category: "hombre",
     size: "XL",
     brand: "Puma",
-    stock: 4,
+    stock: 6,
   },
   {
     id: 10,
@@ -138,7 +138,7 @@ const productos = [
     category: "nino",
     size: "L",
     brand: "Nike",
-    stock: 3,
+    stock: 6,
   },
   {
     id: 11,
@@ -152,7 +152,7 @@ const productos = [
     category: "nina",
     size: "M",
     brand: "Adidas",
-    stock: 9,
+    stock: 6,
   },
   {
     id: 12,
@@ -166,7 +166,7 @@ const productos = [
     category: "mariquita",
     size: "S",
     brand: "Puma",
-    stock: 11,
+    stock: 6,
   },
   {
     id: 13,
@@ -180,7 +180,7 @@ const productos = [
     category: "hombre",
     size: "M",
     brand: "Nike",
-    stock: 20,
+    stock: 6,
   },
   {
     id: 14,
@@ -194,7 +194,7 @@ const productos = [
     category: "nino",
     size: "S",
     brand: "Adidas",
-    stock: 8,
+    stock: 6,
   },
   {
     id: 15,
@@ -208,7 +208,7 @@ const productos = [
     category: "mujer",
     size: "L",
     brand: "Puma",
-    stock: 5,
+    stock: 6,
   },
 
     {
@@ -223,7 +223,7 @@ const productos = [
       category: "mujer",
       size: "M",
         brand: "Nike",
-        stock: 10,
+        stock: 6,
     },
     {
       id: 17,
@@ -238,7 +238,7 @@ const productos = [
       size: "M",
       description: "Gafas de sol para hombres con protección UV",
         brand: "Adidas",
-        stock: 8,
+        stock: 6,
     },  
 
 

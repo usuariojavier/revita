@@ -57,31 +57,31 @@ export default function SearchBar({ onSearch }) {
   }, [query]);
 
   // 🔹 Nueva función para limpiar
-  const clearSearch = () => {
+  const clearSearch = () => {             // limpia la barra de busqueda
     setQuery("");
     setShowSuggestions(false);
   };
 
-  if (isMobile) return null;
+     {/*if (isMobile) return null;       */      }     // si es movil no se muestra  ////////////////////////////////////////////////
 
-  const handleSearch = (searchQuery = query) => {
+  const handleSearch = (searchQuery = query) => {             // para buscar
     const finalQuery = searchQuery.trim();
     if (!finalQuery) return;
 
-    const newUrl = `/search?q=${encodeURIComponent(finalQuery)}`;
+    const newUrl = `/search?q=${encodeURIComponent(finalQuery)}`;       // para buscar
     if (window.location.pathname + window.location.search !== newUrl) {
       navigate(newUrl);
     }
     clearSearch(); // limpia al buscar
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e) => {       // para buscar con enter
     if (e.key === 'Enter') {
       handleSearch();
     }
   };
 
-  const handleSuggestionClick = (product) => {
+  const handleSuggestionClick = (product) => {      // para elegir sugerencia
     handleSearch(product.nombre || product.name);
     clearSearch(); // limpia al elegir sugerencia
   };
@@ -92,12 +92,15 @@ export default function SearchBar({ onSearch }) {
       backgroundColor: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
       backdropFilter: scrolled ? "blur(15px)" : "none",
       transition: "all 0.3s ease",
+      
     }}>
       <Link to="/" onClick={clearSearch}>
-        <img 
+        <img   
           src="/images/larepercha (1).png" 
           alt="repercha" 
-          style={{ width: "10em", height: "4em", zIndex: "1000" }} 
+          style={{ width: "10em", height: "4em", zIndex: "1000" ,
+             boxShadow: scrolled ?  "none"  : "0px 4px 8px rgba(1, 1, 1, 5)" , transition: "all 0.3s ease" ,
+            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"  ,}} 
         />
       </Link>
 
@@ -113,7 +116,7 @@ export default function SearchBar({ onSearch }) {
             style={styles.input}
           />
           <button onClick={() => handleSearch()} style={styles.searchButton}>
-            <FaSearch />
+            <FaSearch />👽
           </button>
         </div>
 
@@ -150,11 +153,14 @@ export default function SearchBar({ onSearch }) {
 
       <div style={styles.actionsContainer}>
         <Link to="/cart" style={styles.actionLink} onClick={clearSearch}>
-          <img src="/images/bolsa.png" alt="Carrito" style={{ width: "25px" }} />
-          <span style={styles.cartCount}>{cart.length}</span>
+          <img src="/images/bolsa.png" alt="Carrito" style={{ width: "25px" ,boxShadow: scrolled ?  "none"  : "0px 0px 9px 5px  white" , transition: "all 1s ease" ,
+            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"  , }} />
+
+          <span style={styles.cartCount}>{cart.length},   </span>
         </Link>
         <Link to="/cuenta" style={styles.actionLink} onClick={clearSearch}>
-          <img src="/images/logoUser.jpg" alt="user" style={{ width: "25px" }} />
+          <img src="/images/logoUser.jpg" alt="user" style={{ width: "25px" ,boxShadow: scrolled ?  "none"  : "0px 0px 9px 7px  white" , transition: "all 1s ease" ,
+            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"  ,}} />
         </Link>
       </div>
     </div>
@@ -169,7 +175,7 @@ const styles = {
     left: "0",
     right: "0",
     width: "100%",
-    boxShadow: "0 4px 15px rgba(18, 226, 239, 0.2)",
+    
     padding: "10px 20px",
     display: "flex",
     alignItems: "center",

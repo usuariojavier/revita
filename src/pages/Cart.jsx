@@ -14,17 +14,17 @@ export default function Cart() {
   return (
     <>
       <div>
-        <img
-          src="/images/carrito-compra.gif"
-          alt="Carrito"
-          style={{ width: "500px", margin: "100px auto", display: "block" }}
-        />
+                {/*<img
+                  src="/images/carrito-compra.gif"
+                  alt="Carrito"
+                  style={{ width: "200px", margin: "199px auto", display: "block" }}
+                />*/}
         <h1>
           {t("cart")}{" "}
           <img
             src="/images/bolsa.png"
             alt="Carrito"
-            style={{ width: "50px" }}
+            style={{ width: "50px", margin: "199px 10px", }}
           />
         </h1>
         {!cart.length ? (
@@ -52,7 +52,7 @@ export default function Cart() {
                     style={{ width: "200px" }}
                   />
                   <div>
-                    <p>{item.name}</p>
+                    <p>{t(item.name)}</p>
                     <p style={{ fontWeight: "bold" }}>{item.price}€</p>
                   </div>
                 </Link>

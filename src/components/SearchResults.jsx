@@ -151,8 +151,8 @@ export default function SearchResults() {
 const styles = {
   container: {
     maxWidth: "1400px",
-    margin: "80px auto 0",
-    padding: "20px",
+    margin: "15px auto 0",
+    padding: "200px 20px ",
     fontFamily: "Arial, sans-serif",
   },
   searchHeader: {
@@ -200,7 +200,7 @@ const styles = {
     overflow: "hidden",
     transition: "all 0.3s ease",
     backgroundColor: "white",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    boxShadow: "0 2px 8px rgba(41, 211, 64, 0.1)",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between"
@@ -267,7 +267,7 @@ const styles = {
     padding: "2px 6px",
     borderRadius: "4px",
   },
-  addToCartBtn: {
+  addToCartBtn: {   //anulado
     width: "100%",
     padding: "10px",
     backgroundColor: "#12e2ef",

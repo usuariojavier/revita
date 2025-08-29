@@ -1,67 +1,103 @@
-import { useParams } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
-import productos from "../data/productos";
+////////////  PAGINA CATEGORIA, ABRE CUANDO SE HACE CLICK EN UNA CATEGORIA o subcategoria  //////////////////////
 
+import { useParams } from "react-router-dom";
+import productos from "../data/productos";
+import ProductCard from "../components/ProductCard";
+import { ToastContainer, toast } from "react-toastify";  // para notificaciones de carrito
+import i18n from "../i18n/i18n";  // para traducciones
 
 export default function Category() {
   const { genero, category, subcategoria } = useParams();
 
-  const productos = [
-    { id: 1, name: "Camiseta Mujer",  genero: "mujer", categoria: "ropa", subcategoria: "camisetas", price: 19.99, image:"Camiseta-mujer.jpg" ,  size: "M" },
-    { id: 2, name: "Zapatillas Hombre", genero: "hombre", categoria: "calzado", subcategoria: "zapatillas", price: 49.99, image:"Zapatillas-hombre.jpeg" , category: "hombre", size: "L" },
-    { id: 3, name: "Chaqueta Niño",  genero: "nino", categoria: "ropa", subcategoria: "chaquetas", price: 39.00,  image:"Chaqueta-nen.webp"  ,category: "nino", size: "S" },
-    { id: 4, name: "Zapatillas niño",  genero: "nino", categoria: "calzado", subcategoria: "zapatillas", price: 29.99, image:"zapatillas-nen.jpg" , category: "nino", size: "s" },
-    { id: 5, name: "Zapatillas Mujer", genero: "mujer", categoria: "calzado", subcategoria: "zapatillas", price: 59.99, image:"zapatillas-mujer.jpeg" , category: "mujer", size: "M" },
-    { id: 6, name: "Camisa Hombre", genero: "hombre", categoria: "ropa", subcategoria: "camisas", price: 24.99, image:"camisa-hombre.jpeg" , category: "hombre", size: "S" },
-    { id: 7, name: "Vestido Niña", genero: "nina", categoria: "ropa", subcategoria: "vestidos", price: 34.99, image:"vestido-nena.jpg" , category: "nina", size: "s" },
-    { id: 8, name: "Pantalones Mujer", genero: "mujer", categoria: "ropa", subcategoria: "pantalones", price: 39.99, image:"pantalones-mujer.jpeg" , category: "mujer", size: "L" },
-    { id: 9, name: "Sudadera Hombre", genero: "hombre", categoria: "ropa", subcategoria: "sudaderas", price: 44.99, image:"sudadera-hombre.jpeg" , category: "hombre", size: "XL" },
-    { id: 10, name: "Botas Niño", genero: "nino", categoria: "calzado", subcategoria: "botas", price: 49.99, image:"botas-nen.jpeg" , category: "nino", size: "L" },
-    { id: 11, name: "Chaqueta Niña", genero: "nina", categoria: "ropa", subcategoria: "chaquetas", price: 39.99, image:"chaqueta-nena.jpeg" , category: "nina", size: "M" },
-    { id: 12, name: "Zapatillas Mariquita", genero: "niña", categoria: "calzado", subcategoria: "zapatillas", price: 29.99, image:"zapatillas-mariquita.jpeg" , category: "mariquita", size: "S" },
-    { id: 13, name: "Camiseta Hombre", genero: "hombre", categoria: "ropa", subcategoria: "camisetas", price: 19.99, image:"Camiseta-hombre.jpeg" , category: "hombre", size: "M" },
-    { id: 14, name: "Pantalones Niño", genero: "nino", categoria: "ropa", subcategoria: "pantalones", price: 29.99, image:"Pantalones-nen.jpeg" , category: "nino", size: "S" },
-    { id: 15, name: "Botas Mujer", genero: "mujer", categoria: "calzado", subcategoria: "botas", price: 59.99, image:"Botas-mujer.jpeg" , category: "mujer", size: "L" },
-    { id: 16, name: "Gafas de Sol mujer ", genero: "mujer", categoria: "complementos", subcategoria: "gafas-sol", price: 39.0, image: "gafasSolMujer.jpeg", category: "mujer", size: "M", },
-    { id: 17, name: "Gafas de Sol Hombre", genero: "hombre", categoria: "complementos", subcategoria: "gafas-sol", price: 39.0, image: "gafasSolHombre.jpg", category: "hombre", size: "M" },
-
-
-  ];
-
+  // Filtrado según URL
   let filtrados = productos;
-
   if (genero) filtrados = filtrados.filter(p => p.genero === genero);
   if (category) filtrados = filtrados.filter(p => p.categoria === category);
   if (subcategoria) filtrados = filtrados.filter(p => p.subcategoria === subcategoria);
 
   return (
+    <div style={styles.container}>
+      {/* Cabecera igual que SearchResults */}
+      <div style={styles.searchHeader}>
+        <h1 style={styles.title}>
+          {genero ? genero.toUpperCase() : "Todos los productos"}{" "}
+          {category ? `/ ${category.toUpperCase()}` : ""}{" "}
+          {subcategoria ? `/ ${subcategoria.toUpperCase()}` : ""}
+        </h1>
+        <p style={styles.resultsCount}>
+          {filtrados.length} {filtrados.length === 1 ? "producto encontrado" : "productos encontrados"}
+        </p>
+      </div>
 
-
-    <div style={{ padding: "200px" }}>
-  <h1>
-    {genero ? genero.toUpperCase() : ""}{" "}
-    {category ? `/ ${category.toUpperCase()}` : ""}{" "}
-    {subcategoria ? `/ ${subcategoria.toUpperCase()}` : ""}
-  </h1>
-
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-      gap: "20px",
-      justifyContent: "center",
-     
-      margin: "0 auto",
-    }}
-  >
-    {filtrados.map(p => (
-      <ProductCard key={p.id} product={p} />
-    ))}
-  </div>
-</div>
-
-
-
+      <div style={styles.content}>
+        <main style={styles.resultsGrid}>
+          {filtrados.length === 0 ? (
+            <div style={styles.noResults}>
+              <h3>No se encontraron productos</h3>
+              <p>Intenta con otros términos de búsqueda o ajusta los filtros</p>
+            </div>
+          ) : (
+            filtrados.map(p => (
+              <div key={p.id} style={styles.productCard}>
+                <ProductCard product={p} />
+              </div>
+            ))
+          )}
+        </main>
+      </div>  <ToastContainer />
+    </div>
   );
 }
 
+const styles = {
+  container: {
+    maxWidth: "1400px",
+    margin: "80px auto 0",
+    padding: "20px",
+    fontFamily: "Arial, sans-serif",
+  },
+  searchHeader: {
+    marginBottom: "30px",
+    borderBottom: "1px solid #e0e0e0",
+    paddingBottom: "20px",
+  },
+  title: {
+    fontSize: "28px",
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: "8px",
+  },
+  resultsCount: {
+    fontSize: "16px",
+    color: "#666",
+    margin: 0,
+  },
+  content: {
+    display: "flex",
+    gap: "30px",
+  },
+  resultsGrid: {
+    flex: 1,
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+    gap: "25px",
+  },
+  noResults: {
+    gridColumn: "1 / -1",
+    textAlign: "center",
+    padding: "50px",
+    backgroundColor: "#f8f9fa",
+    borderRadius: "8px",
+  },
+  productCard: {
+    border: "1px solid #e0e0e0",
+    borderRadius: "12px",
+    overflow: "hidden",
+    transition: "all 0.3s ease",
+    backgroundColor: "white",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  }
+};

@@ -1,11 +1,13 @@
+//////   PAGINA DETALLE DE PRODUCTO, ABRE CUANDO SE HACE CLICK EN UN PRODUCTO  //////////
+
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify"; // para notificaciones
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import productos from "../data/productos";
-import i18n from "../i18n/i18n";
+import i18n from "../i18n/i18n";  // para traducciones
 
 
 export default function ProductDetail() {
