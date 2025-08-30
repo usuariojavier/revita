@@ -287,11 +287,11 @@ html, body {
     left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    height: 300px !important;
+    height: 230px !important;
   }
   
   .banner-image {
-    height: 300px !important;
+    height: 230px !important;
   }
   
   /* Ensure no elements extend beyond viewport */
