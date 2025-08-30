@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   max-width: 100%;
-  height: 400px; /* Reduced height for mobile */
+  height: 300px; /* Better proportional height for mobile */
   margin: 0;
   overflow: hidden;
   z-index: 1;
@@ -11,7 +11,7 @@
 .banner-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   display: block;
 }
