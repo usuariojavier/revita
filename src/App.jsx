@@ -2,11 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Header from "./components/Header";
 
-
-
 //import Menu2 from "./components/Menu2";
-
-
 
 import SearchBar from "./components/SearchBar";
 import BackToTopButton from "./components/BackToTopButton";
@@ -40,6 +36,8 @@ import SearchResults  from "./components/SearchResults";
 
 
 import { useTranslation } from "react-i18next";
+
+import CookieBanner from "./components/CookieBanner";
 
 
 
@@ -122,7 +120,7 @@ export default function App() {
         </div>
 
         
-
+        <CookieBanner />
         <Footer />
       </Router>
     </CartProvider>

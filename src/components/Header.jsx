@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SearchBar from "./SearchBar";
@@ -7,6 +7,12 @@ import { AlignLeft, Space } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import HamburgerMenu from "./HamburgerMenu";
 import { Menu, X} from "lucide-react"; 
+
+import { useLocation } from "react-router-dom";
+
+
+
+
 
 export default function Header() {
   const { t } = useTranslation();
@@ -37,10 +43,17 @@ export default function Header() {
 
   const { cart } = useCart();
 
-  // constantes para saber si esta en movil o no 
+  // constantes para saber si esta en movil o no
   const [scrolled, setScrolled] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  /// useStates para saber si esta en la pagina de inicio o no  ////
+  const isHome = location.pathname === "/";
+  const linkColor = isHome && !scrolled ? "#fff" : "#191919ff";
+
+  //   ////
+  const mobileMenuRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,6 +71,26 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      mobileMenuRef.current &&
+      !mobileMenuRef.current.contains(event.target)
+    ) {
+      setMenuOpen(false);
+    }
+  };
+
+  if (menuOpen) {
+    document.addEventListener("mousedown", handleClickOutside);
+  }
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [menuOpen]);
+
 
   ////////    ESTILOS MEJORADOS   //////////
 
@@ -100,7 +133,7 @@ export default function Header() {
 
     categoryTitle: {
       fontSize: "20px",
-      fontWeight: "600",
+      fontWeight: "700",
       color: "#000000ff",
       marginBottom: "15px",
       textTransform: "uppercase",
@@ -121,29 +154,22 @@ export default function Header() {
       color: "#000000ff",
       textDecoration: "none",
       fontSize: "18px",
+      fontWeight: "700",
       padding: "6px 0",
       transition: "all 0.2s ease",
       borderRadius: "4px",
-      "&:hover": {
-        color: "#12e2ef",
-        paddingLeft: "10px",
-      },
     },
 
     //////////////////////////////////////  NAVBAR ///////////////////////////////////////
     mainNavLink: {
-      textShadow: "1px 1px 1px rgba(1, 1, 1, 1), 1px 1px 5px rgba(1, 1, 1, 0.5)",
-      color: scrolled ? "#191919ff" : "#fff",
       textDecoration: "none",
-      fontSize: "19px",
-      fontWeight: "500",
+      fontSize: "20px",
+      /* The above code is setting the `fontWeight` style property to "800" in a React component. */
+      fontWeight: 800,
       padding: "10px 15px",
       borderRadius: "6px",
-      transition: "all 0.8s ease",
+
       position: "relative",
-      "&:hover": {
-        color: "#12e2ef",
-      },
     },
 
     languageButtons: {
@@ -159,9 +185,33 @@ export default function Header() {
       fontSize: "15px",
       fontWeight: "500",
       transition: "all 0.2s ease",
-      "&:hover": {
-        transform: "translateY(-1px)",
-      },
+    },
+
+    //   MOVIL MENU  //
+    mobileMenu: {
+      position: "  fixed",
+      top: "70px",
+      left: 0,
+      right: 0,
+      backgroundColor: "#ffffff",
+      padding: "20px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "15px",
+      zIndex: 9999,
+      boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
+      borderRadius: "0 0 12px 12px",
+    },
+
+    mobileLink: {
+      fontSize: "18px",
+      fontWeight: "600",
+      color: "#191919",
+      textDecoration: "none",
+      padding: "10px 15px",
+      borderRadius: "6px",
+      backgroundColor: "#f5f5f5",
+      transition: "background-color 0.3s ease",
     },
   };
 
@@ -170,9 +220,9 @@ export default function Header() {
       <div style={styles.categoryTitle}>{title}</div>
       <div style={styles.categoryLinks}>
         {links.map((link, index) => (
-          <Link 
-            key={index} 
-            to={link.to} 
+          <Link
+            key={index}
+            to={link.to}
             style={styles.categoryLink}
             onMouseEnter={(e) => {
               e.target.style.color = "#12e2ef";
@@ -189,33 +239,75 @@ export default function Header() {
       </div>
     </div>
   );
+  ///////////////////////////////////////////////////////////     RETURN ///////////////////////////////////
 
   return (
     <div>
-      <header style={{
-        ...styles.header,
-        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
-        backdropFilter: scrolled ? "blur(15px)" : "none",
-        transition: "all 0.3s ease"
-      }}>
-        
-        {/* MENU HAMBURGUESA */}
+
+      {/*------------------------------------MENU HABURGUESA --------------*/}
         {isMobile && (
           <HamburgerMenu
             onToggle={() => setMenuOpen((prev) => !prev)}
             isOpen={menuOpen}
-            icon={menuOpen ? <X size={28} color="#12e2ef" /> : <Menu size={28} color="#12e2ef" />}
+            icon={
+              menuOpen ? (
+                <X size={28} color="#12e2ef" />
+              ) : (
+                <Menu size={28} color="#12e2ef" />
+              )
+            }
+            style={{ zIndex: 9999 }}
           />
         )}
 
-        <nav style={{
-          display: isMobile ? (menuOpen ? "flex" : "none") : "flex",
-          flexDirection: isMobile ? "column" : "row",
-          alignItems: "center",
-          gap: "40px",
-          justifyContent: "space-between"
-        }}>
-          
+
+
+
+      <header
+        style={{
+          ...styles.header,
+          backgroundColor: scrolled
+            ? "rgba(255, 255, 255, 0.95)"
+            : "transparent",
+          backdropFilter: scrolled ? "blur(15px)" : "none",
+          transition: "all 0.3s ease",
+        }}
+      >
+        
+
+        {/*  ------------------------------------------------MENU -----------*/}
+       {isMobile && menuOpen && (
+  <div ref={mobileMenuRef} style={styles.mobileMenu}>
+    <Link to="/mujer" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>
+      {t("women")}
+    </Link>
+    <Link to="/hombre" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>
+      {t("men")}
+    </Link>
+    <Link to="/nina" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>
+      {t("girl")}
+    </Link>
+    <Link to="/nino" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>
+      {t("boy")}
+    </Link>
+    <Link to="/marcas" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>
+      {t("brands")}
+    </Link>
+  </div>
+)}
+
+
+
+
+        <nav
+          style={{
+            display: isMobile ? (menuOpen ? "flex" : "none") : "flex",
+            flexDirection: isMobile ? "column" : "row",
+            alignItems: "center",
+            gap: "40px",
+            justifyContent: "space-between",
+          }}
+        >
           <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
             <Link to="/">
               <img src="/images/home.png" alt="home" width="28px" />
@@ -227,10 +319,19 @@ export default function Header() {
               onMouseLeave={() => setShowWomenMenu(false)}
               style={{ position: "relative" }}
             >
-              <Link to="/mujer" style={styles.mainNavLink}>{t("women")}</Link>
-              {showWomenMenu && (
+              <Link
+                to="/mujer"
+                style={{
+                  ...styles.mainNavLink,
+                  color: linkColor,
+                }}
+              >
+                {t("women")}
+              </Link>
+
+              {!isMobile && showWomenMenu && (
                 <div style={styles.dropdown}>
-                  <CategorySection 
+                  <CategorySection
                     title={t("clothing")}
                     links={[
                       { to: "/mujer/ropa/pantalones", text: t("pants") },
@@ -241,10 +342,10 @@ export default function Header() {
                       { to: "/mujer/ropa/faldas", text: t("skirt") },
                       { to: "/mujer/ropa/mallas", text: t("leggings") },
                       { to: "/mujer/ropa/abrigos", text: t("jackets") },
-                      { to: "/mujer/ropa/sudaderas", text: t("sweatshirts") }
+                      { to: "/mujer/ropa/sudaderas", text: t("sweatshirts") },
                     ]}
                   />
-                  <CategorySection 
+                  <CategorySection
                     title={t("footwear")}
                     links={[
                       { to: "/mujer/calzado/zapatillas", text: t("sneakers") },
@@ -252,18 +353,27 @@ export default function Header() {
                       { to: "/mujer/calzado/botas", text: t("boots") },
                       { to: "/mujer/calzado/botines", text: "Botines" },
                       { to: "/mujer/calzado/chanclas", text: t("sandals") },
-                      { to: "/mujer/calzado/casa", text: t("house_sleepers") }
+                      { to: "/mujer/calzado/casa", text: t("house_sleepers") },
                     ]}
                   />
-                  <CategorySection 
+                  <CategorySection
                     title={t("accessories")}
                     links={[
                       { to: "/mujer/complementos/bolsos", text: t("pockets") },
-                      { to: "/mujer/complementos/mochilas", text: t("backpack") },
+                      {
+                        to: "/mujer/complementos/mochilas",
+                        text: t("backpack"),
+                      },
                       { to: "/mujer/complementos/carteras", text: "Carteras" },
-                      { to: "/mujer/complementos/gafas-sol", text: t("sunglasess") },
-                      { to: "/mujer/complementos/cinturones", text: t("belts") },
-                      { to: "/mujer/complementos/gorras", text: t("cups") }
+                      {
+                        to: "/mujer/complementos/gafas-sol",
+                        text: t("sunglasess"),
+                      },
+                      {
+                        to: "/mujer/complementos/cinturones",
+                        text: t("belts"),
+                      },
+                      { to: "/mujer/complementos/gorras", text: t("cups") },
                     ]}
                   />
                 </div>
@@ -276,10 +386,19 @@ export default function Header() {
               onMouseLeave={() => setShowMenMenu(false)}
               style={{ position: "relative" }}
             >
-              <Link to="/hombre" style={styles.mainNavLink}>{t("men")}</Link>
-              {showMenMenu && (
+              <Link
+                to="/hombre"
+                style={{
+                  ...styles.mainNavLink,
+                  color: linkColor,
+                }}
+              >
+                {t("men")}
+              </Link>
+
+              {!isMobile && showMenMenu && (
                 <div style={styles.dropdown}>
-                  <CategorySection 
+                  <CategorySection
                     title={t("clothing")}
                     links={[
                       { to: "/hombre/ropa/pantalones", text: t("pants") },
@@ -288,27 +407,36 @@ export default function Header() {
                       { to: "/hombre/ropa/camisas", text: t("shirt") },
                       { to: "/hombre/ropa/sudaderas", text: t("sweatshirts") },
                       { to: "/hombre/ropa/chaquetas", text: t("jackets") },
-                      { to: "/hombre/ropa/abrigos", text: t("coats") }
+                      { to: "/hombre/ropa/abrigos", text: t("coats") },
                     ]}
                   />
-                  <CategorySection 
+                  <CategorySection
                     title={t("footwear")}
                     links={[
                       { to: "/hombre/calzado/zapatillas", text: t("sneakers") },
                       { to: "/hombre/calzado/zapatos", text: t("shoes") },
                       { to: "/hombre/calzado/botas", text: t("boots") },
                       { to: "/hombre/calzado/chanclas", text: t("sandals") },
-                      { to: "/hombre/calzado/casa", text: t("house_sleepers") }
+                      { to: "/hombre/calzado/casa", text: t("house_sleepers") },
                     ]}
                   />
-                  <CategorySection 
+                  <CategorySection
                     title={t("accessories")}
                     links={[
                       { to: "/hombre/complementos/bolsos", text: t("pockets") },
-                      { to: "/hombre/complementos/mochilas", text: t("backpack") },
-                      { to: "/hombre/complementos/gafas-sol", text: t("sunglasess") },
-                      { to: "/hombre/complementos/cinturones", text: t("belts") },
-                      { to: "/hombre/complementos/gorras", text: t("cups") }
+                      {
+                        to: "/hombre/complementos/mochilas",
+                        text: t("backpack"),
+                      },
+                      {
+                        to: "/hombre/complementos/gafas-sol",
+                        text: t("sunglasess"),
+                      },
+                      {
+                        to: "/hombre/complementos/cinturones",
+                        text: t("belts"),
+                      },
+                      { to: "/hombre/complementos/gorras", text: t("cups") },
                     ]}
                   />
                 </div>
@@ -321,32 +449,44 @@ export default function Header() {
               onMouseLeave={() => setShowBoyMenu(false)}
               style={{ position: "relative" }}
             >
-              <Link to="/nino" style={styles.mainNavLink}>{t("boy")}</Link>
-              {showBoyMenu && (
+              <Link
+                to="/niño"
+                style={{
+                  ...styles.mainNavLink,
+                  color: linkColor,
+                }}
+              >
+                {t("boy")}
+              </Link>
+
+              {!isMobile && showBoyMenu && (
                 <div style={styles.dropdown}>
-                  <CategorySection 
+                  <CategorySection
                     title={t("clothing")}
                     links={[
                       { to: "/nino/ropa/pantalones", text: t("pants") },
                       { to: "/nino/ropa/bermudas", text: "Bermudas" },
                       { to: "/nino/ropa/camisetas", text: t("tshirt") },
                       { to: "/nino/ropa/sudaderas", text: t("sweatshirts") },
-                      { to: "/nino/ropa/chaquetas", text: t("jackets") }
+                      { to: "/nino/ropa/chaquetas", text: t("jackets") },
                     ]}
                   />
-                  <CategorySection 
+                  <CategorySection
                     title={t("footwear")}
                     links={[
                       { to: "/nino/calzado/zapatillas", text: t("sneakers") },
                       { to: "/nino/calzado/zapatos", text: t("shoes") },
-                      { to: "/nino/calzado/botas", text: t("boots") }
+                      { to: "/nino/calzado/botas", text: t("boots") },
                     ]}
                   />
-                  <CategorySection 
+                  <CategorySection
                     title={t("accessories")}
                     links={[
-                      { to: "/nino/complementos/mochilas", text: t("backpack") },
-                      { to: "/nino/complementos/gorras", text: t("cups") }
+                      {
+                        to: "/nino/complementos/mochilas",
+                        text: t("backpack"),
+                      },
+                      { to: "/nino/complementos/gorras", text: t("cups") },
                     ]}
                   />
                 </div>
@@ -359,40 +499,60 @@ export default function Header() {
               onMouseLeave={() => setShowGirlMenu(false)}
               style={{ position: "relative" }}
             >
-              <Link to="/nina" style={styles.mainNavLink}>{t("girl")}</Link>
-              {showGirlMenu && (
+              <Link
+                to="/niña"
+                style={{
+                  ...styles.mainNavLink,
+                  color: linkColor,
+                }}
+              >
+                {t("girl")}
+              </Link>
+
+              {!isMobile && showGirlMenu && (
                 <div style={styles.dropdown}>
-                  <CategorySection 
+                  <CategorySection
                     title={t("clothing")}
                     links={[
                       { to: "/nina/ropa/pantalones", text: t("pants") },
                       { to: "/nina/ropa/shorts", text: "Shorts" },
                       { to: "/nina/ropa/camisetas", text: t("tshirt") },
                       { to: "/nina/ropa/vestidos", text: t("dress") },
-                      { to: "/nina/ropa/faldas", text: t("skirt") }
+                      { to: "/nina/ropa/faldas", text: t("skirt") },
                     ]}
                   />
-                  <CategorySection 
+                  <CategorySection
                     title={t("footwear")}
                     links={[
                       { to: "/nina/calzado/zapatillas", text: t("sneakers") },
                       { to: "/nina/calzado/zapatos", text: t("shoes") },
-                      { to: "/nina/calzado/botas", text: t("boots") }
+                      { to: "/nina/calzado/botas", text: t("boots") },
                     ]}
                   />
-                  <CategorySection 
+                  <CategorySection
                     title={t("accessories")}
                     links={[
                       { to: "/nina/complementos/bolsos", text: t("pockets") },
-                      { to: "/nina/complementos/mochilas", text: t("backpack") },
-                      { to: "/nina/complementos/gorras", text: t("cups") }
+                      {
+                        to: "/nina/complementos/mochilas",
+                        text: t("backpack"),
+                      },
+                      { to: "/nina/complementos/gorras", text: t("cups") },
                     ]}
                   />
                 </div>
               )}
             </div>
 
-            <Link to="/marcas" style={styles.mainNavLink}>{t("brands")}</Link>
+            <Link
+              to="/marcas"
+              style={{
+                ...styles.mainNavLink,
+                color: linkColor,
+              }}
+            >
+              {t("brands")}
+            </Link>
           </div>
 
           {/* BOTONES DE IDIOMA */}
@@ -403,7 +563,7 @@ export default function Header() {
                 ...styles.langButton,
                 background: "linear-gradient(45deg, #ff0000, #fff701ff)",
                 color: "white",
-                border: "none"
+                border: "none",
               }}
             >
               CAT
@@ -413,8 +573,8 @@ export default function Header() {
               style={{
                 ...styles.langButton,
                 background: "linear-gradient(45deg, #ff0000, #fff701ff)",
-                color: "white", 
-                border: "none"
+                color: "white",
+                border: "none",
               }}
             >
               ES

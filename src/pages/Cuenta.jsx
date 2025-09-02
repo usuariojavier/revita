@@ -3,42 +3,86 @@ import { useTranslation } from "react-i18next";       //  para traducir
 
 
 
+
+
 import { useState } from "react";
 
 export default function Cuenta() {
   const [isLogin, setIsLogin] = useState(true);
+
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [message, setMessage] = useState("");
+
+
   const { t } = useTranslation();                    //  para traducir
 
   const toggleForm = () => setIsLogin(prev => !prev);
+  
+  const handleSubmit = (e) => {     //  Simulación de envío del formulario
+  e.preventDefault();
+
+  if (!email || !password || (!isLogin && !name)) {
+    setMessage("Por favor, completa todos los campos.");
+    return;
+  }
+
+  if (isLogin) {
+    // Simulación de login
+    setMessage(`Bienvenido de nuevo, ${email}`);
+  } else {
+    // Simulación de registro
+    setMessage(`Cuenta creada para ${name}`);
+  }
+
+  // Limpia los campos
+  setName("");
+  setEmail("");
+  setPassword("");
+};
+
+ 
+
 
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>{isLogin ? "Iniciar sesión" : "Crear cuenta"}</h1>
 
-      <form style={styles.form}>
-        {!isLogin && (
-          <input
-            type="text"
-            placeholder="Nombre completo"
-            style={styles.input}
-          />
-        )}
+      <form style={styles.form} onSubmit={handleSubmit}>
+  {!isLogin && (
+    <input
+      type="text"
+      placeholder="Nombre completo"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      style={styles.input}
+    />
+  )}
 
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          style={styles.input}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          style={styles.input}
-        />
+  <input
+    type="email"
+    placeholder="Correo electrónico"
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    style={styles.input}
+  />
+  <input
+    type="password"
+    placeholder="Contraseña"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    style={styles.input}
+  />
 
-        <button type="submit" style={styles.button}>
-          {isLogin ? "Entrar" : "Registrarse"}
-        </button>
-      </form>
+  <button type="submit" style={styles.button}>
+    {isLogin ? "Entrar" : "Registrarse"}
+  </button>
+</form>
+
+
+    {message && <p style={styles.message}>{message}</p>}
+
 
       <p style={styles.toggleText}>
         {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}

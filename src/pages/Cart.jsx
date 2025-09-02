@@ -1,91 +1,192 @@
 import { useCart } from "../context/CartContext";
-import i18n from "../i18n/i18n";                 //  para traducir
-import Footer from "../components/Footer"; 
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";        //  para traducir
-
-
-///////////////////////////////////////////      CARRITO      /////////////////////////////////////////////
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 export default function Cart() {
-  const { t } = useTranslation(); //  para traducir
+  const { t } = useTranslation();
   const { cart, removeFromCart } = useCart();
+  const navigate = useNavigate();
+  const [removingId, setRemovingId] = useState(null);
+
+  const handleRemove = (id) => {
+    setRemovingId(id);
+    setTimeout(() => {
+      removeFromCart(id);
+      toast.info("🗑️ Producto eliminado", { autoClose: 1500 });
+      setRemovingId(null);
+    }, 300); // tiempo para animación
+  };
+
+  const total = cart.reduce((sum, i) => sum + i.price, 0).toFixed(2);
 
   return (
-    <>
-      <div>
-                {/*<img
-                  src="/images/carrito-compra.gif"
-                  alt="Carrito"
-                  style={{ width: "200px", margin: "199px auto", display: "block" }}
-                />*/}
-        <h1>
-          {t("cart")}{" "}
-          <img
-            src="/images/bolsa.png"
-            alt="Carrito"
-            style={{ width: "50px", margin: "199px 10px", }}
-          />
-        </h1>
-        {!cart.length ? (
-          <p> {t("emptyCart")} 😔 </p>
-        ) : (
-          <>
+    <div style={styles.container}>
+      <h1 style={styles.title}>
+        {t("cart")}
+        <img src="/images/bolsa.png" alt="Carrito" style={styles.icon} />
+      </h1>
+
+      {!cart.length ? (
+        <p style={styles.empty}>{t("emptyCart")} 😔</p>
+      ) : (
+        <>
+          <ul style={styles.list}>
             {cart.map((item) => (
-              <div
-                key={item.id}
-                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              <li
+                key={item.cartItemId}
+                style={{
+                  ...styles.item,
+                  opacity: removingId === item.cartItemId ? 0.4 : 1,
+                  transition: "opacity 0.3s ease",
+                }}
               >
-                <Link
-                  to={`/producto/${item.id}`}
-                  style={{
-                    display: "flex",
-                    gap: "10px",
-                    alignItems: "center",
-                    textDecoration: "none",
-                    color: "inherit",
-                  }}
-                >
+                <Link to={`/producto/${item.id}`} style={styles.link}>
                   <img
                     src={`/images/${item.image}`}
                     alt={item.name}
-                    style={{ width: "200px" }}
+                    style={styles.image}
                   />
-                  <div>
-                    <p>{t(item.name)}</p>
-                    <p style={{ fontWeight: "bold" }}>{item.price}€</p>
+                  <div style={styles.details}>
+                    <h3 style={styles.name}>{t(item.name)}</h3>
+                    <p style={styles.price}>{item.price}€</p>
+                    {item.quantity && item.quantity > 1 && (
+                      <p style={styles.quantity}>Cantidad: {item.quantity}</p>
+                    )}
                   </div>
                 </Link>
-                <button
-                  onClick={() => removeFromCart(item.cartItemId)}
-                  style={{
-                    padding: "10px",
-                    backgroundColor: "#12e2ef",
-                    color: "white",
-                  }}
-                >
-                  Eliminar
-                </button>
-              </div>
-            ))}
 
-            <h2>
-              Total: {cart.reduce((sum, i) => sum + i.price, 0).toFixed(2)} €
-            </h2>
-            <button
-              onClick={() => navigate("/checkout")}
-              style={{
-                padding: "10px",
-                marginBottom: "18px",
-                backgroundColor: "#12e2ef",
-                color: "white",
-              }}
-            >
+                <button
+                  onClick={() => handleRemove(item.cartItemId)}
+                  style={styles.removeBtn}
+                >
+                  <span className="desktop">Eliminar</span>
+                  <span className="mobile">🗑️</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <div style={styles.summary}>
+            <h2 style={styles.total}>Total: {total} €</h2>
+            <button onClick={() => navigate("/checkout")} style={styles.checkoutBtn}>
               {t("proceedToPurchase")}
             </button>
-          </>
-        )}
-      </div>
-    </>
+          </div>
+        </>
+      )}
+
+      <ToastContainer />
+    </div>
   );
 }
+
+
+
+const styles = {
+  container: {
+    maxWidth: "800px",
+    margin: "200px auto 40px",
+    padding: "20px",
+    fontFamily: "Arial, sans-serif",
+  },
+  title: {
+    fontSize: "28x",
+    fontWeight: "600",
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    marginBottom: "30px",
+    color: "#333",
+  },
+  icon: {
+    width: "40px",
+  },
+  empty: {
+    fontSize: "18px",
+    color: "#666",
+    textAlign: "center",
+    marginTop: "60px",
+  },
+  list: {
+    listStyle: "none",
+    padding: 0,
+    margin: 0,
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
+  },
+  item: {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+    backgroundColor: "#fff",
+    borderRadius: "12px",
+    boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
+    padding: "12px",
+    flexWrap: "wrap",
+  },
+  link: {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+    textDecoration: "none",
+    color: "inherit",
+    flex: 1,
+  },
+  image: {
+    width: "100px",
+    height: "100px",
+    objectFit: "cover",
+    borderRadius: "8px",
+  },
+  details: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "6px",
+  },
+  name: {
+    fontSize: "16px",
+    fontWeight: "600",
+  },
+  price: {
+    fontSize: "15px",
+    color: "#12e2ef",
+    fontWeight: "bold",
+  },
+  quantity: {
+    fontSize: "14px",
+    color: "#666",
+  },
+  removeBtn: {
+    backgroundColor: "#ff4757",
+    color: "#fff",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    fontSize: "14px",
+  },
+  summary: {
+    marginTop: "40px",
+    textAlign: "center",
+  },
+  total: {
+    fontSize: "22px",
+    fontWeight: "600",
+    marginBottom: "20px",
+  },
+  checkoutBtn: {
+    padding: "12px 24px",
+    backgroundColor: "#12e2ef",
+    color: "#fff",
+    border: "none",
+    borderRadius: "8px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  },
+};

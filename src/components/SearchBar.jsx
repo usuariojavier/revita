@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCart } from "../context/CartContext";
 import { FaSearch } from "react-icons/fa";
@@ -9,32 +9,28 @@ export default function SearchBar({ onSearch }) {
   const { t } = useTranslation();
   const { cart } = useCart();
   const navigate = useNavigate();
-  
+  const location = useLocation();
+
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState({
-    category: "",
-    price: "",
-    size: "",
-  });
-  const [isMobile, setIsMobile] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
 
+  const isHome = location.pathname === "/";
+  const iconColor = isHome && !scrolled ? "#fff" : "#12e2ef";
+
+  const cartIconSrc = isHome && !scrolled
+    ? "/images/bolsa-blanca.png"
+    : "/images/bolsa.png";
+
+  const userIconSrc = isHome && !scrolled
+    ? "/images/logoUser-blanco.png"
+    : "/images/logoUser.jpg";
+
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-      window.removeEventListener("scroll", handleScroll);
-    };
+    const checkScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", checkScroll);
+    return () => window.removeEventListener("scroll", checkScroll);
   }, []);
 
   useEffect(() => {
@@ -47,7 +43,7 @@ export default function SearchBar({ onSearch }) {
         product.categoria?.toLowerCase().includes(query.toLowerCase()) ||
         product.subcategoria?.toLowerCase().includes(query.toLowerCase())
       ).slice(0, 5);
-      
+
       setSuggestions(filteredProducts);
       setShowSuggestions(true);
     } else {
@@ -56,51 +52,74 @@ export default function SearchBar({ onSearch }) {
     }
   }, [query]);
 
-  // 🔹 Nueva función para limpiar
-  const clearSearch = () => {             // limpia la barra de busqueda
+  const clearSearch = () => {
     setQuery("");
     setShowSuggestions(false);
   };
 
-     {/*if (isMobile) return null;       */      }     // si es movil no se muestra  ////////////////////////////////////////////////
-
-  const handleSearch = (searchQuery = query) => {             // para buscar
+  const handleSearch = (searchQuery = query) => {
     const finalQuery = searchQuery.trim();
     if (!finalQuery) return;
 
-    const newUrl = `/search?q=${encodeURIComponent(finalQuery)}`;       // para buscar
+    const newUrl = `/search?q=${encodeURIComponent(finalQuery)}`;
     if (window.location.pathname + window.location.search !== newUrl) {
       navigate(newUrl);
     }
-    clearSearch(); // limpia al buscar
+    clearSearch();
   };
 
-  const handleKeyPress = (e) => {       // para buscar con enter
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") handleSearch();
   };
 
-  const handleSuggestionClick = (product) => {      // para elegir sugerencia
+  const handleSuggestionClick = (product) => {
     handleSearch(product.nombre || product.name);
-    clearSearch(); // limpia al elegir sugerencia
+    clearSearch();
   };
+
+                              /////////////////////  estilos de los contadores del carrito  /////////////////////
+const cartCountStyle = {
+  backgroundColor: isHome && !scrolled ? "#fff" : "#12e2ef",
+  color: isHome && !scrolled ? "#000" : "#fff",
+  padding: "2px 3px",
+  borderRadius: "50px",
+  fontSize: "12px",
+  fontWeight: "bold",
+  marginLeft: "-9px",
+  
+};
+
+
+
+
 
   return (
+
+  
+
+
+
+
+
+
     <div style={{
       ...styles.container,
       backgroundColor: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
       backdropFilter: scrolled ? "blur(15px)" : "none",
       transition: "all 0.3s ease",
-      
     }}>
       <Link to="/" onClick={clearSearch}>
-        <img   
-          src="/images/larepercha (1).png" 
-          alt="repercha" 
-          style={{ width: "10em", height: "4em", zIndex: "1000" ,
-             boxShadow: scrolled ?  "none"  : "0px 4px 8px rgba(1, 1, 1, 5)" , transition: "all 0.3s ease" ,
-            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"  ,}} 
+        <img
+          src="/images/larepercha (1).png"
+          alt="repercha"
+          style={{
+            width: "10em",
+            height: "4em",
+            zIndex: "1000",
+            boxShadow: scrolled ? "none" : "0px 4px 8px rgba(1, 1, 1, 5)",
+            transition: "all 0.3s ease",
+            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)",
+          }}
         />
       </Link>
 
@@ -108,7 +127,7 @@ export default function SearchBar({ onSearch }) {
         <div style={styles.searchWrapper}>
           <input
             type="text"
-            placeholder={t("🔍 search")}
+            placeholder={t(" search")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyPress={handleKeyPress}
@@ -116,7 +135,7 @@ export default function SearchBar({ onSearch }) {
             style={styles.input}
           />
           <button onClick={() => handleSearch()} style={styles.searchButton}>
-            <FaSearch />👽
+            <FaSearch />🔍
           </button>
         </div>
 
@@ -128,11 +147,11 @@ export default function SearchBar({ onSearch }) {
                 style={styles.suggestionItem}
                 onClick={() => handleSuggestionClick(product)}
               >
-                <img 
-                  src={`/images/${product.image}`} 
+                <img
+                  src={`/images/${product.image}`}
                   alt={product.nombre || product.name}
                   style={styles.suggestionImage}
-                  onError={(e) => {e.target.src = "/images/placeholder.jpg"}}
+                  onError={(e) => { e.target.src = "/images/placeholder.jpg"; }}
                 />
                 <div style={styles.suggestionText}>
                   <div style={styles.suggestionName}>{product.nombre || product.name}</div>
@@ -141,10 +160,7 @@ export default function SearchBar({ onSearch }) {
                 </div>
               </div>
             ))}
-            <div 
-              style={styles.viewAllResults} 
-              onClick={() => handleSearch()}
-            >
+            <div style={styles.viewAllResults} onClick={() => handleSearch()}>
               Ver todos los resultados para "{query}"
             </div>
           </div>
@@ -153,19 +169,33 @@ export default function SearchBar({ onSearch }) {
 
       <div style={styles.actionsContainer}>
         <Link to="/cart" style={styles.actionLink} onClick={clearSearch}>
-          <img src="/images/bolsa.png" alt="Carrito" style={{ width: "25px" ,boxShadow: scrolled ?  "none"  : "0px 0px 9px 5px  white" , transition: "all 1s ease" ,
-            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"  , }} />
+          <img
+            src={cartIconSrc}
+            alt="Carrito"
+            style={{
+              width: "25px",
+             
+            
+            }}
+          />
+          <span style={cartCountStyle}>{cart.length}</span>
 
-          <span style={styles.cartCount}>{cart.length},   </span>
         </Link>
         <Link to="/cuenta" style={styles.actionLink} onClick={clearSearch}>
-          <img src="/images/logoUser.jpg" alt="user" style={{ width: "25px" ,boxShadow: scrolled ?  "none"  : "0px 0px 9px 7px  white" , transition: "all 1s ease" ,
-            backgroundColor: scrolled ? "none" : "rgba(255, 255, 255, 0.95)"  ,}} />
+          <img
+            src={userIconSrc}
+            alt="user"
+            style={{
+              width: "25px",
+              
+            }}
+          />
         </Link>
       </div>
     </div>
   );
 }
+
 
 const styles = {
   container: {
