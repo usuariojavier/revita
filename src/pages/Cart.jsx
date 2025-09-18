@@ -1,3 +1,6 @@
+
+// Cart.jsx
+
 import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -88,7 +91,7 @@ export default function Cart() {
 const styles = {
   container: {
     maxWidth: "800px",
-    margin: "200px auto 40px",
+    margin: "auto auto 40px",
     padding: "20px",
     fontFamily: "Arial, sans-serif",
   },

@@ -1,3 +1,5 @@
+// src/components/ProductCard.jsx
+
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -5,18 +7,19 @@ import { useCart } from "../context/CartContext";
 import { toast } from "react-toastify";
 
 export default function ProductCard({ product }) {
+
+    console.log("ProductCard - Recibiendo producto:", product);
+    
   const [hovered, setHovered] = useState(false);
   const { t } = useTranslation();
   const { addToCart, cart } = useCart();
 
-  // unidades de este producto en el carrito
   const quantityInCart = cart.reduce(
     (acc, item) => item.id === product?.id ? acc + 1 : acc,
     0
   );
 
   const handleAddToCart = () => {
-    // 🔹 validación a prueba de todo
     if (!product) return;
 
     if (product.stock <= 0 || quantityInCart >= product.stock) {
@@ -51,11 +54,16 @@ export default function ProductCard({ product }) {
         to={`/producto/${product.id}`}
         style={{ textDecoration: "none", color: "inherit" }}
       >
-        <img
-          src={`/images/${product.image}`}
-          alt={product.name}
-          style={styles.img}
-        />
+        {/* *** INICIO DEL CAMBIO CLAVE *** */}
+        <div style={styles.imageWrapper}> {/* NUEVO CONTENEDOR */}
+          <img
+            src={`/images/${product.image}`}
+            alt={product.name}
+            style={styles.img}
+          />
+        </div>
+        {/* *** FIN DEL CAMBIO CLAVE *** */}
+
         {product.stock < 5 && (
           <div style={styles.stockBadge}>¡Últimas unidades!</div>
         )}
@@ -66,7 +74,6 @@ export default function ProductCard({ product }) {
         <p>{t(product.description)}</p>
       </Link>
 
-      {/*  */}
       <button
         onClick={handleAddToCart}
         disabled={product.stock <= 0 || quantityInCart >= product.stock}
@@ -105,13 +112,25 @@ const styles = {
     boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
     transform: "translateY(-6px)",
     transition: "transform 0.3s",
-    zIndex: 1000
+    zIndex: 8
   },
-  img: {
-    width: "100%",
-    height: "120px",
-    objectFit: "cover",
-    marginBottom: "10px"
+  // *** NUEVO ESTILO para el contenedor de la imagen ***
+  imageWrapper: {
+    position: 'relative',
+    width: '100%',
+    paddingTop: '100%', // Esto crea un cuadrado (relación de aspecto 1:1)
+    overflow: 'hidden', // Asegura que nada se salga del contenedor
+    marginBottom: '10px', // Mueve el margen aquí desde la imagen
+    borderRadius: '4px', // Opcional: para que las esquinas del contenedor sean redondeadas
+  },
+  img: { // Estilo para la imagen real
+    position: 'absolute', // Permite que ocupe todo el espacio del imageWrapper
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover', // La imagen llenará el cuadrado, recortando lo necesario de forma centrada
+    // Elimina marginBottom de aquí, ya está en imageWrapper
   },
   stockBadge: {
     position: "absolute",
@@ -134,4 +153,3 @@ const styles = {
     marginTop: "10px"
   }
 };
-

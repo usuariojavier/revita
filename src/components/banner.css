@@ -1,7 +1,11 @@
+
+/* src/components/banner.css*/
+
+
 .banner-container {
   position: relative;   /* para que fluya sin tapar nada */
-  left: -300px;
-  top: -10px;
+  left: -200px;
+  top: -100px;
   width: 100vw;          /* ancho igual al viewport */
   max-width: 100vw;      /* que no sobrepase */
   height: 900px;
@@ -21,8 +25,15 @@
 }
 
 
+
+
+/*    ----------------------------MOVIL ----------------------------------*/
+
+
+
 @media (min-width: 768px) {
   .banner-container {
+    top: -50px !important; /* empuja hacia abajo en móvil */
     height: 800px; /* Altura media para tablets */
   }
 }
@@ -30,6 +41,7 @@
 @media (min-width: 1024px) {
   .banner-container {
     height: 600px; /* Altura completa para desktop */
+    top: -88px !important;
   }
   
   .banner-image {
@@ -38,8 +50,12 @@
 }
 
 /* Mejora específica para móviles muy pequeños */
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   .banner-container {
-    height: 180px; /* Aún más compacto para móviles pequeños */
+    height: 280px; /* Aún más compacto para móviles pequeños */
   }
 }
+
+
+
+  

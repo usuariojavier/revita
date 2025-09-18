@@ -1,3 +1,6 @@
+
+// src/components/Header.jsx
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -80,7 +83,7 @@ export default function Header() {
     ) {
       setMenuOpen(false);
     }
-  };
+  };      
 
   if (menuOpen) {
     document.addEventListener("mousedown", handleClickOutside);
@@ -97,18 +100,20 @@ export default function Header() {
   const styles = {
     header: {
       position: "fixed",
-      top: 64,
+      top: isMobile ? "0px" : "85px",
       left: 0,
       right: 0,
       zIndex: 10,
-      padding: "15px 30px",
-      borderBottom: "1px solid rgba(0,0,0,0.1)",
+      padding: "0px 30px",
+      borderBottom: "0px",
+      
+
     },
 
-    dropdown: {
+    dropdown: {                     /*  ESTILOS DEL MENU DESPLEGABLE  */
       position: "absolute",
       top: "100%",
-      left: "-20px",
+      left: "-10px",
       width: "900px",
       maxWidth: "90vw",
       backgroundColor: "#ffffff",
@@ -165,7 +170,7 @@ export default function Header() {
       textDecoration: "none",
       fontSize: "20px",
       /* The above code is setting the `fontWeight` style property to "800" in a React component. */
-      fontWeight: 800,
+      fontWeight:600,
       padding: "10px 15px",
       borderRadius: "6px",
 
@@ -187,7 +192,7 @@ export default function Header() {
       transition: "all 0.2s ease",
     },
 
-    //   MOVIL MENU  //
+    ////////////////////////////   MOVIL MENU  ///////////////////////////////////
     mobileMenu: {
       position: "  fixed",
       top: "70px",
@@ -210,7 +215,7 @@ export default function Header() {
       textDecoration: "none",
       padding: "10px 15px",
       borderRadius: "6px",
-      backgroundColor: "#f5f5f5",
+      backgroundColor: "#f5f5f5ff",
       transition: "background-color 0.3s ease",
     },
   };
@@ -266,16 +271,16 @@ export default function Header() {
       <header
         style={{
           ...styles.header,
-          backgroundColor: scrolled
-            ? "rgba(255, 255, 255, 0.95)"
-            : "transparent",
-          backdropFilter: scrolled ? "blur(15px)" : "none",
-          transition: "all 0.3s ease",
+         backgroundColor: isHome
+  ? (scrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(0, 0, 0, 0.10)")
+  : "rgba(255, 255, 255, 0.95)",
+      backdropFilter: scrolled ? "blur(15px)" : "none",
+      transition: "all 0.3s ease",
         }}
       >
         
 
-        {/*  ------------------------------------------------MENU -----------*/}
+        {/*  ------------------------------------------------MENU MOBIL -----------*/}
        {isMobile && menuOpen && (
   <div ref={mobileMenuRef} style={styles.mobileMenu}>
     <Link to="/mujer" style={styles.mobileLink} onClick={() => setMenuOpen(false)}>
@@ -298,20 +303,23 @@ export default function Header() {
 
 
 
-
+{!isMobile && (                   // MENU ESCRITORIO                    //////////////////////////
         <nav
           style={{
             display: isMobile ? (menuOpen ? "flex" : "none") : "flex",
             flexDirection: isMobile ? "column" : "row",
             alignItems: "center",
             gap: "40px",
-            justifyContent: "space-between",
+            justifyContent: "center",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
-            <Link to="/">
-              <img src="/images/home.png" alt="home" width="28px" />
+
+            
+           {/* <Link to="/">
+              <img src="/images/home.png" alt="home" width="28px" />   // ICONO DE HOME eliminado
             </Link>
+            */}
 
             {/* MUJER */}
             <div
@@ -581,6 +589,11 @@ export default function Header() {
             </button>
           </div>
         </nav>
+)}
+
+
+
+
       </header>
     </div>
   );

@@ -1,31 +1,51 @@
-////////////  PAGINA CATEGORIA, ABRE CUANDO SE HACE CLICK EN UNA CATEGORIA o subcategoria  //////////////////////
-
 import { useParams } from "react-router-dom";
-import productos from "../data/productos";
 import ProductCard from "../components/ProductCard";
-import { ToastContainer, toast } from "react-toastify";  // para notificaciones de carrito
-import i18n from "../i18n/i18n";  // para traducciones
+import { ToastContainer } from "react-toastify";
+import i18n from "../i18n/i18n";
+import { useState, useEffect } from "react";
 
-export default function Category() {
+export default function Category({ allProducts }) {
   const { genero, category, subcategoria } = useParams();
 
-  // Filtrado según URL
-  let filtrados = productos;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  let filtrados = allProducts;
   if (genero) filtrados = filtrados.filter(p => p.genero === genero);
   if (category) filtrados = filtrados.filter(p => p.categoria === category);
   if (subcategoria) filtrados = filtrados.filter(p => p.subcategoria === subcategoria);
 
+  const containerStyle = {
+    ...styles.container,
+    marginTop: isMobile ? "0px" : "60px",
+  };
+
   return (
-    <div style={styles.container}>
-      {/* Cabecera igual que SearchResults */}
+    <div style={containerStyle}>
       <div style={styles.searchHeader}>
         <h1 style={styles.title}>
-          {genero ? genero.toUpperCase() : "Todos los productos"}{" "}
-          {category ? `/ ${category.toUpperCase()}` : ""}{" "}
-          {subcategoria ? `/ ${subcategoria.toUpperCase()}` : ""}
+          {genero && <span>{genero.toUpperCase()}</span>}
+          {category && <span> / {category.toUpperCase()}</span>}
+          {subcategoria && <span> / {subcategoria.toUpperCase()}</span>}
         </h1>
+
+        {genero && (
+          <p style={styles.description}>
+            Explora nuestra selección exclusiva para {genero.toLowerCase()}
+          </p>
+        )}
+
         <p style={styles.resultsCount}>
-          {filtrados.length} {filtrados.length === 1 ? "producto encontrado" : "productos encontrados"}
+          🛍️ {filtrados.length} {filtrados.length === 1 ? "producto disponible" : "productos disponibles"}
         </p>
       </div>
 
@@ -38,13 +58,14 @@ export default function Category() {
             </div>
           ) : (
             filtrados.map(p => (
-              <div key={p.id} style={styles.productCard}>
+              <div key={p.id} className="productCard" style={styles.productCard}>
                 <ProductCard product={p} />
               </div>
             ))
           )}
         </main>
-      </div>  <ToastContainer />
+      </div>
+      <ToastContainer />
     </div>
   );
 }
@@ -62,15 +83,26 @@ const styles = {
     paddingBottom: "20px",
   },
   title: {
-    fontSize: "28px",
-    fontWeight: "600",
-    color: "#333",
-    marginBottom: "8px",
+    fontSize: "2em",
+    fontWeight: "700",
+    color: "#222",
+    marginBottom: "10px",
+    textAlign: "center",
+    textTransform: "uppercase",
+    letterSpacing: "1px",
+  },
+  description: {
+    fontSize: "0.85em",
+    color: "#888",
+    textAlign: "center",
+    marginBottom: "10px",
   },
   resultsCount: {
-    fontSize: "16px",
-    color: "#666",
-    margin: 0,
+    fontSize: "0.95em",
+    color: "#555",
+    textAlign: "center",
+    marginTop: "5px",
+    marginBottom: "10px",
   },
   content: {
     display: "flex",
@@ -98,6 +130,6 @@ const styles = {
     boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between"
-  }
+    justifyContent: "space-between",
+  },
 };

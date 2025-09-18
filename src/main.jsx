@@ -1,17 +1,19 @@
+// src/main.jsx
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';
-import i18n from './i18n/i18n';
-import { CartProvider } from "./context/CartContext.jsx";
+import { AuthProvider } from './context/AuthContext'; // Importa tu AuthProvider
 
+// Asegúrate de que tu index.html no tiene la inicialización de Firebase duplicada.
+// Solo debe haber un <div id="root"></div> y un <script type="module" src="/src/main.jsx"></script>
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
-    <CartProvider>
-      
-    <App />
-    </CartProvider>
+    <AuthProvider> {/* Envuelve tu App con AuthProvider para que toda la app tenga acceso al estado de autenticación */}
+      <App />
+    </AuthProvider>
   </React.StrictMode>
 );
+

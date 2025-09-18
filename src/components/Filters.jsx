@@ -1,18 +1,18 @@
+// src/components/Filters.jsx
+
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import productos from '../data/productos';
+// import productos from '../data/productos'; // <--- ¡ELIMINAR ESTA IMPORTACIÓN!
 
-export default function Filters({ onFilter }) {
+export default function Filters({ onFilter }) { // Si necesitas allProducts para generar opciones de filtro, añádelo aquí
   const { t } = useTranslation();
 
-  // Estado local para los filtros seleccionados
   const [filters, setFilters] = useState({
     category: '',
     price: '',
     size: ''
   });
 
-  // ✅ Solo llamamos a onFilter cuando cambian los filtros
   useEffect(() => {
     if (onFilter && typeof onFilter === 'function') {
       onFilter(filters);
@@ -42,20 +42,13 @@ export default function Filters({ onFilter }) {
 
   return (
     <div>
-      {/* Categorías */}
-      
-
-      {/* Marcas */}
-      
-
-      {/* Precio */}
-      
-
-      {/* Talla */}
-      
+      {/* ... (tu JSX de filtros) ... */}
     </div>
   );
 }
+
+// ... ( estilos) ...
+
 
 const styles = {
   filterSection: {

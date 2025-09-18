@@ -25,6 +25,9 @@ export default function CookieBanner() {
       <button onClick={handleAccept} style={styles.button}>
         Aceptar
       </button>
+
+      
+
     </div>
   );
 }

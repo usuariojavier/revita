@@ -1,3 +1,8 @@
+
+// src/data/productos.js
+
+
+
 const productos = [
   {
     id: 1,

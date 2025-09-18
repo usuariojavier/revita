@@ -10,6 +10,11 @@ export default function Contacto() {
 
   return (
     <div style={styles.container}>
+      <img
+        src="/images/atencionn.png"
+        alt="Contacto"
+        style={{ width: "100%", maxWidth: "600px", marginBottom: "20px" }}
+      />
       <h1 style={styles.title}>{t("contact")}</h1>
       <p style={styles.text}>{t("doubtsOrSuggestions")}:</p>
       <form style={styles.form}>
@@ -23,7 +28,7 @@ export default function Contacto() {
 }
 
 const styles = {
-  container: { padding: "40px 20px", maxWidth: "600px", margin: "0 auto" },
+  container: { padding: "10px 20px", maxWidth: "600px", margin: "10px auto" , marginTop:10},
   title: { fontSize: "28px", marginBottom: "20px" },
   text: { fontSize: "16px", marginBottom: "20px" },
   form: { display: "flex", flexDirection: "column", gap: "15px" },

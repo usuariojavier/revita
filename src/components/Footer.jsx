@@ -79,7 +79,7 @@ export default function Footer()
       {/* Línea inferior */}
       <div style={styles.bottom}>
         <p style={styles.bottomText}>
-          © 2025 REVITA — Todos los derechos reservados
+          © 2025 larepercha — Todos los derechos reservados
         </p>
       </div>
     </footer>
@@ -97,7 +97,7 @@ const styles = {
     fontSize: "14px",
     position: "absolute",
     zindex: "900",
-    mrginTop: "30px",
+    marginTop: "30px",
   },
 
   container: {

@@ -1,3 +1,18 @@
+
+
+
+
+
+
+
+
+/* index.css */
+
+
+@import './styles/toastify-custom.css';
+
+
+
 @font-face {
   font-family: Avenir Next , sans-serif;
   src: url("/fonts/AvenirNext-Medium.ttf") format("truetype");
@@ -49,8 +64,6 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-
 
 
 
@@ -141,29 +154,26 @@ div#root {
 
 /*primer menu*/  
 nav {
-  display: flex;
-  align-items: left;
-   justify-content: center;
-  gap: 10px;
-  
-  margin-top: 1px;
-  padding: 1px;
-  background-color: none;
- 
-  text-align: left;
-  font-size: 1em;
-  font-family: "Avenir Next" ,"Open Sans", sans-serif;
-  font-weight: 50;
-  line-height: 0.1;
-  border-radius: 25px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  -ms-border-radius: 25px;
-  -o-border-radius: 25px;
-  
-}
+      display: flex;
+      /*align-items: left;*/
+      justify-content: center;
+      gap: 10px;
+      margin-top: 1px;
+      padding: 0px;
+      background-color: none;
+      text-align: left;
+      font-size: 1em;
+      font-family: "Avenir Next" ,"Open Sans", sans-serif;
+      font-weight: 50;
+      line-height: 0.1;
+      border-radius: 25px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      -ms-border-radius: 25px;
+      -o-border-radius: 25px;}
+      
 
-nav a {
+nav a {    /* estilo de los enlaces del menu de navegacion*/
   
   
   
@@ -207,7 +217,8 @@ html, body, #root {
   width: 100%;
   height: 100%; 
   
-  
+  background-color: #fbfbfb; /* Cambia este color por el que quieras probar */
+
   
 }
 
@@ -221,32 +232,84 @@ main {
   width: 100%;
   height: auto;
   max-width: 100%;
+  margin-top: -175px;     /*  para que la imagen de la tienda no se salga de la pantalla               */
   
   object-fit: contain; /* o 'cover' si quieres que llene el espacio */
 }
 
 
+@keyframes scrollText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.notice-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollText 1s linear infinite;
+  -webkit-animation: scrollText 10s linear infinite;
+}
 
 
-/*/////////////////////////////// MOVIL //////////////////////////*/
+.search-bar {
+  top: 19px !important; 
+  
+}
 
 
 
+
+
+.productCard {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*/////////////////////////////// MOVIL ///////////////////////////////////////////////////////////////////////*/
+
+
+/* hamburger-menu solo esta en movil */
 .hamburger-menu {
   position: fixed;
-  top: 65px;
-  right: 10px;
+  top: 40px;
+  left: 15px;
   z-index: 1000;
   background-color: #000000;
   padding: 1px;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 22px 55px 55px 55px #12e2ef(25,25,25,25);
   font-size: 5px;
   cursor: pointer;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -o-border-radius: 15px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 
 
@@ -254,28 +317,32 @@ main {
 @media (max-width: 768px) {
   #root {
     padding: 0.5rem;
-    margin: 0;
+    margin: 10;
   }
   
   .banner-container {
     left: 0 !important;
+    top: -100px;
     width: 100% !important;
     max-width: 125% !important;
-    height: 250px !important; /* CAMBIADO: era 300px,*/
+    height: 500px !important; /* CAMBIADO: era 300px,*/
+    
   }
   
   .banner-image {
-    height: 300px!important; /*  */
+    height:450px!important; /*  */
+  
     
     
   }   
 
   .responsive-image {
     height:10em;
+   
   }
   
   /* Ensure no elements extend beyond viewport */
-  .container, .content, .wrapper {
+  .container, .content, .wrapper {   /* contenedores generales*/
     max-width: 100%;
     overflow-x: hidden;
   }
@@ -293,12 +360,13 @@ main {
   img {
     max-width: 100%;
     height: auto;
+   
   }
   
   /* Improve touch targets */
   button, a {
-    min-height: 44px;
-    min-width: 44px;
+    min-height:25px;
+    min-width: 25px;
   }
 }
 
@@ -319,9 +387,6 @@ main {
     display: none;
   }
 }
-
-
-
 
 
 
@@ -361,4 +426,16 @@ main {
   .product-details-container p {
     font-size: 1em;
   }
+
+
+.search-bar {
+  top: 20px !important; 
+  
 }
+
+
+}
+
+
+
+

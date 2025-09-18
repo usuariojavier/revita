@@ -1,0 +1,47 @@
+/* src/styles/toastify-custom.css */
+
+/* Define las variables CSS para los colores de react-toastify */
+:root {
+  /* Color de fondo del recuadro de notificación */
+  --toastify-color-success: #12e2ef; /* Cian para éxito */
+  --toastify-color-error: #12e2ef;   /* Cian para error (según tu solicitud) */
+  --toastify-color-info: #12e2ef;    /* Cian para info */
+  --toastify-color-warning: #12e2ef; /* Cian para warning */
+  
+  /* Color del texto dentro del recuadro de notificación */
+  /* Cambia el color del texto a blanco para que contraste bien con el cian */
+  --toastify-text-color-light: #fff; /* Texto blanco en toasts claros */
+}
+
+/* Color de la barra de progreso */
+.Toastify__progress-bar--success {
+  background: #0d9ea5; /* Un cian ligeramente más oscuro para la barra de progreso de éxito */
+}
+.Toastify__progress-bar--error {
+  background: #0d9ea5; /* Un cian ligeramente más oscuro para la barra de progreso de error */
+}
+/* Asegúrate de que todas las barras de progreso sean del mismo color */
+.Toastify__progress-bar--info {
+  background: #0d9ea5;
+}
+.Toastify__progress-bar--warning {
+  background: #0d9ea5;
+}
+
+/* Ajusta el color del texto del cuerpo del toast si no usas --toastify-text-color-light */
+.Toastify__toast-body {
+  color: #fff; /* Asegura que el texto dentro del toast sea blanco */
+}
+
+/* Controla la dirección de la barra de progreso */
+/* Por defecto, react-toastify la "vacía" de derecha a izquierda, lo que visualmente
+   parece que se "llena" de izquierda a derecha. Forzamos el origen a la izquierda
+   para asegurar ese comportamiento si no fuera el predeterminado para tu versión. */
+.Toastify__progress-bar {
+  transform-origin: right;
+}
+
+/* Asegura que los toasts siempre estén por encima de otros elementos */
+.Toastify__toast-container {
+  z-index: 9999;
+}
