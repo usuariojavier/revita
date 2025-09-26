@@ -1,3 +1,6 @@
+
+// src/pages/Login.jsx
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword, signOut, sendEmailVerification } from "firebase/auth";

@@ -38,7 +38,7 @@ export default function ChatBot() {
     
 
 
-    if (contiene(["tiempo", "entrega", "tardan", "tarda envio", "tiempo envio ", "envio", "envios"], cleanText))
+    if (contiene(["tiempo", "entrega", "tardan", "tarda envio", "tiempo envio "], cleanText))
       return "Los envíos tardan entre 24 y 48h.";
     if (contiene(["devolucion", "devoluciones"], cleanText))
       return "Puedes devolver tu pedido en 15 días.";
@@ -62,13 +62,18 @@ export default function ChatBot() {
 
     if (contiene(["devolver producto usado"], cleanText))
       return "No, debe estar sin usar y en su embalaje original.";
+
+
+    if (contiene(["donde esta mi envio ", "donde esta", "donde esta mi producto", "donde esta mi paquete"], cleanText))
+      return "Ten encuenta los tiempos de gestión, de envio y dias festivos .Recibirás un email con el número de seguimiento una vez enviado. para cualquier otra incidencia con el envio contactanos por email o en el formulario de contacto";
+
     if (contiene(["horario atencion cliente", "horario", "atencion cliente"], cleanText))
       return "Nuestro horario de atención al cliente es de lunes a viernes de 9:00 a 18:00.";
     if (contiene(["ofertas", "descuentos", "promociones"], cleanText))
       return "Puedes suscribirte a nuestra newsletter para recibir las últimas ofertas y promociones.";
     if (contiene(["productos nuevos", "novedades"], cleanText))
       return "Puedes visitar la sección de 'Novedades' en nuestro sitio web para ver los productos más recientes.";
-    if (contiene(["registro", "crear cuenta", "cuenta"], cleanText))
+    if (contiene(["registro", "crear cuenta", "mi cuenta", " una cuenta"], cleanText))
       return "Puedes crear una cuenta haciendo clic en el icono de usuario en la esquina superior derecha y seleccionando 'Crear cuenta'.";
     if (contiene(["recuperar contraseña", "olvidé mi contraseña", "contraseña"], cleanText))
       return "Puedes recuperar tu contraseña haciendo clic en 'Olvidé mi contraseña' en la página de inicio de sesión.";
@@ -88,7 +93,7 @@ export default function ChatBot() {
     if (contiene(["saludos", "hola", "buenos dias", "buenas tardes", "buenas noches", "buen dia ", "bon dia", "egun on", ], cleanText))
       return "¡Hola! Como puedo ayudarte?";
 
-    if (contiene(["quien eres", "que eres", "que puedes hacer", "quien sos", "que sos", "carne"], cleanText))
+    if (contiene(["quien eres", "que eres", "que puedes hacer", "quien sos", "que sos", "carne", "hueso"], cleanText))
       return "Soy tu asistente virtual, estoy aqui para ayudarte con tus preguntas sobre nuestros productos.";
     if (contiene(["politica privacidad", "privacidad"], cleanText))
       return "Puedes leer nuestra política de privacidad en el enlace al pie de página de nuestro sitio web.";
@@ -122,8 +127,23 @@ export default function ChatBot() {
         return "Claro, puedes contactar con nuestro servicio de atención al cliente a través del formulario de contacto en nuestra web.";
     if (contiene(["fea", "tonta", "feo", "tonto", "estupido", "estupida", "puta"], cleanText))
         return "Lo siento si no he cumplido tus expectativas. Estoy aqui para ayudarte con cualquier pregunta que tengas sobre nuestros productos.";
-    if (contiene(["chiste", "cuentame un chiste", "broma"], cleanText))
-        return "¿Qué hace una blusa en la cama? — Espera que no sea la última vez que te la pongas… ¡porque no es tuya!";
+    if (contiene(["cuenta un chiste", "cuentame un chiste", "broma"], cleanText))
+        return " ok, Van dos ciegos y le dice uno al otro: Ojalá lloviera ,le contesta el otro : Ojalá yo también";
+    if (contiene(["cuenta otro chiste", "cuentame otro chiste"], cleanText))
+        return "Vale, Va un señor al médico y le dice: Doctor, doctor, tengo amnesia. El doctor le responde: ¿Desde cuándo? Y el señor le contesta: ¿Desde cuándo qué?";
+    if (contiene(["cuenta otro", "cuentame otro", "dime otro chiste"], cleanText))
+        return "Claaro: Dos vascos a la salida de un examen de matemáticas,  Oye, Iñaki, ¿a ti que te dio el segundo problema? ¿A mí? Infinito.— ¿Solo?";
+    if (contiene(["chiste malo", "chiste malo",  "que chiste tan malo", "que chiste mas malo"], cleanText))
+        return "Jaja,los buenos chistes no son lo mio . Estoy aqui para ayudarte con cualquier pregunta que tengas sobre nuestros productos.";
+      
+          if (contiene(["Are you ok ", "estas bien "], cleanText))
+        return "Estoy bien, gracias por preguntar. ¿Cómo puedo ayudarte?";
+    if (contiene(["estas ahi", "hay alguien", "me escuchas", "me oyes"], cleanText))
+        return "Sí, estoy aquí para ayudarte. ¿Qué necesitas saber?";
+    if (contiene(["cual es el sentido de la vida", "sentido de la vida"], cleanText))
+        return "El sentido de la vida es una pregunta profunda y personal. Para muchos, se trata de encontrar felicidad, propósito y conexión con los demás.";
+    
+    
    
     
     

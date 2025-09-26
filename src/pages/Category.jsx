@@ -1,13 +1,32 @@
+// src/pages/Category.jsx
+
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
 import ProductCard from "../components/ProductCard";
 import { ToastContainer } from "react-toastify";
 import i18n from "../i18n/i18n";
-import { useState, useEffect } from "react";
 
-export default function Category({ allProducts }) {
+export default function Category() {
   const { genero, category, subcategoria } = useParams();
-
   const [isMobile, setIsMobile] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const db = getDatabase();
+    const productsRef = ref(db, "productos");
+
+    onValue(productsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const array = Object.entries(data).map(([id, value]) => ({
+          id,
+          ...value
+        }));
+        setProducts(array);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -19,8 +38,15 @@ export default function Category({ allProducts }) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  let filtrados = allProducts;
-  if (genero) filtrados = filtrados.filter(p => p.genero === genero);
+  let filtrados = products;
+  if (genero) {
+  filtrados = filtrados.filter(p =>
+    Array.isArray(p.genero)
+      ? p.genero.includes(genero)
+      : p.genero === genero
+  );
+}
+
   if (category) filtrados = filtrados.filter(p => p.categoria === category);
   if (subcategoria) filtrados = filtrados.filter(p => p.subcategoria === subcategoria);
 

@@ -1,4 +1,10 @@
-// src/App.jsx
+// src/App.jsx    
+
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { useToast } from "./hooks/useToast";   // <--- Importa el hook useToast producto añadido al carrito .. etc
 
 import {
   BrowserRouter as Router,
@@ -53,14 +59,28 @@ import MyOrders from "./pages/MyOrders"; // <--importa MyOrders de pages
 
 import ScrollToTop from "./components/ScrollToTop";
 
-import ChatBot from "./components/ChatBot"; // <--- Importa el componente ChatBot
+import ChatBot from "./components/ChatBot"; // <--- Importa el componente ChatBot   <ToastContainer />
 
 
 
 export default function App() {
+
+  const { success, error, info } = useToast();  // <--- Desestructura las funciones del hook
+// Uso de las funciones de toast en cualquier parte del componente App
+// Ejemplos:
+// success("✅ Producto agregado al carrito");
+// error("❌ No hay stock disponible");
+// info("🗑️ Producto eliminado");
+//success("✅ Producto añadido al carrito");
+//error("❌ No hay más stock disponible");
+//info("🗑️ Producto eliminado");
+
+
+
+
   const [allProducts, setAllProducts] = useState([]); // <--- Estado para TODOS los productos de Firebase
   const [filtered, setFiltered] = useState([]);       // <--- Productos filtrados para Home o SearchResults
-  const [productsLoading, setProductsLoading] = useState(true); // <--- Estado de carga para los productos
+  const [productsLoading, setProductsLoading] = useState(true); // <--- Estado de carga para los productos  <chatbot/>
 
   const { t } = useTranslation();
   const { currentUser, loading: authLoading } = useAuth(); // Renombramos 'loading' a 'authLoading'
@@ -158,7 +178,7 @@ export default function App() {
     }
   };
 
-  // Pantalla de carga global mientras se verifica la autenticación O se cargan los productos
+  // Pantalla de carga global mientras se verifica la autenticación O se cargan los productos  
   if (authLoading || productsLoading) {
     return (
       <div
@@ -306,6 +326,23 @@ export default function App() {
             {/* Ruta por defecto para 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+
+           {/* ✅ Toast global */}
+      <ToastContainer
+        position="top-right"
+        autoClose={500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        toastStyle={{ backgroundColor: "#12e2ef", color: "#000000ff", fontWeight: "bold" }}
+      />
+
+
         </div>
         <CookieBanner />
         <Footer />

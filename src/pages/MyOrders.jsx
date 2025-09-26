@@ -1,5 +1,10 @@
 // src/pages/MyOrders.jsx
 
+
+import { PhotoProvider, PhotoView } from 'react-photo-view';   // ✅ Importamos PhotoProvider y PhotoView para el visor
+import 'react-photo-view/dist/react-photo-view.css';
+
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { database } from '../firebaseConfig';
@@ -65,6 +70,9 @@ export default function MyOrders() {
     return <div style={styles.container}><p>Cargando tus pedidos...</p></div>;
   }
 
+
+
+
   return (
     <div style={styles.container}>
       <h1>Mis Pedidos</h1>
@@ -95,15 +103,30 @@ export default function MyOrders() {
                   <td style={styles.td}>
                     {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                   </td>
-                  <td style={styles.td}>
-                    <ul>
-                      {order.items && order.items.map((item, idx) => (
-                        <li key={idx} style={{fontSize: '0.8em', lineHeight: '1.2em'}}> {/* Font size un poco más pequeño */}
-                          {item.name} (x{item.quantity})
-                        </li>
-                      ))}
-                    </ul>
-                  </td>
+
+                 <td style={styles.td}>
+  <PhotoProvider>
+    <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      {order.items && order.items.map((item, idx) => (
+        <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8em', lineHeight: '1.2em' }}>
+          {item.images?.[0] && (
+            <PhotoView src={item.images[0]}>
+              <img
+                src={item.images[0]}
+                alt={item.name}
+                style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px', cursor: 'pointer' }}
+                onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.jpg"; }}
+              />
+            </PhotoView>
+          )}
+          <span>{item.name} (x{item.quantity})</span>
+        </li>
+      ))}
+    </ul>
+  </PhotoProvider>
+</td>
+
+
                 </tr>
               ))}
             </tbody>

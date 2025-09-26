@@ -1,5 +1,12 @@
 // src/pages/ProductDetail.jsx
 
+
+
+
+import { PhotoProvider, PhotoView } from 'react-photo-view';  // ✅ Importamos PhotoProvider y PhotoView para el visor
+import 'react-photo-view/dist/react-photo-view.css';
+
+
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
@@ -15,6 +22,8 @@ export default function ProductDetail({ allProducts }) { // <--- ¡¡CAMBIO AQU�
   const [product, setProduct] = useState(null);
   const [hovered, setHovered] = useState(false);
   const [visibleStock, setVisibleStock] = useState(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
 
   useEffect(() => {
     // La búsqueda ahora es sobre 'allProducts' y sin parseInt()
@@ -34,11 +43,17 @@ export default function ProductDetail({ allProducts }) { // <--- ¡¡CAMBIO AQU�
       return;
     }
 
+                                    /////////  TOAST PERSONALIZADO  CARTEL PRODUCTO AÑADIDO  //////////////  useState
     addToCart(product);
     setVisibleStock(prev => prev - 1);
     toast.success("✅ Producto añadido al carrito", {
       position: "top-right",
-      autoClose: 1500,
+      autoClose: 1000,
+      style: {
+    backgroundColor: "#12e2ef",
+    color: "#fff",
+    fontWeight: "bold",
+  },
     });
   };
 
@@ -70,21 +85,21 @@ export default function ProductDetail({ allProducts }) { // <--- ¡¡CAMBIO AQU�
             fontFamily: "Avenir Next Medium",
           }}
         >
-          <img
-            src={`/images/${product.image}`}
-            alt={product.name}
-            style={{
-              width: "300px",
-              borderRadius: "8px",
-            //  transform: hovered ? "rotate(355deg)" : "translate(150px)",
-             // transition: hovered
-              //  ? "transform 0.5s ease-in"
-            //: "transform 1000s ease-out",
-              zIndex: 6,
-            }}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-          />
+          
+  <PhotoProvider>
+  <PhotoView src={Object.values(product.images)?.[activeImageIndex]}>
+    <img
+      src={Object.values(product.images)?.[activeImageIndex]}
+      alt={product.name}
+      style={{ width: "300px", borderRadius: "8px", cursor: "pointer" }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.jpg"; }}
+    />
+  </PhotoView>
+</PhotoProvider>
+
+
 
           <div
             className="product-details"
@@ -96,6 +111,35 @@ export default function ProductDetail({ allProducts }) { // <--- ¡¡CAMBIO AQU�
                 : "transform 1000s ease-out",*/
             }}
           >
+
+              {product.images && Object.values(product.images).length > 0 && (    //  
+            <div style={{ marginTop: "20px" }}>
+            <h4>Galería del producto</h4>
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              {Object.values(product.images).map((url, i) => (
+              <img
+          key={i}
+          src={url}
+          alt={`Vista ${i + 1}`}
+          onClick={() => setActiveImageIndex(i)}
+          style={{
+            width: "100px",
+            borderRadius: "4px",
+            cursor: "pointer",
+            border: activeImageIndex === i ? "2px solid #12e2ef" : "2px solid transparent",
+            boxShadow: activeImageIndex === i ? "0 0 6px rgba(18,226,239,0.6)" : "none"
+          }}
+          onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.jpg"; }}
+          />
+          ))}
+              </div>
+            </div>
+      )}
+
+
+         <p>     </p>
+
+
             <p>
               <strong>Precio:</strong> {product.price} €
             </p>
@@ -135,25 +179,16 @@ export default function ProductDetail({ allProducts }) { // <--- ¡¡CAMBIO AQU�
           </div>
         </div>
 
-        {product.images && product.images.length > 1 && (
-          <div style={{ marginTop: "20px" }}>
-            <h4>Más imágenes</h4>
-            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-              {product.images.map((img, i) => (
-                <img
-                  key={i}
-                  src={`/images/${img}`}
-                  alt={`Vista ${i + 1}`}
-                  style={{ width: "100px", borderRadius: "4px" }}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        
+
+
+
+
       </div>
 
       <Footer />
-      <ToastContainer />
+      <ToastContainer/>
+
     </>
   );
 }

@@ -1,6 +1,11 @@
 
 // Cart.jsx
 
+
+import { PhotoProvider, PhotoView } from 'react-photo-view';   // ✅ Importamos PhotoProvider y PhotoView para el visor
+import 'react-photo-view/dist/react-photo-view.css';
+
+
 import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -15,7 +20,7 @@ export default function Cart() {
   const [removingId, setRemovingId] = useState(null);
 
   const handleRemove = (id) => {
-    setRemovingId(id);
+    setRemovingId(id);   
     setTimeout(() => {
       removeFromCart(id);
       toast.info("🗑️ Producto eliminado", { autoClose: 1500 });
@@ -47,11 +52,20 @@ export default function Cart() {
                 }}
               >
                 <Link to={`/producto/${item.id}`} style={styles.link}>
-                  <img
-                    src={`/images/${item.image}`}
-                    alt={item.name}
-                    style={styles.image}
-                  />
+                  <PhotoProvider>
+  <PhotoView src={item.images?.[0] || item.image}>
+    <img
+      src={item.images?.[0] || item.image}
+      alt={item.name}
+      style={styles.image}
+      onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.jpg"; }}
+    />
+  </PhotoView>
+</PhotoProvider>
+
+
+
+
                   <div style={styles.details}>
                     <h3 style={styles.name}>{t(item.name)}</h3>
                     <p style={styles.price}>{item.price}€</p>

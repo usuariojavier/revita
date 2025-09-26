@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["http://localhost:5173", "http://localhost:3000", "https://larepercha-b3997.firebaseapp.com", "https://larepercha-b3997.web.app", "https://www.larepercha.es"],
+    "method": ["GET", "PUT", "POST", "DELETE", "HEAD"],
+    "maxAgeSeconds": 3600,
+    "responseHeader": ["Content-Type", "Firebase-Storage-Resumable-Upload-Protocol", "X-Firebase-Storage-Content-Type"]
+  }
+]

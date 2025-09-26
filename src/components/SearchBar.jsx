@@ -1,5 +1,7 @@
 // src/components/SearchBar.jsx
 
+
+
 import { useState, useEffect, useRef } from "react"; // <-- Importa useRef
 import { Search, X } from "lucide-react";  // <-- Importa el icono de lupa y X
 // Puedes eliminar FaSearch si no la usas en otros componentes de este archivo
@@ -215,8 +217,6 @@ backgroundColor: isHome
 
 
 
-   
-
     /*searchButton: {              //  BOTON DE BUSQUEDA ( eliminado por ahora )
       position: "absolute",
       right: "10px",
@@ -322,7 +322,7 @@ backgroundColor: isHome
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      marginLeft: 'auto', // Empuja a la derecha
+      marginLeft: 'auto', // Empuja a la derecha             navigate
     }
   };
 
@@ -391,31 +391,40 @@ backgroundColor: isHome
                     onBlur={() => { /* Manejar onBlur cuidadosamente para no cerrar sugerencias al hacer clic */ }}
                     style={styles.input}        //  Usa styles  de arriba para el input  , en styles ⬆ ⬆⬆⬆⬆⬆⬆⬆⬆          ⬆⬆⬆⬆⬆⬆   ⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆
                   />
-                 {/*} <button onClick={() => performSearch()} style={styles.searchButton}>
+                  {/*} <button onClick={() => performSearch()} style={styles.searchButton}>  navigate(`/search?q=${encodeURIComponent(finalQuery)}`);
                     <Search size={20} />
                   </button>  */}
                 </div>
                 {showSuggestions && suggestions.length > 0 && (
                   <div style={styles.suggestionsContainer}>
+
+
                     {suggestions.map((product, index) => (
-                      <div
-                        key={product.id || index}
-                        style={styles.suggestionItem}
-                        onClick={() => handleSuggestionClick(product)}
-                      >
-                        <img
-                          src={`/images/${product.image}`}
-                          alt={product.nombre || product.name}
-                          style={styles.suggestionImage}
-                          onError={(e) => { e.target.src = "/images/placeholder.jpg"; }}
-                        />
-                        <div style={styles.suggestionText}>
-                          <div style={styles.suggestionName}>{product.nombre || product.name}</div>
-                          <div style={styles.suggestionPrice}>{product.price}€</div>
-                          <div style={styles.suggestionBrand}>{product.brand}</div>
-                        </div>
-                      </div>
-                    ))}
+  <div
+    key={product.id || index}
+    style={styles.suggestionItem}
+    onClick={() => {
+      navigate(`/producto/${product.id}`);    // Cambiado a /producto/ para que funcione con rutas en español
+
+      clearSearch();
+    }}
+  >
+    <img
+      src={product.images?.[0] || "/images/placeholder.jpg"}
+      alt={product.nombre || product.name}
+      style={styles.suggestionImage}
+      onError={(e) => { e.target.src = "/images/placeholder.jpg"; }}
+    />
+    <div style={styles.suggestionText}>
+      <div style={styles.suggestionName}>{product.nombre || product.name}</div>
+      <div style={styles.suggestionPrice}>{product.price}€</div>
+      <div style={styles.suggestionBrand}>{product.brand}</div>
+    </div>
+  </div>
+))}
+
+
+                    
                     <div style={styles.viewAllResults} onClick={() => performSearch()}>
                       Ver todos los resultados para "{query}"
                     </div>
@@ -426,6 +435,8 @@ backgroundColor: isHome
                 </div>
               </div>
             )}
+
+
           </>
         ) : ( // Lógica para escritorio (siempre visible)
           <div style={styles.searchContainer}>
@@ -435,26 +446,34 @@ backgroundColor: isHome
                 placeholder={t("search")}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") performSearch();
+                  }}
                 onFocus={() => query.length > 1 && setShowSuggestions(true)}
                 onBlur={() => { /* Esto se maneja con handleClickOutside */ }}
                 style={styles.input}
+                
               />
-              {/*<button onClick={() => performSearch()} style={styles.searchButton}>
+              {/*<button onClick={() => performSearch()} style={styles.searchButton}>   navigate(`/search?q=${encodeURIComponent(finalQuery)}`);
                 <Search size={10} />
               </button>  */}
 
             </div>
-            {showSuggestions && suggestions.length > 0 && (  // SUGERENCIAS
+            {showSuggestions && suggestions.length > 0 && (  // SUGERENCIAS   
               <div style={styles.suggestionsContainer}>
                 {suggestions.map((product, index) => (
                   <div
                     key={product.id || index}
                     style={styles.suggestionItem}
-                    onClick={() => handleSuggestionClick(product)}
+                    onClick={() => {
+                        navigate(`/producto/${product.id}`);
+                        clearSearch();
+                          }}
+
                   >
                     <img
-                      src={`/images/${product.image}`}
+                      src={product.images?.[0] || "/images/placeholder.jpg"}
+
                       alt={product.nombre || product.name}
                       style={styles.suggestionImage}
                       onError={(e) => { e.target.src = "/images/placeholder.jpg"; }}

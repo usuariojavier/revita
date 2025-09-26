@@ -1,10 +1,14 @@
+import { ref, onValue } from "firebase/database";
+import { database } from "../firebaseConfig";
 import React, { useState, useEffect } from "react";
 import "./Banner.css";
 
 const Banner = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [images, setImages] = useState([]);
 
+  // Detectar si es móvil
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -12,27 +16,53 @@ const Banner = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const mobileImages = ["/images/bannermovil3.webp", "/images/bannermovilhome2.webp", "/images/bannermovilhome.png", "/images/bannermovilhome4.png", "/images/bannerhomemovil5.png"];
-  const desktopImages = ["/images/bannerhome1.webp", "/images/bannerhome2.webp", "/images/bannerhome3.webp", "/images/bannerhome4.jpg"];
-  
-  const images = isMobile ? mobileImages : desktopImages;
-
+  // Cargar imágenes desde Firebase
   useEffect(() => {
+    const bannersRef = ref(database, "banner");
+    const unsubscribe = onValue(bannersRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const raw = isMobile ? data.mobile : data.desktop;
+        const array = raw ? Object.values(raw) : [];
+        setImages(array);
+      } else {
+        setImages([]);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [isMobile]);
+
+  // Reiniciar índice si cambian las imágenes
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [images]);
+
+  // Carrusel automático
+  useEffect(() => {
+    if (images.length === 0) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
+
     return () => clearInterval(interval);
   }, [images]);
 
   return (
     <div className="banner-container">
-      <img
-        src={images[currentIndex]}
-        alt={`Banner ${currentIndex + 1}`}
-        className="banner-image"
-      />
+      {images.length > 0 ? (
+        <img
+          key={currentIndex} // 🔥 fuerza el cambio visual
+          src={images[currentIndex]}
+          alt={`Banner ${currentIndex + 1}`}
+          className="banner-image"
+        />
+      ) : (
+        <p className="banner-empty">📭 No hay banners disponibles</p>
+      )}
     </div>
   );
 };

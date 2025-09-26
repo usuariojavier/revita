@@ -1,72 +1,54 @@
+
 // src/pages/Home.jsx
 
-import { useState, useEffect } from "react"; // Mantener useEffect por si acaso, pero ya no leerá de Firebase aquí
+import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import Banner from "../components/Banner";
 import { useCart } from "../context/CartContext";
 import TopNotice from "../components/TopNotice";
 import Banner2 from "../components/banner2";
+import { useToast } from "../hooks/useToast"; // ✅ Importa el hook personalizado
 
-// import { database } from "../firebaseConfig"; // <--- ¡ELIMINAR ESTA IMPORTACIÓN!
-// import { ref, onValue } from "firebase/database"; // <--- ¡ELIMINAR ESTA IMPORTACIÓN!
-
-// Home ahora recibe la lista de productos como una prop
-export default function Home({ productos }) { // <--- Recibe 'productos' como prop
-  // productsWithStock ahora será directamente los 'productos' recibidos, a menos que necesites un estado local para el stock
-  const [productosConStock, setProductosConStock] = useState(productos); // Inicializa con los productos recibidos
+export default function Home({ productos }) {
+  const [productosConStock, setProductosConStock] = useState(productos);
   const { addToCart } = useCart();
   const [isMobile, setIsMobile] = useState(false);
+  const { success, error } = useToast(); // ✅ Desestructura las funciones del hook
 
-useEffect(() => {
-  const checkMobile = () => {
-    setIsMobile(window.innerWidth <= 768);
-  };
-
-  checkMobile(); // Ejecuta al montar
-  window.addEventListener("resize", checkMobile);
-
-  return () => window.removeEventListener("resize", checkMobile);
-}, []);
-
-
-  // Si los productos llegan via props, no necesitamos leerlos aquí de Firebase
-  // useEffect(() => { // <--- ¡ELIMINAR ESTE useEffect!
-  //   const productosRef = ref(database, "productos");
-  //   onValue(productosRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     if (data) {
-  //       const productosArray = Object.entries(data).map(([id, producto]) => ({
-  //         id,
-  //         ...producto,
-  //       }));
-  //       setProductosConStock(productosArray);
-  //     }
-  //   });
-  // }, []);
-
-  // Actualiza productosConStock cuando cambian los productos de las props (ej. por filtro o carga inicial)
   useEffect(() => {
-    setProductosConStock(productos);
-  }, [productos]);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+  const productosInvertidos = [...productos].reverse(); // ✅ invierte el orden
+  setProductosConStock(productosInvertidos);
+}, [productos]);
 
 
-  const handleAddToCart = (producto) => {
+  const handleAddToCart = (producto) => {        //     AÑADIR AL CARRITO  //
     if (producto.stock > 0) {
       addToCart(producto);
       const nuevosProductos = productosConStock.map(p =>
         p.id === producto.id ? { ...p, stock: p.stock - 1 } : p
       );
       setProductosConStock(nuevosProductos);
+      success("✅ Producto añadido al carrito"); // ✅ Toast de confirmación
+    } else {
+      error("❌ No hay más stock disponible"); // ✅ Toast de error
     }
   };
 
   return (
-    <div style={{ padding: "5px" }}> 
-
-       <TopNotice />
+    <div style={{ padding: "5px" }}>
+      <TopNotice />
       <Banner />
       <Banner2 />
-      
 
       <div
         style={{
@@ -75,14 +57,14 @@ useEffect(() => {
           gridTemplateColumns: "repeat(auto-fit, minmax(15em, 1fr))",
           gap: "2px",
           padding: "1px",
-          marginTop: isMobile ? "-120px" : "-50px" , // ajusta según la altura del div container de los productos  ********************************
+          marginTop: isMobile ? "-120px" : "-50px",
         }}
       >
         {productosConStock.map(p => (
           <ProductCard
             key={p.id}
             product={p}
-            onAddToCart={() => handleAddToCart(p)}
+            onAddToCart={() => handleAddToCart(p)} // ✅ Pasa la función personalizada
           />
         ))}
       </div>

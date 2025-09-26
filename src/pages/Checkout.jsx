@@ -1,5 +1,11 @@
 // src/pages/Checkout.jsx
 
+
+
+import { PhotoProvider, PhotoView } from 'react-photo-view';  // ✅ Importamos PhotoProvider y PhotoView para el visor
+import 'react-photo-view/dist/react-photo-view.css';
+
+
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -111,14 +117,21 @@ export default function Checkout() {
               {cart.map((item) => (
                 <div key={item.cartItemId} style={{ borderBottom: "1px solid #eee", padding: "10px 0", display: "flex", alignItems: "center", justifyContent: "space-between" }}> {/* <-- ¡CAMBIO AQUÍ: alignItems: "center"! */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}> {/* <-- Nuevo div para la imagen y el texto */}
-                    {item.image && (
-                      <img
-                        src={`/images/${item.image}`}
-                        alt={item.nombre || item.name}
-                        style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
-                        onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.jpg"; }} // Fallback
-                      />
-                    )}
+
+
+                    <PhotoProvider>
+  <PhotoView src={item.images?.[0] || item.image}>
+    <img
+      src={item.images?.[0] || item.image}
+      alt={item.nombre || item.name}
+      style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', cursor: 'pointer' }}
+      onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.jpg"; }}
+    />
+  </PhotoView>
+</PhotoProvider>
+
+
+
                     <span>{item.nombre || item.name} (x{item.quantity || 1})</span>
                   </div>
                   <span>{item.price * (item.quantity || 1)} €</span>

@@ -1,3 +1,5 @@
+// src/pages/Contacto.jsx
+
 import i18n from "../i18n/i18n";                     //  para traducir
 import { useTranslation } from "react-i18next";    // para traducir
 

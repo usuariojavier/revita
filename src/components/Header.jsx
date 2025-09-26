@@ -1,5 +1,5 @@
 
-// src/components/Header.jsx
+// src/components/Header.jsx    
 
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";

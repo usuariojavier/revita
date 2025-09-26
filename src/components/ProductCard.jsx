@@ -1,21 +1,24 @@
 // src/components/ProductCard.jsx
 
-import { Link } from "react-router-dom";
+
+import { PhotoProvider, PhotoView } from 'react-photo-view';  // ✅ Importamos PhotoProvider y PhotoView para el visor
+import 'react-photo-view/dist/react-photo-view.css';  // ✅ Importamos los estilos para el visor
+
+
+import { Link } from "react-router-dom";  // ✅ Importamos Link
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useCart } from "../context/CartContext";
-import { toast } from "react-toastify";
+import { useToast } from "../hooks/useToast"; // ✅ Usamos el hook personalizado
 
 export default function ProductCard({ product }) {
-
-    console.log("ProductCard - Recibiendo producto:", product);
-    
   const [hovered, setHovered] = useState(false);
   const { t } = useTranslation();
   const { addToCart, cart } = useCart();
+  const { success, error } = useToast(); // ✅ Desestructuramos las funciones del hook
 
   const quantityInCart = cart.reduce(
-    (acc, item) => item.id === product?.id ? acc + 1 : acc,
+    (acc, item) => (item.id === product?.id ? acc + 1 : acc),
     0
   );
 
@@ -23,18 +26,12 @@ export default function ProductCard({ product }) {
     if (!product) return;
 
     if (product.stock <= 0 || quantityInCart >= product.stock) {
-      toast.error("❌ No hay más stock disponible", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      error("❌ No hay más stock disponible");
       return;
     }
 
     addToCart(product);
-    toast.success("✅ Producto añadido al carrito", {
-      position: "top-right",
-      autoClose: 3000,
-    });
+    success("✅ Producto añadido al carrito");
   };
 
   function capitalize(text) {
@@ -54,15 +51,27 @@ export default function ProductCard({ product }) {
         to={`/producto/${product.id}`}
         style={{ textDecoration: "none", color: "inherit" }}
       >
-        {/* *** INICIO DEL CAMBIO CLAVE *** */}
-        <div style={styles.imageWrapper}> {/* NUEVO CONTENEDOR */}
-          <img
-            src={`/images/${product.image}`}
-            alt={product.name}
-            style={styles.img}
-          />
-        </div>
-        {/* *** FIN DEL CAMBIO CLAVE *** */}
+        <div style={styles.imageWrapper}>
+  <PhotoProvider>
+    {product.images && Object.values(product.images).length > 0 ? (
+      <PhotoView src={Object.values(product.images)[0]}>
+        <img
+          src={Object.values(product.images)[0]}
+          alt={product.name}
+          style={styles.img}
+          onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.jpg"; }}
+        />
+      </PhotoView>
+    ) : (
+      <img
+        src={product.image || "/images/placeholder.jpg"}
+        alt={product.name}
+        style={styles.img}
+      />
+    )}
+  </PhotoProvider>
+</div>
+
 
         {product.stock < 5 && (
           <div style={styles.stockBadge}>¡Últimas unidades!</div>
@@ -106,31 +115,29 @@ const styles = {
     textAlign: "center",
     transition: "transform 0.3s",
     width: "100%",
-    position: "relative"
+    position: "relative",
   },
   cardHover: {
     boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
     transform: "translateY(-6px)",
     transition: "transform 0.3s",
-    zIndex: 8
+    zIndex: 8,
   },
-  // *** NUEVO ESTILO para el contenedor de la imagen ***
   imageWrapper: {
-    position: 'relative',
-    width: '100%',
-    paddingTop: '100%', // Esto crea un cuadrado (relación de aspecto 1:1)
-    overflow: 'hidden', // Asegura que nada se salga del contenedor
-    marginBottom: '10px', // Mueve el margen aquí desde la imagen
-    borderRadius: '4px', // Opcional: para que las esquinas del contenedor sean redondeadas
+    position: "relative",
+    width: "100%",
+    paddingTop: "100%",
+    overflow: "hidden",
+    marginBottom: "10px",
+    borderRadius: "4px",
   },
-  img: { // Estilo para la imagen real
-    position: 'absolute', // Permite que ocupe todo el espacio del imageWrapper
+  img: {
+    position: "absolute",
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover', // La imagen llenará el cuadrado, recortando lo necesario de forma centrada
-    // Elimina marginBottom de aquí, ya está en imageWrapper
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
   },
   stockBadge: {
     position: "absolute",
@@ -141,7 +148,7 @@ const styles = {
     padding: "4px 8px",
     borderRadius: "4px",
     fontSize: "12px",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   button: {
     backgroundColor: "#28a745",
@@ -150,6 +157,6 @@ const styles = {
     padding: "8px",
     borderRadius: "4px",
     cursor: "pointer",
-    marginTop: "10px"
-  }
+    marginTop: "10px",
+  },
 };

@@ -1,10 +1,32 @@
 // src/pages/AdminDashboard.jsx
 
+
+
+import ImageUploader from "../components/ImageUploader";   //  Importamos el componente ImageUploader
+
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { database } from '../firebaseConfig';
 import { ref, push, set, onValue, remove } from 'firebase/database';
 import OrderDetailModal from '../components/OrderDetailModal'; // <--- ¡NUEVA IMPORTACIÓN!
+
+
+
+
+function AdminPanel() {
+  return (
+    <div>
+      <h2>Panel de administración</h2>
+      <ImageUploader />
+    </div>
+  );
+}
+
 
 export default function AdminDashboard() {
 
@@ -15,7 +37,7 @@ export default function AdminDashboard() {
   // Estados para el formulario de añadir producto
   const [newProduct, setNewProduct] = useState({
     nombre: '', name: '', category: '', genero: '', categoria: '',
-    subcategoria: '', price: '', image: '', size: '', brand: '',
+    subcategoria: '', price: '', images : [] , size: '', brand: '',
     stock: '', description: ''
   });
   const [message, setMessage] = useState(''); // Para mostrar mensajes al usuario
@@ -40,6 +62,10 @@ export default function AdminDashboard() {
   const [selectedOrder, setSelectedOrder] = useState(null);
 
 
+  const [imageUploading, setImageUploading] = useState(false); // Estado para saber si se está subiendo una imagen
+
+
+
   // Maneja los cambios en los inputs del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,7 +81,15 @@ export default function AdminDashboard() {
     setMessage('');
     setLoading(true);
 
-    if (!newProduct.nombre || !newProduct.price || !newProduct.category || !newProduct.image || !newProduct.stock) {
+    // ✅ Log para ver el estado actual del producto
+  console.log("Producto a guardar:", newProduct);
+  console.log("newProduct.images:", newProduct.images);
+console.log("Tipo:", typeof newProduct.images);
+console.log("¿Es array?", Array.isArray(newProduct.images));
+
+
+    if (!newProduct.nombre || !newProduct.price || !newProduct.category || newProduct.images.length === 0 || !newProduct.stock)
+ {
       setMessage('Por favor, rellena los campos obligatorios: Nombre, Precio, Categoría, Imagen y Stock.');
       setLoading(false);
       return;
@@ -68,13 +102,17 @@ export default function AdminDashboard() {
         stock: parseInt(newProduct.stock, 10),
       };
 
+       // ✅ Log para ver cómo se formatea antes de guardar                             
+        
+        console.log("Guardando en Firebase:", productToSave);
+
       if (editingProduct) {
         // MODO EDICIÓN: Actualizar un producto existente
         console.log(`AdminDashboard: Actualizando producto con ID: ${editingProduct.id}`);
         const productRef = ref(database, `productos/${editingProduct.id}`);
-        await set(productRef, productToSave); // 'set' reemplaza los datos en esa referencia
+        await set(productRef, productToSave); // 'set' reemplaza los datos en esa referencia  
         setMessage('¡Producto actualizado con éxito!');
-        setEditingProduct(null); // Sale del modo edición
+        //setEditingProduct(null); // Sale del modo edición daba errores al subir imagenes
       } else {
         // MODO AÑADIR: Añadir un nuevo producto
         console.log("AdminDashboard: Añadiendo nuevo producto.");
@@ -83,13 +121,14 @@ export default function AdminDashboard() {
         await set(newProductRef, productToSave);
         setMessage('¡Producto añadido con éxito!');
       }
-
+      
+      if (!editingProduct) {     //  solo resetea si es un nuevo producto
       // Resetear el formulario después de añadir/editar
       setNewProduct({
         nombre: '', name: '', category: '', genero: '', categoria: '',
-        subcategoria: '', price: '', image: '', size: '', brand: '',
+        subcategoria: '', price: '', images: [] , size: '', brand: '',
         stock: '', description: ''
-      });
+      });}
 
     } catch (error) {
       console.error("Error al guardar producto:", error);
@@ -100,7 +139,7 @@ export default function AdminDashboard() {
   };
 
 
-    // ***** useEffect para cargar y mantener actualizada la lista de productos *****
+    // ***** useEffect para cargar y mantener actualizada la lista de productos *****  
   useEffect(() => {
     setProductsListLoading(true);
     const productsRef = ref(database, 'productos');
@@ -128,7 +167,7 @@ export default function AdminDashboard() {
   }, []);
 
 
-  // ***** useEffect para cargar y mantener actualizada la lista de PEDIDOS *****
+  // ***** useEffect para cargar y mantener actualizada la lista de PEDIDOS *****     
   useEffect(() => {
     setOrdersLoading(true);
     const ordersRef = ref(database, 'orders');
@@ -174,15 +213,30 @@ export default function AdminDashboard() {
     }
   };
 
+const [imageReady, setImageReady] = useState(false);
+
+const [bannerTarget, setBannerTarget] = useState("banner-desktop"); // opciones: banner-desktop, banner-mobile, banner2-desktop, banner2-mobile
 
   const handleEditClick = (product) => {
     setEditingProduct(product);
     setNewProduct({
-      nombre: product.nombre || '', name: product.name || '', category: product.category || '',
-      genero: product.genero || '', categoria: product.categoria || '', subcategoria: product.subcategoria || '',
-      price: product.price ? product.price.toString() : '', image: product.image || '',
-      size: product.size || '', brand: product.brand || '',
-      stock: product.stock ? product.stock.toString() : '', description: product.description || ''
+      nombre: product.nombre || '', 
+      name: product.name || '', 
+      category: product.category || '',
+      genero: product.genero || '',
+      categoria: product.categoria || '', 
+      subcategoria: product.subcategoria || '',
+      price: product.price ? product.price.toString() : '',
+      images: Array.isArray(product.images)
+      ? product.images
+      : typeof product.images === "string"
+      ? [product.images]
+      : [],
+
+      size: product.size || '',
+      brand: product.brand || '',
+      stock: product.stock ? product.stock.toString() : '',
+      description: product.description || ''
     });
     setMessage('');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -192,7 +246,7 @@ export default function AdminDashboard() {
     setEditingProduct(null);
     setNewProduct({
       nombre: '', name: '', category: '', genero: '', categoria: '',
-      subcategoria: '', price: '', image: '', size: '', brand: '',
+      subcategoria: '', price: '', images: [] , size: '', brand: '',
       stock: '', description: ''
     });
     setMessage('');
@@ -210,7 +264,7 @@ export default function AdminDashboard() {
     }
   };
 
-  // ***** NUEVAS FUNCIONES PARA EL MODAL DE DETALLES DEL PEDIDO *****
+  // ***** NUEVAS FUNCIONES PARA EL MODAL DE DETALLES DEL PEDIDO *****   //   handleSubmit
   const handleViewDetails = (order) => {
     setSelectedOrder(order);
     setShowOrderDetailModal(true);
@@ -224,14 +278,30 @@ export default function AdminDashboard() {
 
   const orderStatuses = ["pending", "processing", "shipped", "delivered", "cancelled"];
 
+  const handleRemoveImage = (index) => {    // Elimina una imagen del array de imágenes
+  const updatedImages = [...newProduct.images];
+  updatedImages.splice(index, 1);
+  setNewProduct(prev => ({ ...prev, images: updatedImages }));
+  setMessage("🗑️ Imagen eliminada del producto.");
+};
+
+
+
+
+
+//  {product.images?.[0] && (     const [bannerTarget, setBannerTarget] = useState("banner-desktop");
+
+
 
   return (
     <div style={{ padding: '20px', maxWidth: '1000px', margin: '50px auto', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
       <h1>PANEL DE ADMINISTRACIÓN</h1>
+          
       {currentUser && (
         <p>Bienvenida, {currentUser.displayName || currentUser.email}</p>
       )}
       <p>Aquí podrás gestionar los productos y pedidos de la tienda.</p>
+
 
       {/* Sección para añadir/editar producto */}
       <h2>{editingProduct ? 'Editar Producto' : 'Añadir Nuevo Producto'}</h2>
@@ -245,9 +315,26 @@ export default function AdminDashboard() {
           <input type="text" name="name" value={newProduct.name} onChange={handleChange} style={styles.input} disabled={loading} />
         </label>
         <label style={styles.label}>
-          Género (ej. 'mujer', 'hombre', 'niño', 'niña'):
-          <input type="text" name="genero" value={newProduct.genero} onChange={handleChange} style={styles.input} disabled={loading} />
-        </label>
+  Género (puedes seleccionar varios):
+  <select
+    name="genero"
+    multiple
+    value={newProduct.genero}
+    onChange={(e) => {
+      const selected = Array.from(e.target.selectedOptions).map(opt => opt.value);
+      setNewProduct(prev => ({ ...prev, genero: selected }));
+    }}
+    style={{ ...styles.input, height: "100px" }}
+    disabled={loading}
+  >
+    <option value="hombre">Hombre</option>
+    <option value="mujer">Mujer</option>
+    <option value="niño">Niño</option>
+    <option value="niña">Niña</option>
+  </select>
+</label>
+
+
         <label style={styles.label}>
           Categoría Principal (ej. 'ropa', 'calzado', 'complementos'):
           <input type="text" name="categoria" value={newProduct.categoria} onChange={handleChange} style={styles.input} disabled={loading} />
@@ -264,11 +351,71 @@ export default function AdminDashboard() {
           Precio (€):
           <input type="number" step="0.01" name="price" value={newProduct.price} onChange={handleChange} style={styles.input} required disabled={loading} />
         </label>
-        <label style={styles.label}>
-          Nombre de Archivo de Imagen (ej. 'mi-imagen.jpg'):
-          <input type="text" name="image" value={newProduct.image} onChange={handleChange} style={styles.input} required disabled={loading} />
-          <small style={styles.smallText}>La imagen de momento debe estar en 'public/images/' del proyecto.</small>
-        </label>
+
+
+
+
+      <label style={styles.label}>         
+
+
+        <ImageUploader
+  onUploadComplete={(urls) => {
+    setNewProduct(prev => ({
+      ...prev,
+      images: [...prev.images, ...urls]
+    }));
+    setImageReady(true);
+  }}
+  onUploadStart={() => setImageUploading(true)}
+/>
+
+
+
+
+
+  {newProduct.images?.map((url, i) => (
+  <div key={i} style={{ position: "relative", display: "inline-block", marginTop: "0.5rem", marginRight: "10px" }}>
+    <img
+      src={url}
+      alt={`Imagen ${i + 1}`}
+      style={{ width: "100px", borderRadius: "4px", boxShadow: "0 0 4px rgba(0,0,0,0.2)" }}
+    />
+
+     
+
+
+
+
+
+
+
+    <button
+      onClick={() => handleRemoveImage(i)}
+      style={{
+        position: "absolute",
+        top: "36px",
+        right: "-6px",
+        backgroundColor: "#ff4757",
+        color: "white",
+        border: "none",
+        borderRadius: "50%",
+        width: "30px",
+        height: "25px",
+        fontSize: "10px",
+        cursor: "pointer",
+        boxShadow: "0 0 4px rgba(0,0,0,0.3)"
+      }}
+      title="Eliminar imagen"
+    >
+      X
+    </button>
+  </div>
+))}
+
+</label>
+
+
+
         <label style={styles.label}>
           Talla (ej. 'S', 'M', 'L'):
           <input type="text" name="size" value={newProduct.size} onChange={handleChange} style={styles.input} disabled={loading} />
@@ -287,7 +434,9 @@ export default function AdminDashboard() {
         </label>
 
         <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-          <button type="submit" style={styles.button} disabled={loading}>
+          <button type="submit" style={styles.button} disabled={loading || (!imageReady && !editingProduct)}
+>
+
             {loading ? 'Guardando...' : editingProduct ? 'Guardar Cambios' : 'Añadir Producto'}
           </button>
           {editingProduct && (
@@ -304,7 +453,68 @@ export default function AdminDashboard() {
         </p>
       )}
 
-      {/* Sección de listado de productos */}
+
+
+
+
+        <h2 style={{ marginTop: '40px' }}>🖼️ BANNERS </h2>        {/*   SUBIDOR IMAGENES BANNERS*/ }
+<label style={styles.label}>
+  ¿Dónde quieres subir las imágenes?  
+  Los grupos que subas de imagenes para banners sustituyen a los que ya existen .
+        <p> banner slider Desktop :2560x960px </p> 
+        <p>banner slider Mobile: 768x960px </p> -
+        <p>bannerinferior fijo desktop: 3860x444</p> - 
+        <p>bannerinferior fijo mobile: 768x502</p> 
+  <select
+    value={bannerTarget}
+    onChange={(e) => setBannerTarget(e.target.value)}
+    style={styles.input}
+  >
+
+    <option value="banner-desktop">banner slider Desktop</option>
+    <option value="banner-mobile">banner slider Mobile</option>
+    <option value="banner2-desktop">Banner Inferior fijo Desktop</option>
+    <option value="banner2-mobile">Banner Inferior fijo Mobile</option>
+  </select>
+</label>
+
+<ImageUploader
+  onUploadComplete={(urls) => {
+    if (urls.length === 0) return;
+
+    let targetRef;
+    let payload;
+
+    if (bannerTarget.startsWith("banner2")) {
+      const tipo = bannerTarget.split("-")[1];
+      targetRef = ref(database, `banner2/${tipo}`);
+      payload = urls[0];
+    } else {
+      const tipo = bannerTarget.split("-")[1];
+      targetRef = ref(database, `banner/${tipo}`);
+      payload = {};
+      urls.forEach((url, i) => {
+        payload[i] = url;
+      });
+    }
+
+    set(targetRef, payload)
+      .then(() => setMessage("✅ Banner actualizado correctamente."))
+      .catch((err) => {
+        console.error("Error al actualizar banner:", err);
+        setMessage("❌ Error al actualizar banner.");
+      });
+  }}
+  onUploadStart={() => setImageUploading(true)}
+/>
+
+
+
+
+
+
+
+      {/* LISTADO PRODUCTOS */}
       <h2 style={{ marginTop: '40px' }}>Lista de Productos Existentes</h2>
       {productsListLoading ? (
         <p>Cargando productos...</p>
@@ -327,14 +537,19 @@ export default function AdminDashboard() {
               <tr key={product.id}>
                 <td style={tableStyles.td}>{product.id}</td>
                 <td style={tableStyles.td}>
-                  {product.image && (
-                    <img
-                      src={`/images/${product.image}`}
-                      alt={product.nombre || product.name}
-                      style={{ width: '50px', height: '50px', objectFit: 'cover' }}
-                      onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.jpg"; }}
-                    />
-                  )}
+                {product.images &&
+  Object.values(product.images).map((url, i) => (
+    <img
+      key={i}
+      src={url}
+      alt={`Imagen ${i + 1}`}
+      style={{ width: '40px', height: '40px', objectFit: 'cover', marginRight: '4px', borderRadius: '4px' }}
+      onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.jpg"; }}
+    />
+  ))}
+
+
+                  
                 </td>
                 <td style={tableStyles.td}>{product.nombre || product.name}</td>
                 <td style={tableStyles.td}>{product.price} €</td>
@@ -421,7 +636,7 @@ export default function AdminDashboard() {
                 <td style={tableStyles.td}>
                   {/* Botón para ver más detalles del pedido */}
                   <button
-                    onClick={() => handleViewDetails(order)} // <--- ¡AQUÍ SE LLAMA A LA NUEVA FUNCIÓN!
+                    onClick={() => handleViewDetails(order)} // <--- ¡AQUÍ SE LLAMA A LA NUEVA FUNCIÓN!    disabled={loading || !imageReady}
                     style={{...tableStyles.actionButton, backgroundColor: '#28a745'}}
                   >
                     Detalles

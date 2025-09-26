@@ -20,9 +20,13 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  transition: opacity 1s ease-in-out;
+
   
   
 }
+
+
 
 
 
